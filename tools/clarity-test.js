@@ -5,7 +5,7 @@
    (5) el tutorial aparece la primera vez y se puede cerrar, (6) clics hasta la primera jugada, (7) se llega al final de la partida siguiendo solo las pistas.
    NO reemplaza una prueba con personas: mide que la interfaz sea coherente y operable, no que a alguien le guste ni lo entienda a la primera. */
 const { chromium } = require('playwright');
-const OUT = process.argv[2] || '.';
+const OUT = process.argv[2] || require('os').tmpdir();
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1280, height: 720 } });
   const errs = [], issues = [], m = { decisiones: 0, clics: 0, clicsHastaPrimeraJugada: null, turnosRival: 0, sinInstruccion: 0, incoherencias: 0, callejones: 0, habilidadesInvocador: 0, pasivasVistas: 0 };

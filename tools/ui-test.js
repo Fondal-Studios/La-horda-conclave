@@ -1,5 +1,5 @@
 const { chromium } = require('playwright');
-const OUT = process.argv[2] || '.';
+const OUT = process.argv[2] || require('os').tmpdir();
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
   const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
