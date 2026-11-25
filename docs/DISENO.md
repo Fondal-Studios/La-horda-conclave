@@ -181,3 +181,25 @@ node tools/online-test.js      # prueba de protocolo online completa
 * Verificado: balance 1.800 partidas (todas terminan, trampas colocadas y disparadas), pruebas de pasivas, 1v1 y cooperativo (sin fuga de trampas rivales), prueba de claridad (0 incoherencias, 0 callejones; descubrió que los clics durante una animación se ignoraban y se ajustó la prueba),
   y capturas de las animaciones (`tools/ui-anim.js`).
 * **No probado**: sensación real de las animaciones en celular/equipos lentos; balance con personas (las trampas dependen de que el rival juegue "tonto"; el bot las usa por valoración simple).
+
+---
+
+# v0.6 — sinergias y combos (mazos de arquetipo)
+* **Tipos (etiquetas) de monstruos**: Bestia, Planta, Esqueleto, Demonio, Hielo, Ciudadano, Cristal, Golem, Máquina, Construcción. Las cartas con sinergia reaccionan a ellos.
+* **Mecánicas nuevas del motor**: estado **quemado 🔥** (daño cada turno, como el veneno); disparadores *cuando desplegás un aliado (de cierto tipo o invocación)* y *cuando se dispara una de tus trampas*;
+  bonus por cantidad (*+1 ATK por cada otro aliado de tipo X*); daño extra contra un estado (*si está en llamas / congelada*); efectos que apuntan a un tipo (*todas tus Bestias*) o a un estado (*enemigos congelados / en llamas*); sacrificar una invocación.
+  La pasiva de un monstruo cuenta 2 puntos en el presupuesto (el gate lo verifica).
+* **15 monstruos y 14 cartas de magia/trampa nuevos** (29 en total), armados en 6 arquetipos que son los mazos iniciales de cada linaje:
+  | Linaje | Arquetipo | Piezas clave |
+  |---|---|---|
+  | Bosque | Manada y raíces | Lobo Alfa + Manada (+1/+1 a cada lobo), Rugido de la Manada (+2 ATK y Rápido a todas las Bestias), Raíz Madre, Marea Curativa, Zarzas Venenosas |
+  | Infernal | Fuego y huesos | Chispa Ígnea → Combustión (5 a lo que arde), Imp Pirómano, Demonio de Ceniza, Pira Funeraria, Piromante (+2 vs fuego); Osario + Capataz + Rey Esqueleto |
+  | Marea | Hielo quebradizo | Escarcha / Ventisca / Reina de Escarcha congelan; Quebrar y Rompehielos castigan lo congelado |
+  | Ciudad | Turba | Agitador (+1 ATK por cada Ciudadano), Líder de la Turba (da Rápido al que desplegás), Estampida |
+  | Forja | Fábrica de cristal | Veta de Cristal + Cristal Resonante; Ingeniero de Minas mejora invocaciones; Sobrecarga las convierte en 4 de daño |
+  | Laberinto | Trampas y espejos | Cartógrafo (roba) y Guardia del Laberinto (cura) cuando se dispara una trampa tuya; Espinas, Pasillo sin Salida, Espejismo |
+* **Constructor**: panel **⚡ Sinergias de tu mazo** (qué combos tenés completos y cuáles te faltan, marcando lo que ya poseés), ⚡ en la lista de cartas que completan un combo con tu mazo y línea "⚡ Combina con…" en la vista grande de cada carta.
+  Hay 13 combos definidos (`COMBOS` en `data.js`).
+* **Verificación**: `node tools/combo-test.js` (64 comprobaciones: cada combo funciona en el motor, no solo en el texto), gate de 1.800 partidas con los nuevos mazos (todas terminan, mazos 36–60 %), pasivas, 1v1, cooperativo, claridad y animaciones.
+* **Límites**: el Ciudad queda en ~36 % contra el bot (el más flojo; se probó cambiar guardianes y su Ingreso sin resolverlo del todo) e Infernal en ~60 %. Los monstruos nuevos reutilizan sprites existentes (3 con arte nuevo extraído de jefes; el resto con un filtro de color) hasta que haya arte propio.
+  El bot no planifica combos: los porcentajes miden solidez, no el techo de cada arquetipo con una persona.

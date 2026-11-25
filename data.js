@@ -21,15 +21,17 @@
     infernal:  { name: "Infernal y Criptas", color: "#d9503a", arena: "infernal" }
   };
   var KW_NAME = { taunt: "Provocar", rush: "Rápido", shield: "Escudo", lifesteal: "Robovida", freezeHit: "Congela" };
-  var TO = { targetRow: "toda la fila del objetivo", targetCol: "el objetivo y quien está detrás", target: "el objetivo", self: "este guardián", allyAll: "tus unidades", enemyAll: "las unidades enemigas",
+  var TO = { enemyFrozen: "las unidades enemigas congeladas", enemyBurning: "las unidades enemigas en llamas", targetRow: "toda la fila del objetivo", targetCol: "el objetivo y quien está detrás", target: "el objetivo", self: "este guardián", allyAll: "tus unidades", enemyAll: "las unidades enemigas",
     randEnemy: "una unidad enemiga al azar", randAlly: "una unidad aliada al azar", enemyFace: "el Santuario enemigo",
     allyFace: "tu Santuario", enemyEverything: "todo el bando enemigo" };
 
   function describe(ops) {
     return ops.map(function (o) {
-      var to = TO[o.to] || "";
+      var to = o.to === "allyTag" ? "tus unidades tipo " + o.tag : (TO[o.to] || "");
       switch (o.op) {
-        case "dmg": return o.mult !== undefined ? "Daña ×" + o.mult + " ATK a " + to : "Inflige " + o.n + " a " + to;
+        case "dmg": return (o.mult !== undefined ? "Daña ×" + o.mult + " ATK a " + to : "Inflige " + o.n + " a " + to) + (o.ifStatus ? " (+" + o.ifStatus.n + " si está " + ST_ADJ[o.ifStatus.st] + ")" : "");
+        case "burn": return "Quema a " + to + " (" + o.n + " por turno, " + o.turns + " turnos)";
+        case "sacrifice": return "Sacrificá una de tus invocaciones";
         case "swapRow": return "Cambia de fila";
         case "heal": return "Cura " + o.n + " a " + to;
         case "buff": return (o.temp ? "Da " : "Da ") + (o.atk ? "+" + o.atk + " ATK" : "") + (o.atk && o.hp ? " y " : "") + (o.hp ? "+" + o.hp + " VID" : "") + (o.temp ? " este turno" : "") + " a " + to;
@@ -48,6 +50,7 @@
     }).join(". ").replace(/ a el /g, " al ").replace(/ a las unidades/g, " a las unidades");
   }
 
+  var ST_ADJ = { burn: "en llamas", frozen: "congelada", poison: "envenenada" };
   var CARDS = {};
   var ART_G = "assets/g/", ART_B = "assets/b/";
 
@@ -107,7 +110,7 @@
                ult: { name: "Alba", target: "none", ops: [{ op: "heal", n: 8, to: "allyAll" }, { op: "buff", atk: 1, hp: 1, to: "allyAll" }, { op: "draw", n: 1 }] } }
   };
   var LIN_INGRESO = {
-    ciudad:    [{ op: "draw", n: 1 }],
+    ciudad:    [{ op: "draw", n: 1 }, { op: "buff", atk: 1, temp: 1, to: "allyAll" }],
     forja:     [{ op: "buff", atk: 1, hp: 1, to: "allyAll" }],
     bosque:    [{ op: "buff", atk: 1, to: "allyAll" }],
     laberinto: [{ op: "freeze", n: 1, to: "randEnemy" }, { op: "dmg", n: 1, to: "randEnemy" }],
@@ -250,6 +253,21 @@
   CARDS.token_granadero = { id: "token_granadero", type: "unit", kind: "bicho", token: 1, name: "Granadero Espectral", origin: null, cost: 0, atk: 2, hp: 3, kw: {}, ingreso: null, ultimo: null, reach: "melee", moves: [BASIC("melee")], rarity: "normal", art: ART_B + "esqueleto_h.png", tier: "Invocación" };
   CARDS.token_golem = { id: "token_golem", type: "unit", kind: "bicho", token: 1, name: "Gólem de Carne", origin: null, cost: 0, atk: 3, hp: 4, kw: { taunt: 1 }, ingreso: null, ultimo: null, reach: "melee", moves: [BASIC("melee")], rarity: "normal", art: ART_B + "golem_piedra.png", tier: "Invocación" };
 
+
+  // ---------- ETIQUETAS (tipos) de monstruos: las usan las cartas con sinergia ----------
+  var TAGS = {
+    Bestia: ["lobo_artico", "bestia_bosque", "cu_sith", "tiburon_joven", "tiburon_blanco", "cm_perro", "escorpion_gigante", "token_lobo"],
+    Planta: ["duende_bosque", "ent", "dama_bosque"],
+    Esqueleto: ["esqueleto", "esqueleto_h"],
+    Demonio: ["demonio_menor", "demonio_mago", "demonio_hielo_fuego"],
+    Hielo: ["lobo_artico", "hada_escarcha", "golem_hielo", "dragoncito_hielo", "angel_hielo", "demonio_hielo_fuego", "dragon_hielo"],
+    Ciudadano: ["cm_saqueador", "cm_planidera", "cm_raptor", "cm_sectario", "cm_acechante", "cm_campanero"],
+    Cristal: ["cristal_servo", "cristal_volador", "golem_cristal"],
+    Golem: ["golem", "golem_hielo", "golem_cristal", "golem_piedra", "token_golem"],
+    "Máquina": ["token_torreta"], "Construcción": ["token_muro"]
+  };
+  Object.keys(TAGS).forEach(function (tg) { TAGS[tg].forEach(function (id) { if (CARDS[id]) { CARDS[id].tags = CARDS[id].tags || []; CARDS[id].tags.push(tg); } }); });
+
   // ---------- HECHIZOS / BONUS / MALDICIONES / CAMPOS ----------
   function S(id, name, cat, cost, target, ops, extra) {
     var c = { id: id, type: cat === "campo" ? "field" : "spell", cat: cat, name: name, cost: cost, target: target, ops: ops, rarity: cat, tier: ({ hechizo: "Hechizo", bonus: "Bonus", maldicion: "Maldición", campo: "Campo" })[cat] };
@@ -313,19 +331,20 @@
     parts.push(describe(m.ops));
     return parts.join(" · ");
   }
-  var TRIG_TXT = { inicio: "Al inicio de tu turno", golpeado: "Al recibir daño", ataque: "Al usar su Ataque", uso: "Al usar una habilidad", muerte: "Cuando muere cualquier unidad", muerteAliada: "Cuando cae un aliado", muerteEnemiga: "Cuando cae un enemigo", sobrevive: "Una vez por partida, si fuera a caer" };
-  var ST_TXT = { poison: "envenenadas", frozen: "congeladas" }, SC_TXT = { allies: "tus unidades", row: "las unidades de su fila", self: "sí mismo" };
+  var TRIG_TXT = { despliegueAliado: "Cuando desplegás un aliado", trampaPropia: "Cuando se dispara una de tus trampas", inicio: "Al inicio de tu turno", golpeado: "Al recibir daño", ataque: "Al usar su Ataque", uso: "Al usar una habilidad", muerte: "Cuando muere cualquier unidad", muerteAliada: "Cuando cae un aliado", muerteEnemiga: "Cuando cae un enemigo", sobrevive: "Una vez por partida, si fuera a caer" };
+  var ST_TXT = { poison: "envenenadas", frozen: "congeladas", burn: "en llamas" }, SC_TXT = { allies: "tus unidades", row: "las unidades de su fila", self: "sí mismo" };
   function describePassive(p) {
     if (!p) return "";
     if (p.stat) {
       var s = p.stat;
       if (s.k === "dr") return "Reduce " + s.n + " el daño que reciben " + SC_TXT[s.scope] + (s.cond === "token" ? " mientras tengas una invocación en mesa" : "") + " (mín. 1)";
       if (s.k === "vs") return "+" + s.n + " de daño a unidades " + ST_TXT[s.st];
+      if (s.k === "perTag") return "+" + s.atk + " ATK por cada otro aliado tipo " + s.tag;
       if (s.k === "lowhp") return "Con " + Math.round(s.pct * 100) + "% de vida o menos: +" + s.atk + " ATK";
       if (s.k === "healLow") return "Sus curas a aliados con 35% de vida o menos curan +" + s.n;
     }
     if (p.trig === "sobrevive") return TRIG_TXT.sobrevive + " a 0, queda con 1 de vida y Escudo";
-    var pre = TRIG_TXT[p.trig] + (p.every ? " (cada " + p.every + (p.trig === "inicio" ? " turnos" : " veces") + ")" : "") + ": ";
+    var pre = TRIG_TXT[p.trig] + (p.filter ? (p.filter.tag ? " tipo " + p.filter.tag : p.filter.token ? " que sea una invocación" : "") : "") + (p.every ? " (cada " + p.every + (p.trig === "inicio" ? " turnos" : " veces") + ")" : "") + ": ";
     var body = p.cycle ? "alterna: " + p.cycle.map(describe).join(" → ") : describe(p.ops);
     return pre + body + (p.max ? " (máx. " + p.max + " por partida)" : "");
   }
@@ -335,30 +354,31 @@
     Object.keys(c.kw).forEach(function (k) { p += KW_PTS[k]; });
     if (c.ingreso) p += KW_PTS.ingreso;
     if (c.ultimo) p += KW_PTS.ultimo;
+    if (c.kind === "bicho" && c.passive) p += 2;      // la pasiva de un monstruo cuenta como un efecto
     return p;
   }
 
   // ---------- MAZOS INICIALES (uno por linaje) ----------
   function dk(g, b, s) { var d = []; [g, b, s].forEach(function (grp) { grp.forEach(function (e) { for (var i = 0; i < (e[1] || 1); i++) d.push(e[0]); }); }); return d; }
   var DECKS = {
-    ciudad: dk([["guerrero"],["soporte"],["tanque"],["myla"],["vesper"]],
-      [["cm_saqueador",2],["cm_perro",2],["cm_planidera",2],["cm_raptor",2],["cm_acechante",2],["cm_sectario",2],["cm_campanero"],["cm_espectro"]],
-      [["rayo",2],["debilitar",2],["furia"],["corazon"],["piedra"],["emboscada"],["veneno"],["bendicion"],["espinas"]]),
+    ciudad: dk([["guerrero"],["soporte"],["tanque"],["ynara"],["vesper"]],
+      [["cm_saqueador",3],["agitador",3],["cm_espectro"],["cm_raptor"],["cm_acechante",2],["cm_sectario"],["lider_turba",2],["cm_campanero"]],
+      [["estampida",2],["furia"],["emboscada"],["espinas"],["debilitar"],["rayo"],["bendicion",2],["corazon"],["piedra"]]),
     forja: dk([["eslabon"],["brakk"],["brasa"],["zahra"],["bront"]],
-      [["cristal_servo",3],["engendro",3],["cristal_volador",3],["mn_devoraluz",3],["golem_cristal",2]],
-      [["egida",2],["corazon"],["marchitar"],["podredumbre"],["silencio"],["cadenas"],["llamarada"],["muro_piedra"],["barrera"],["rayo"]]),
+      [["cristal_servo",3],["cristal_volador",2],["cristal_resonante",2],["engendro",2],["ingeniero",2],["mn_devoraluz"],["golem_cristal",2]],
+      [["veta",2],["muro_piedra",2],["sobrecarga",2],["egida"],["corazon"],["marchitar"],["silencio"],["barrera"]]),
     bosque: dk([["cazadora"],["maura"],["tibor"],["morwen"],["khepri"]],
-      [["duende_bosque",3],["bestia_bosque",3],["cu_sith",3],["dama_bosque",2],["ent",2]],
-      [["bendicion",2],["banquete",2],["rayo"],["corazon"],["egida"],["piedra"],["marea"],["veneno"],["debilitar"],["manada"]]),
+      [["duende_bosque",2],["bestia_bosque",3],["cu_sith",2],["lobo_alfa",2],["dama_bosque"],["raiz_madre",2],["ent",2]],
+      [["manada"],["rugido",2],["marea"],["banquete"],["bendicion",2],["zarzas"],["rayo"],["piedra"],["corazon"]]),
     laberinto: dk([["musashi"],["ilkan"],["nahir"],["sira"],["axiom"]],
-      [["escorpion_gigante",3],["golem_piedra",3],["medusa",3],["druida_arena",2],["esfinge",2]],
-      [["cadenas",2],["silencio"],["escarcha"],["veneno"],["robovida"],["debilitar"],["marchitar"],["sello"],["corazon"],["egida"],["espejo"]]),
+      [["escorpion_gigante",3],["golem_piedra",2],["medusa",2],["druida_arena"],["esfinge"],["cartografo",3],["guardia_laberinto",2]],
+      [["espinas",2],["pasillo",2],["espejismo"],["espejo"],["cadenas"],["silencio"],["robovida"],["debilitar"],["egida"]]),
     marea: dk([["mago"],["baltra"],["aelith"],["velmira"],["solciju"]],
-      [["lobo_artico",3],["hada_escarcha",2],["tiburon_joven",2],["golem_hielo",2],["dragoncito_hielo",2],["angel_hielo",2],["dragon_hielo"]],
-      [["escarcha",2],["cadenas"],["podredumbre"],["veneno"],["rayo"],["llamarada"],["corazon"],["debilitar"],["muro_hielo"],["segunda"]]),
+      [["lobo_artico",3],["hada_escarcha",2],["golem_hielo",2],["rompehielos",2],["dragoncito_hielo"],["angel_hielo"],["reina_escarcha",2],["tiburon_joven"]],
+      [["escarcha",2],["quebrar",2],["ventisca"],["cadenas"],["muro_hielo"],["rayo"],["segunda"],["corazon"],["debilitar"]]),
     infernal: dk([["nigromante"],["segador"],["morveth"],["libertador"],["renko"]],
-      [["esqueleto",3],["zombie",3],["esqueleto_h",2],["demonio_menor",2],["demonio_mago",2],["golem",2]],
-      [["piedra",2],["cadenas"],["rayo"],["veneno"],["egida"],["fuego"],["red"],["debilitar"],["inspiracion"],["corazon"]])
+      [["esqueleto",3],["imp",2],["piromante",2],["demonio_ceniza"],["capataz",2],["rey_esqueleto"],["demonio_menor"],["zombie",2]],
+      [["chispa_ignea",2],["combustion",2],["pira"],["osario"],["pared_fuego"],["rayo"],["debilitar"],["corazon"],["egida"]])
   };
   // Mazo "Caos": 5 guardianes al azar de cualquier linaje (cubre a los 41) + mitad del mazo de un linaje.
   function chaosDeck(rng) {
@@ -403,6 +423,66 @@
   // vida extra del invocador por rango (solo en partidas contra el Bot, aventura y cooperativo; nunca en 1v1 entre personas)
   function summonerBonus(wins) { return Math.min(12, 2 * Math.floor((wins || 0) / 2)); }
 
+
+  // ---------- SINERGIAS: monstruos con efectos que reaccionan a otros (ver COMBOS) ----------
+  // [id, nombre, linaje, costo, atk, hp, kw, ingreso, ultimo, tags, pasiva, arte, filtro CSS del arte]
+  var P = function (name, o) { o.name = name; return o; };
+  var SYN = [
+    ["lobo_alfa", "Lobo Alfa", "bosque", 3, 3, 3, [], null, null, ["Bestia"], P("Líder de manada", { trig: "despliegueAliado", filter: { tag: "Bestia" }, max: 4, ops: [{ op: "buff", atk: 1, hp: 1, to: "target" }] }), "cu_sith", "hue-rotate(35deg) saturate(1.3)"],
+    ["raiz_madre", "Raíz Madre", "bosque", 4, 2, 5, ["taunt"], null, null, ["Planta"], P("Savia ancestral", { trig: "inicio", max: 4, ops: [{ op: "buff", hp: 1, to: "randAlly" }] }), "guardian_ancestral", ""],
+    ["imp", "Imp Pirómano", "infernal", 2, 2, 2, [], [{ op: "burn", n: 1, turns: 3, to: "randEnemy" }], null, ["Demonio"], null, "demonio_menor", "hue-rotate(-25deg) saturate(1.6) brightness(1.1)"],
+    ["piromante", "Piromante", "infernal", 3, 2, 4, [], null, null, ["Demonio"], P("Maestro del fuego", { stat: { k: "vs", st: "burn", n: 2 } }), "hechicero", ""],
+    ["demonio_ceniza", "Demonio de Ceniza", "infernal", 4, 4, 4, [], null, [{ op: "burn", n: 1, turns: 3, to: "enemyAll" }], ["Demonio"], null, "demonio_menor", "grayscale(.85) brightness(.9)"],
+    ["capataz", "Capataz de Huesos", "infernal", 3, 2, 3, [], null, null, ["Esqueleto"], P("Hueso sobre hueso", { stat: { k: "perTag", tag: "Esqueleto", atk: 1 } }), "esqueleto_h", "hue-rotate(190deg) saturate(1.4)"],
+    ["rey_esqueleto", "Rey Esqueleto", "infernal", 5, 4, 5, ["taunt"], null, null, ["Esqueleto"], P("Rey de los huesos", { trig: "muerteAliada", filter: { tag: "Esqueleto" }, max: 4, ops: [{ op: "buff", atk: 1, to: "self" }] }), "esqueleto_h", "sepia(1) saturate(2.2) brightness(1.1)"],
+    ["rompehielos", "Rompehielos", "marea", 3, 3, 3, [], [{ op: "dmg", n: 3, to: "enemyFrozen" }], null, ["Hielo"], null, "golem_hielo", "hue-rotate(-40deg) saturate(1.4)"],
+    ["reina_escarcha", "Reina de Escarcha", "marea", 5, 4, 6, [], null, null, ["Hielo"], P("Reina del invierno", { trig: "inicio", every: 2, max: 3, ops: [{ op: "freeze", n: 1, to: "randEnemy" }] }), "angel_hielo", "hue-rotate(45deg) saturate(1.5)"],
+    ["agitador", "Agitador", "ciudad", 2, 2, 2, [], null, null, ["Ciudadano"], P("Contagia la turba", { stat: { k: "perTag", tag: "Ciudadano", atk: 1 } }), "cm_saqueador", "hue-rotate(120deg) saturate(1.3)"],
+    ["lider_turba", "Líder de la Turba", "ciudad", 4, 4, 4, [], null, null, ["Ciudadano"], P("¡A ellos!", { trig: "despliegueAliado", filter: { tag: "Ciudadano" }, max: 4, ops: [{ op: "give", kw: "rush", to: "target" }] }), "cm_sectario", "hue-rotate(160deg) saturate(1.3)"],
+    ["ingeniero", "Ingeniero de Minas", "forja", 3, 2, 4, [], null, null, ["Máquina"], P("Mejora en el sitio", { trig: "despliegueAliado", filter: { token: true }, max: 4, ops: [{ op: "buff", atk: 1, hp: 1, to: "target" }] }), "engendro", "hue-rotate(160deg) saturate(1.5)"],
+    ["cristal_resonante", "Cristal Resonante", "forja", 3, 2, 4, [], null, null, ["Cristal"], P("Resonancia", { stat: { k: "perTag", tag: "Cristal", atk: 1 } }), "golem_cristal", "hue-rotate(110deg) saturate(1.5)"],
+    ["cartografo", "Cartógrafo de Trampas", "laberinto", 3, 2, 4, [], null, null, ["Explorador"], P("Sabe dónde pisar", { trig: "trampaPropia", max: 3, ops: [{ op: "draw", n: 1 }] }), "druida_arena", "hue-rotate(80deg) saturate(1.3)"],
+    ["guardia_laberinto", "Guardia del Laberinto", "laberinto", 4, 2, 5, ["taunt"], null, null, ["Golem"], P("Muros que curan", { trig: "trampaPropia", max: 4, ops: [{ op: "heal", n: 3, to: "self" }] }), "guardian_laberinto", ""]
+  ];
+  SYN.forEach(function (b) {
+    var kw = {}; b[6].forEach(function (x) { kw[x] = 1; });
+    var rv = b[3] <= 2 ? "normal" : b[3] === 3 ? "subelite" : "elite";
+    CARDS[b[0]] = { id: b[0], type: "unit", kind: "bicho", name: b[1], origin: b[2], cost: b[3], atk: b[4], hp: b[5], kw: kw, ingreso: b[7], ultimo: b[8], tags: b[9], passive: b[10], reach: "melee", moves: [BASIC("melee")], rarity: rv, art: ART_B + b[11] + ".png", artFx: b[12], tier: "Monstruo", syn: 1 };
+  });
+  S("chispa_ignea", "Chispa Ígnea", "hechizo", 1, "enemyUnit", [{ op: "burn", n: 1, turns: 3, to: "target" }]);
+  S("combustion", "Combustión", "hechizo", 2, "enemyUnit", [{ op: "dmg", n: 2, to: "target", ifStatus: { st: "burn", n: 3 } }]);
+  S("pira", "Pira Funeraria", "hechizo", 3, "none", [{ op: "dmg", n: 3, to: "enemyBurning", only: "burn" }]);
+  S("quebrar", "Quebrar", "hechizo", 2, "enemyUnit", [{ op: "dmg", n: 2, to: "target", ifStatus: { st: "frozen", n: 3 } }]);
+  S("ventisca", "Ventisca Menor", "hechizo", 2, "none", [{ op: "freeze", n: 1, to: "randEnemy" }, { op: "freeze", n: 1, to: "randEnemy" }]);
+  S("sobrecarga", "Sobrecarga", "hechizo", 2, "enemyUnit", [{ op: "sacrifice" }, { op: "dmg", n: 4, to: "target" }], { req: "token" });
+  S("rugido", "Rugido de la Manada", "bonus", 3, "none", [{ op: "buff", atk: 2, temp: 1, to: "allyTag", tag: "Bestia" }, { op: "give", kw: "rush", to: "allyTag", tag: "Bestia" }]);
+  S("estampida", "Estampida", "bonus", 3, "none", [{ op: "buff", atk: 2, temp: 1, to: "allyTag", tag: "Ciudadano" }, { op: "give", kw: "rush", to: "allyTag", tag: "Ciudadano" }]);
+  S("osario", "Osario", "bonus", 3, "none", [{ op: "summon", id: "esqueleto", n: 2 }]);
+  S("veta", "Veta de Cristal", "bonus", 2, "none", [{ op: "summon", id: "cristal_servo", n: 2 }]);
+  T("zarzas", "Zarzas Venenosas", 2, "ataque", false, [{ op: "poison", n: 2, turns: 3, to: "target" }]);
+  T("pared_fuego", "Pared de Fuego", 2, "ataque", false, [{ op: "burn", n: 1, turns: 3, to: "target" }]);
+  T("pasillo", "Pasillo sin Salida", 2, "ataque", false, [{ op: "freeze", n: 1, to: "target" }, { op: "debuff", atk: 1, to: "target" }]);
+  T("espejismo", "Espejismo", 3, "ataque", true, []);
+
+  Object.keys(CARDS).forEach(function (id) { var c = CARDS[id]; if (c.type === "spell" && !c.text) c.text = describe(c.ops) + (c.req === "token" ? " (necesita una invocación tuya en mesa)" : ""); });
+
+  // ---------- COMBOS: cartas que se potencian entre sí (el constructor los detecta y sugiere los que faltan) ----------
+  var COMBOS = [
+    { id: "manada_alfa", name: "Manada Alfa", cards: ["manada", "lobo_alfa"], text: "Manada invoca 2 lobos; Lobo Alfa les da +1/+1 a cada uno (y a toda Bestia que despliegues)." },
+    { id: "rugido", name: "Rugido de la Manada", cards: ["rugido", "lobo_alfa", "manada"], text: "Rugido da +2 ATK y Rápido a todas tus Bestias: con una manada en mesa, ataque inmediato." },
+    { id: "savia", name: "Bosque que cura", cards: ["raiz_madre", "marea", "banquete"], text: "Raíz Madre sube la vida de tus unidades cada turno y las curas las mantienen vivas." },
+    { id: "incendio", name: "Incendio", cards: ["chispa_ignea", "combustion"], text: "Chispa Ígnea quema a un enemigo; Combustión le pega 5 si está en llamas (y el fuego sigue ardiendo)." },
+    { id: "pira", name: "Pira", cards: ["imp", "demonio_ceniza", "pira"], text: "Imp y Demonio de Ceniza prenden fuego; Pira Funeraria daña a todo enemigo en llamas." },
+    { id: "pirotecnia", name: "Maestro del fuego", cards: ["piromante", "chispa_ignea", "pared_fuego"], text: "Piromante pega +2 a quien arde: Chispa Ígnea y Pared de Fuego le dan blancos." },
+    { id: "huesos", name: "Hueso sobre hueso", cards: ["osario", "capataz", "rey_esqueleto"], text: "Osario invoca 2 esqueletos; el Capataz suma ATK por cada uno y el Rey crece cuando cae uno." },
+    { id: "quiebre", name: "Quiebre de hielo", cards: ["quebrar", "rompehielos", "escarcha", "ventisca"], text: "Congelá primero (Escarcha, Ventisca Menor, Reina de Escarcha) y después Quebrar o Rompehielos castigan a lo congelado." },
+    { id: "invierno", name: "Reina del invierno", cards: ["reina_escarcha", "quebrar", "rompehielos"], text: "La Reina congela cada 2 turnos: siempre hay un blanco para Quebrar y Rompehielos." },
+    { id: "turba", name: "Turba", cards: ["agitador", "lider_turba", "estampida"], text: "Agitador suma ATK por cada Ciudadano; Líder de la Turba les da Rápido; Estampida los empuja a todos." },
+    { id: "cristal", name: "Veta resonante", cards: ["veta", "cristal_resonante", "cristal_servo"], text: "Veta de Cristal invoca 2 Cristales; Cristal Resonante gana ATK por cada uno." },
+    { id: "chatarra", name: "Chatarra explosiva", cards: ["sobrecarga", "muro_piedra", "ingeniero"], text: "Invocaciones baratas (Muro de Piedra, torretas) que el Ingeniero mejora… y Sobrecarga convierte una en 4 de daño." },
+    { id: "laberinto", name: "Laberinto cerrado", cards: ["cartografo", "guardia_laberinto", "espinas", "pasillo", "espejismo"], text: "Cada trampa que se dispara hace robar al Cartógrafo y curar al Guardia: poné trampas y dejá que el rival las pise." }
+  ];
+
   // ---------- MAPAS (las arenas de La Horda). Cada fila (frente / fondo) tiene un terreno que afecta a quien la ocupa. ----------
   // Terrenos: burn n = al final de TU turno, 1·n de daño a quien esté ahí (los del linaje local son inmunes) · heal n = cura n
   //           cover n = recibe n menos de daño (mín. 1) · amp n = sus movimientos hacen +n · slow n = sus habilidades cuestan +n cristal
@@ -417,7 +497,7 @@
     hielo:     { id: "hielo",     name: "Arena Gélida",     arena: "hielo",     home: "marea",     front: { t: "frost", n: 1 }, back: null, cdPlus: 1, desc: "Novas gélidas: todos los enfriamientos duran 1 turno más y la primera fila hace 1 de daño menos." }
   };
 
-  root.HORDA_DATA = { SUMMONER: SUMMONER, SUMMONER_IDS: SUMMONER_IDS, validLoadout: validLoadout, summonerBonus: summonerBonus, describePassive: describePassive, CHAPTERS: CHAPTERS, NODES: NODES, advStarter: advStarter, enemyDeck: enemyDeck, encounter: encounter, describeMove: describeMove, MAPS: MAPS, TERRAIN_TXT: TERRAIN_TXT,  CARDS: CARDS, LINAJES: LINAJES, DECKS: DECKS, KW_NAME: KW_NAME, KW_PTS: KW_PTS, points: points,
+  root.HORDA_DATA = { COMBOS: COMBOS, SUMMONER: SUMMONER, SUMMONER_IDS: SUMMONER_IDS, validLoadout: validLoadout, summonerBonus: summonerBonus, describePassive: describePassive, CHAPTERS: CHAPTERS, NODES: NODES, advStarter: advStarter, enemyDeck: enemyDeck, encounter: encounter, describeMove: describeMove, MAPS: MAPS, TERRAIN_TXT: TERRAIN_TXT,  CARDS: CARDS, LINAJES: LINAJES, DECKS: DECKS, KW_NAME: KW_NAME, KW_PTS: KW_PTS, points: points,
     guardianPoints: guardianPoints, chaosDeck: chaosDeck, validateDeck: validateDeck, describe: describe };
   if (typeof module !== "undefined") module.exports = root.HORDA_DATA;
 })(typeof window !== "undefined" ? window : globalThis);

@@ -1,6 +1,6 @@
 # La Horda: Cónclave
 
-Duelo de cartas por turnos 1 contra 1, hecho con el arte y los datos de **La Horda** (Fondal Studios). Boceto jugable **v0.5**.
+Duelo de cartas por turnos 1 contra 1, hecho con el arte y los datos de **La Horda** (Fondal Studios). Boceto jugable **v0.6**.
 
 ## Qué es
 - Sos un **Invocador** con puntos de vida; tus **guardianes** y **monstruos** son quienes le hacen daño al Invocador rival.

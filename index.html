@@ -277,6 +277,7 @@ h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
   <div class="note"><b>Objetivo:</b> bajar la <b>vida del Invocador rival</b> (🔮) de 40 a 0: tus guardianes y monstruos son quienes le hacen daño. Cada victoria contra el Bot, en la Aventura o en cooperativo sube tu <b>rango</b>: +2 de vida máxima cada 2 victorias (hasta +12); en el 1v1 entre personas todos empiezan con 40. Mazo de 30 cartas (máx. 5 guardianes únicos). Mano inicial 3 (quien abre, sin robo en el turno 1) o 5 + <b>Chispa</b> (quien responde). <b>Cristales:</b> +1 por turno hasta 10.</div>
   <div class="note"><b>Maná (cristales ✦):</b> es del <b>Invocador</b>, no de los guardianes. Empezás con 1, ganás 1 por turno (hasta 10) y se recargan al empezar tu turno. Se gastan en jugar cartas, en las habilidades de tus guardianes (✦ de cada botón), en cambiar una unidad de lugar (1 ✦) y en tus habilidades de invocador. El <b>Ataque</b> es gratis; la <b>definitiva</b> no cuesta cristales pero necesita carga (puntos violetas).</div>
   <div class="note"><b>Cómo se activa una habilidad:</b> tocá una unidad tuya con borde verde → tocá el movimiento en el panel de la derecha → tocá el objetivo (rojo = enemigo, verde = aliado). Cada unidad hace una sola cosa por turno. Las habilidades tienen enfriamiento.</div>
+  <div class="note"><b>Sinergias y combos ⚡:</b> los monstruos tienen <b>tipos</b> (Bestia, Planta, Esqueleto, Demonio, Hielo, Ciudadano, Cristal, Golem…) y muchas cartas reaccionan a ellos ("cuando desplegás una Bestia…", "+1 ATK por cada otro Esqueleto"). También a los <b>estados</b>: 🔥 quemado (daño cada turno), ❄ congelado y ☠ envenenado (Combustión pega más a quien arde, Quebrar a lo congelado…). En el constructor, las cartas con ⚡ completan un combo con tu mazo y el panel de la derecha muestra qué combos tenés y cuáles te faltan.</div>
   <div class="note"><b>Trampas 🪤:</b> se ponen boca abajo (máx. 2) y se disparan solas cuando el rival hace algo que coincide (atacar a tus unidades o a tu Invocador, jugar un hechizo, desplegar una unidad, usar una habilidad). Algunas anulan la acción. Las del rival son secretas.</div>
   <div class="note"><b>Tablero 2 filas × 3 casillas por lado.</b> Fila de <b>frente</b> y fila de <b>fondo</b>. Jugás una unidad en la casilla libre que quieras. Mover una unidad (o intercambiarla con una aliada) cuesta 1 cristal, una vez por unidad y turno.</div>
   <div class="note"><b>Cada unidad actúa una vez por turno y elige un movimiento</b>, como en Pokémon: <b>Ataque</b> (gratis), hasta 3 <b>habilidades</b> (cuestan cristales y tienen enfriamiento) y una <b>definitiva</b> única por partida que se carga con los turnos (3; los de Ascensión, 2). Los monstruos solo tienen Ataque.</div>
@@ -413,6 +414,7 @@ function cardText(c, full) {
     if (Object.keys(c.kw).length) t.push(kwText(c));
     if (c.ingreso) t.push("<i>Ingreso:</i> " + D.describe(c.ingreso));
     if (c.ultimo) t.push("<i>Al morir:</i> " + D.describe(c.ultimo));
+    if (c.tags && c.tags.length && c.kind !== "guardian") t.push("<i>Tipo:</i> " + c.tags.map(esc).join(" · "));
     if (c.passive) t.push("<i>Pasiva " + esc(c.passive.name) + ":</i> " + (full ? esc(D.describePassive(c.passive)) : "ver detalle"));
     if (c.moves.length > 1 || (c.kind === "guardian")) {
       if (full) c.moves.slice(1).forEach(function (m) { t.push('<span class="mv"><i>' + (m.ult ? "★ " : "") + esc(m.name) + "</i> (" + (m.ult ? "def." : m.cost + "✦") + "): " + esc(D.describeMove(m)) + "</span>"); });
@@ -421,17 +423,22 @@ function cardText(c, full) {
     t.push('<span class="mini">' + (full && c.kind === "guardian" ? "<i>Ataque «" + esc(c.moves[0].name) + "»:</i> " + esc(D.describeMove(c.moves[0])) : (c.reach === "melee" ? "Ataque cuerpo a cuerpo" : "Ataque a distancia")) + "</span>");
     return t.join("<br>");
   }
-  return esc(c.text || "");
+  return esc(c.text || "") + (c.type === "trap" ? '<br><span class="mini">Se coloca boca abajo (máx. 2). Es secreta para el rival.</span>' : "");
+}
+function comboLines(id) {
+  var out = [];
+  D.COMBOS.forEach(function (cb) { if (cb.cards.indexOf(id) >= 0) out.push("<i>" + esc(cb.name) + ":</i> con " + cb.cards.filter(function (x) { return x !== id; }).map(function (x) { return esc(CARDS[x].name); }).join(", ")); });
+  return out;
 }
 function cardEl(id, extra, full) {
   var c = CARDS[id], p = D.points(c), cls = "card " + (c.kind === "bicho" ? "bicho " : "") + c.rarity + (extra ? " " + extra : "");
-  var art = c.type === "unit" ? '<div class="art" style="background-image:url(' + c.art + ')"></div>'
+  var art = c.type === "unit" ? '<div class="art" style="background-image:url(' + c.art + ')' + (c.artFx ? ";filter:" + c.artFx : "") + '"></div>'
     : '<div class="art" style="background:radial-gradient(circle at 50% 40%,' + ({ hechizo: "#2c5b8a", bonus: "#2f6b3a", maldicion: "#5a2f7e", trampa: "#7a4a1c" })[c.cat] + ',#14110f)"><div class="ico">' + (EMOJI[id] || "✦") + "</div></div>";
   var st = c.type === "unit" ? '<div class="st"><span class="a">⚔' + c.atk + '</span><span class="h">♥' + c.hp + "</span></div>" : '<div class="st"></div>';
   var role = c.kind === "guardian" ? '<span class="role">' + ROLE_N[c.role] + "</span>" : "";
   var dot = c.origin ? '<span class="dot" style="background:' + LIN[c.origin].color + '" title="' + LIN[c.origin].name + '"></span>' : "";
   return '<div class="' + cls + '" data-id="' + id + '">' + art + '<span class="cost">' + c.cost + '</span><span class="tier">' + c.tier + "</span>" + role + dot +
-    '<div class="nm">' + esc(c.name) + '</div><div class="ttl">' + esc(c.title || "") + '</div><div class="tx">' + cardText(c, full) + '</div><div class="ft">' + st + '<span class="pts">' + (p ? p + " pts" : "") + "</span></div></div>";
+    '<div class="nm">' + esc(c.name) + '</div><div class="ttl">' + esc(c.title || "") + '</div><div class="tx">' + cardText(c, full) + (full && comboLines(id).length ? '<br><span class="mv">⚡ ' + comboLines(id).join("<br>⚡ ") + "</span>" : "") + '</div><div class="ft">' + st + '<span class="pts">' + (p ? p + " pts" : "") + "</span></div></div>";
 }
 function allCardIds() { return Object.keys(CARDS).filter(function (id) { return !CARDS[id].coin && !CARDS[id].token; }); }
 function typeKey(c) { return c.kind === "guardian" ? "guardian" : c.kind === "bicho" ? "bicho" : c.cat; }
@@ -784,6 +791,10 @@ function buildBuilder() {
   if ($("bCost").options.length < 2) { var o = ""; for (var i = 0; i <= 8; i++) o += '<option value="' + i + '">Costo ' + i + (i === 8 ? "+" : "") + "</option>"; $("bCost").innerHTML = '<option value="">Todos los costos</option>' + o; }
   renderPool(); renderDeck();
 }
+function combosWith(id) {   // ¿esta carta completa un combo con alguna carta que ya está en el mazo?
+  var d = curDeck().cards; if (d.indexOf(id) >= 0) return false;
+  return D.COMBOS.some(function (cb) { return cb.cards.indexOf(id) >= 0 && cb.cards.some(function (x) { return x !== id && d.indexOf(x) >= 0; }); });
+}
 function deckCounts() { var cnt = {}; curDeck().cards.forEach(function (id) { cnt[id] = (cnt[id] || 0) + 1; }); return cnt; }
 function renderPool() {
   var q = $("bSearch").value.trim().toLowerCase(), cost = $("bCost").value, onlyOwned = $("bOwned").checked, cnt = deckCounts();
@@ -797,11 +808,22 @@ function renderPool() {
   }).sort(function (a, b) { return CARDS[a].cost - CARDS[b].cost || CARDS[a].name.localeCompare(CARDS[b].name); });
   $("bPool").innerHTML = list.map(function (id) {
     var c = CARDS[id], own = SAVE.owned[id] || 0, inD = cnt[id] || 0, lim = Math.min(own, maxCopies(id)), full = inD >= lim;
-    var art = c.type === "unit" ? "background-image:url(" + c.art + ")" : "background:radial-gradient(circle,#3a4a5a,#14110f)";
+    var art = c.type === "unit" ? "background-image:url(" + c.art + ")" + (c.artFx ? ";filter:" + c.artFx : "") : "background:radial-gradient(circle,#3a4a5a,#14110f)";
     var emo = c.type === "unit" ? "" : '<span style="position:absolute;inset:0;display:grid;place-items:center;font-size:2.4rem">' + (EMOJI[id] || "✦") + "</span>";
+    var partnerOf = combosWith(id);
     var line = c.type === "unit" ? "⚔" + c.atk + " ♥" + c.hp + " · " + (c.kind === "guardian" ? ROLE_N[c.role] : c.tier) : c.tier;
-    return '<div class="prow ' + (c.kind === "bicho" ? "bicho " : "") + c.rarity + (own ? "" : " no") + (own && full ? " full" : "") + '" data-add="' + id + '" data-id="' + id + '"><div class="th" style="' + art + '"><span class="cs">' + c.cost + "</span>" + emo + '</div><div class="nn"><b>' + esc(c.name) + "</b><small>" + line + '</small></div><span class="ct">' + inD + "/" + lim + "</span></div>";
+    return '<div class="prow ' + (c.kind === "bicho" ? "bicho " : "") + c.rarity + (own ? "" : " no") + (own && full ? " full" : "") + '" data-add="' + id + '" data-id="' + id + '"><div class="th" style="' + art + '"><span class="cs">' + c.cost + "</span>" + emo + '</div><div class="nn"><b>' + (partnerOf ? "⚡ " : "") + esc(c.name) + "</b><small>" + line + '</small></div><span class="ct">' + inD + "/" + lim + "</span></div>";
   }).join("") || '<p class="mini">Ninguna carta con ese filtro.</p>';
+}
+function comboPanel(deck) {
+  var have = {}; deck.forEach(function (id) { have[id] = 1; });
+  var rows = D.COMBOS.map(function (cb) { var n = cb.cards.filter(function (x) { return have[x]; }).length; return { cb: cb, n: n }; }).filter(function (r) { return r.n >= 1; }).sort(function (a, b) { return b.n / b.cb.cards.length - a.n / a.cb.cards.length || b.n - a.n; }).slice(0, 5);
+  if (!rows.length) return '<p class="mini" style="margin-top:.6rem">⚡ <b>Sinergias:</b> todavía ninguna. Probá cartas del mismo tipo (Bestia, Esqueleto, Hielo, Ciudadano…) o con estados (quemar, congelar): mirá la línea ⚡ al pasar el mouse sobre una carta.</p>';
+  return '<div style="margin-top:.8rem"><b style="color:var(--gold2)">⚡ Sinergias de tu mazo</b>' + rows.map(function (r) {
+    var full = r.n >= 2;
+    return '<div class="note" style="margin:.4rem 0;padding:.5rem .8rem;font-size:1.2rem' + (full ? ";border-color:#7fc06a" : "") + '"><b>' + esc(r.cb.name) + "</b> " + (full ? "✔ " : "") + "(" + r.n + "/" + r.cb.cards.length + ")<br>" +
+      r.cb.cards.map(function (x) { var own = SAVE.owned[x] > 0; return have[x] ? '<span style="color:#8fe08a">● ' + esc(CARDS[x].name) + "</span>" : '<span style="color:' + (own ? "var(--gold2)" : "var(--mute)") + '">○ ' + esc(CARDS[x].name) + (own ? " (la tenés)" : "") + "</span>"; }).join(" · ") + '<br><span class="mini">' + esc(r.cb.text) + "</span></div>";
+  }).join("") + "</div>";
 }
 function renderDeck() {
   var d = curDeck(), cnt = deckCounts(), ids = Object.keys(cnt).sort(function (a, b) { return CARDS[a].cost - CARDS[b].cost || CARDS[a].name.localeCompare(CARDS[b].name); });
@@ -812,7 +834,7 @@ function renderDeck() {
   $("deckP").innerHTML = '<div class="tabs">' + tabs + '</div><input id="dName" value="' + esc(d.name) + '" maxlength="24" aria-label="Nombre del mazo">' +
     '<div class="row" style="justify-content:space-between"><b>Cartas ' + d.cards.length + '/30</b><b style="color:var(--gold2)">Guardianes ' + gC + "/5</b></div>" +
     '<div class="curve">' + curve.map(function (n) { return '<div style="height:' + Math.round(100 * n / mx) + '%"><span>' + (n || "") + "</span></div>"; }).join("") + '</div><div class="curve-l">' + curve.map(function (_, i) { return "<span>" + (i === 8 ? "8+" : i) + "</span>"; }).join("") + "</div>" +
-    '<div style="margin-top:.6rem">' + (ids.map(function (id) { var c = CARDS[id]; return '<div class="drow' + (c.kind === "guardian" ? " g" : "") + '" data-rem="' + id + '" data-id="' + id + '"><span class="c">' + c.cost + "</span>" + esc(c.name) + '<span class="x">×' + cnt[id] + "</span></div>"; }).join("") || '<p class="mini">Hacé clic en las cartas de la izquierda para agregarlas.</p>') + "</div>" +
+    comboPanel(d.cards) + '<div style="margin-top:.6rem">' + (ids.map(function (id) { var c = CARDS[id]; return '<div class="drow' + (c.kind === "guardian" ? " g" : "") + '" data-rem="' + id + '" data-id="' + id + '"><span class="c">' + c.cost + "</span>" + esc(c.name) + '<span class="x">×' + cnt[id] + "</span></div>"; }).join("") || '<p class="mini">Hacé clic en las cartas de la izquierda para agregarlas.</p>') + "</div>" +
     (err.length ? err.slice(0, 4).map(function (e) { return '<p class="err">' + esc(e) + "</p>"; }).join("") : '<p class="ok">✔ Mazo válido: se puede jugar.</p>') +
     '<div class="row" style="margin-top:.6rem"><button class="btn sm" id="dAuto">Completar</button><button class="btn sec sm" id="dClear">Vaciar</button><button class="btn sec sm" id="dDel"' + (SAVE.decks.length < 2 ? " disabled" : "") + ">Borrar</button></div>" +
     '<p class="mini" style="margin-top:.4rem">Se guarda solo. Completar rellena con monstruos y hechizos que tengas, sin pasarte de las reglas.</p>';
@@ -999,8 +1021,8 @@ function tileEl(u, mine) {
   if (canAct && c.moves.some(function (m, i) { return !E.whyNot(V, u, i); })) cls += " ready"; else if (mine && (u.acted || u.sick)) cls += " done";
   var charge = ""; if (c.kind === "guardian") { var need = c.ultNeed || 3; charge = '<div class="charge" title="Carga de definitiva">'; for (var i = 0; i < need; i++) charge += '<i class="' + (u.usedUlt ? "" : i < u.charge ? "on" : "") + '"></i>'; charge += "</div>"; }
   var zz = u.sick ? '<div class="zz" title="Recién llegó">💤</div>' : "";
-  var kws = Object.keys(u.kw).map(function (k) { return "<span>" + KW[k] + "</span>"; }).join("") + (u.poison ? "<span>☠" + u.poison.n + "</span>" : "") + (u.silenced ? "<span>Silenciado</span>" : "");
-  return '<div class="' + cls + '" data-uid="' + u.uid + '" data-id="' + u.id + '"><div class="art" style="background-image:url(' + c.art + ')"></div><div class="kws">' + kws + "</div>" + (zz || charge) +
+  var kws = Object.keys(u.kw).map(function (k) { return "<span>" + KW[k] + "</span>"; }).join("") + (u.poison ? "<span>☠" + u.poison.n + "</span>" : "") + (u.burn ? "<span>🔥" + u.burn.n + "</span>" : "") + (u.silenced ? "<span>Silenciado</span>" : "");
+  return '<div class="' + cls + '" data-uid="' + u.uid + '" data-id="' + u.id + '"><div class="art" style="background-image:url(' + c.art + ')' + (c.artFx ? ";filter:" + c.artFx : "") + '"></div><div class="kws">' + kws + "</div>" + (zz || charge) +
     '<div class="a' + (a > c.atk ? " bonus" : "") + '">' + a + '</div><div class="h' + (u.dmg > 0 ? " dmg" : "") + (mh > c.hp ? " bonus" : "") + '">' + h + '</div><div class="nm">' + esc(u.name) + "</div></div>";
 }
 function rowHTML(p, row, mine) {

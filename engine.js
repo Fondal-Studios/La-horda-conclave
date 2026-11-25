@@ -52,10 +52,13 @@
     function synBonus(n) { return { atk: (n >= 2 ? 1 : 0) + (n >= 4 ? 1 : 0), hp: n >= 3 ? 1 : 0 }; }
     E.synBonus = synBonus;
     function synCount(s, u) { var n = 0; if (!u.origin) return 0; units(s, u.owner).forEach(function (x) { if (x.origin === u.origin) n++; }); return n; }
+    function matchF(u, f) { if (!f) return true; if (f.tag && (u.tags || []).indexOf(f.tag) < 0) return false; if (f.token && !CARDS[u.id].token) return false; return true; }
+    function hasStatus(u, st) { return st === "poison" ? !!u.poison : st === "frozen" ? !!(u.frozen || u.iced) : st === "burn" ? !!u.burn : false; }
     function pstat(u) { var p = CARDS[u.id].passive; return p && !u.silenced && p.stat ? p.stat : null; }
     function atkOf(s, u) {
       var a = u.atk + (u.tmpAtk || 0) + synBonus(synCount(s, u)).atk, st = pstat(u);
       if (st && st.k === "lowhp" && (u.hp0 + synBonus(synCount(s, u)).hp - u.dmg) <= (u.hp0 + synBonus(synCount(s, u)).hp) * st.pct) a += st.atk;
+      if (st && st.k === "perTag") units(s, u.owner).forEach(function (x) { if (x !== u && (x.tags || []).indexOf(st.tag) >= 0) a += st.atk; });
       return Math.max(0, a);
     }
     function maxHpOf(s, u) { return u.hp0 + synBonus(synCount(s, u)).hp; }
@@ -68,7 +71,7 @@
       var c = CARDS[id], kw = JSON.parse(JSON.stringify(c.kw || {}));
       return { uid: s.nextUid++, id: id, owner: owner, cell: cell, name: c.name, kind: c.kind, origin: c.origin, role: c.role || null,
         atk: c.atk, hp0: c.hp, dmg: 0, kw: kw, acted: false, sick: !kw.rush, moved: false, frozen: 0, poison: null,
-        cd: (c.moves || []).map(function () { return 0; }), usedUlt: false, charge: 0, silenced: false, tmpAtk: 0, pc: 0, pn: 0, pused: false };
+        cd: (c.moves || []).map(function () { return 0; }), usedUlt: false, charge: 0, silenced: false, tmpAtk: 0, pc: 0, pn: 0, pused: false, burn: null, tags: (c.tags || []).slice() };
     }
     function place(s, p, id, cell) { var u = mkUnit(s, id, p, cell); s.players[p].cells[cell] = u; return u; }
     function find(s, uid) {
@@ -118,24 +121,29 @@
         if (!dead.length) break;
         dead.forEach(function (u) { s.players[u.owner].cells[u.cell] = null; ev(s, { e: "die", uid: u.uid, id: u.id, p: u.owner, cell: u.cell }); });
         dead.forEach(function (u) { var c = CARDS[u.id]; if (c.ultimo && !u.silenced) exec(s, c.ultimo, { owner: u.owner, src: u }); });
-        dead.forEach(function (d) { [0, 1].forEach(function (p) { units(s, p).forEach(function (a) { pFire(s, a, a.owner === d.owner ? "muerteAliada" : "muerteEnemiga", null); }); }); });
+        dead.forEach(function (d) { [0, 1].forEach(function (p) { units(s, p).forEach(function (a) { pFire(s, a, a.owner === d.owner ? "muerteAliada" : "muerteEnemiga", null, d); }); }); });
       }
       checkWin(s);
     }
-    function pFire(s, u, trig, tgt) {
+    function pFire(s, u, trig, tgt, subject) {
       var p = CARDS[u.id].passive; if (!p || u.silenced || !p.ops && !p.cycle) return;
+      if (p.filter && !(subject && matchF(subject, p.filter))) return;
       if (p.trig !== trig && !(p.trig === "muerte" && (trig === "muerteAliada" || trig === "muerteEnemiga"))) return;
       u.pc++; if (p.every && u.pc % p.every) return; if (p.max && u.pn >= p.max) return; u.pn++;
       ev(s, { e: "passive", uid: u.uid, name: p.name });
       exec(s, p.cycle ? p.cycle[(u.pn - 1) % p.cycle.length] : p.ops, { owner: u.owner, src: u, target: tgt });
     }
     // TRAMPAS: se colocan boca abajo (máx. 2) y se disparan solas cuando el rival hace algo que coincide con su condición
+    function allyDeployed(s, nu) {
+      units(s, nu.owner).forEach(function (a) { if (a !== nu) pFire(s, a, "despliegueAliado", nu.uid, nu); });
+    }
     function fireTrap(s, defender, trig, targetUid) {
       var P = s.players[defender];
       for (var i = 0; i < P.traps.length; i++) {
         var d = CARDS[P.traps[i].id]; if (d.trig !== trig) continue;
         P.traps.splice(i, 1); ev(s, { e: "trap", p: defender, id: d.id, name: d.name });
         if (d.ops && d.ops.length) exec(s, d.ops, { owner: defender, src: null, target: targetUid });
+        units(s, defender).forEach(function (a) { pFire(s, a, "trampaPropia", null, null); });
         return d;
       }
       return null;
@@ -163,6 +171,9 @@
           var cand = units(s, to === "randEnemy" ? foe : me).filter(function (u) { return u !== ctx.src; });
           return cand.length ? [{ u: cand[rint(s, cand.length)] }] : [];
         }
+        case "allyTag": return units(s, me).filter(function (u) { return (u.tags || []).indexOf(ctx.tag) >= 0; }).map(function (u) { return { u: u }; });
+        case "enemyFrozen": return units(s, foe).filter(function (u) { return u.frozen || u.iced; }).map(function (u) { return { u: u }; });
+        case "enemyBurning": return units(s, foe).filter(function (u) { return u.burn; }).map(function (u) { return { u: u }; });
         case "enemyFace": return [{ face: foe }];
         case "allyFace": return [{ face: me }];
       }
@@ -180,12 +191,15 @@
         if (op.op === "summon") {
           for (var k = 0; k < op.n; k++) {
             var cell = emptyCell(s, ctx.owner); if (cell < 0) break;
-            var nu = place(s, ctx.owner, op.id, cell); ev(s, { e: "summon", uid: nu.uid, id: nu.id, p: ctx.owner, cell: cell });
+            var nu = place(s, ctx.owner, op.id, cell); ev(s, { e: "summon", uid: nu.uid, id: nu.id, p: ctx.owner, cell: cell }); allyDeployed(s, nu);
           }
           return;
         }
         if (op.op === "cdDown") { if (ctx.src) ctx.src.cd = ctx.src.cd.map(function (x) { return Math.max(0, x - op.n); }); return; }
         if (op.op === "swapRow") { if (ctx.src && s.players[ctx.src.owner].cells[ctx.src.cell] === ctx.src) swapRow(s, ctx.src); return; }
+        ctx.tag = op.tag;
+        if (op.op === "sacrifice") { var vic = units(s, ctx.owner).filter(function (x) { return CARDS[x.id].token; })[0]; if (vic) { vic.dmg += 999; ev(s, { e: "sacrifice", uid: vic.uid }); resolveDeaths(s); } else { ctx.fizzle = true; } return; }
+        if (ctx.fizzle) return;
         targetsOf(s, op.to, ctx).forEach(function (t) {
           if (t.face !== undefined) {
             if (op.op === "dmg") { var nf = op.n !== undefined ? op.n : moveDamage(s, ctx.src, op.mult); hitFace(s, t.face, nf); }
@@ -195,8 +209,10 @@
           var u = t.u;
           switch (op.op) {
             case "dmg": {
+              if (op.only && !hasStatus(u, op.only)) break;
               var n = op.n !== undefined ? op.n : moveDamage(s, ctx.src, op.mult);
-              var sp = ctx.src && pstat(ctx.src); if (sp && sp.k === "vs" && ((sp.st === "poison" && u.poison) || (sp.st === "frozen" && (u.frozen || u.iced)))) n += sp.n;
+              if (op.ifStatus && hasStatus(u, op.ifStatus.st)) n += op.ifStatus.n;
+              var sp = ctx.src && pstat(ctx.src); if (sp && sp.k === "vs" && hasStatus(u, sp.st)) n += sp.n;
               var d = hitUnit(s, u, n);
               if (d && ctx.src) { if (ctx.src.kw.lifesteal) healFace(s, ctx.src.owner, d); if (ctx.src.kw.freezeHit && ctx.src.owner !== u.owner) u.frozen = Math.max(u.frozen, 1); }
               break;
@@ -209,6 +225,7 @@
             case "give": u.kw[op.kw] = 1; if (op.kw === "rush") u.sick = false; ev(s, { e: "buff", uid: u.uid }); break;
             case "refresh": u.acted = false; ev(s, { e: "buff", uid: u.uid }); break;
             case "freeze": if (u.owner !== ctx.owner || op.to === "self") { u.frozen = Math.max(u.frozen, op.n); ev(s, { e: "freeze", uid: u.uid }); } break;
+            case "burn": u.burn = { n: op.n, turns: op.turns }; ev(s, { e: "burn", uid: u.uid }); break;
             case "poison": u.poison = { n: op.n, turns: op.turns }; ev(s, { e: "poison", uid: u.uid }); break;
             case "silence": u.silenced = true; u.kw = {}; ev(s, { e: "silence", uid: u.uid }); break;
           }
@@ -237,6 +254,7 @@
         if (u.kind === "guardian") u.charge++;
         if (u.frozen > 0) { u.acted = true; u.iced = true; u.frozen--; ev(s, { e: "thaw", uid: u.uid }); }
         if (u.poison) { hitUnit(s, u, u.poison.n); u.poison.turns--; if (u.poison.turns <= 0) u.poison = null; }
+        if (u.burn) { hitUnit(s, u, u.burn.n); u.burn.turns--; if (u.burn.turns <= 0) u.burn = null; }
       });
       units(s, p).forEach(function (u) { pFire(s, u, "inicio", null); });
       resolveDeaths(s);
@@ -316,6 +334,7 @@
           for (var i = 0; i < 6; i++) if (!P.cells[i]) { if (compact && seenRow[rowOf(i)]) continue; seenRow[rowOf(i)] = 1; out.push({ t: "play", uid: c.uid, cell: i }); }
           return;
         }
+        if (d.req === "token" && !units(s, me).some(function (u) { return CARDS[u.id].token; })) return;
         if (d.type === "trap") { if (P.traps.length < 2) out.push({ t: "play", uid: c.uid }); return; }
         if (d.target === "none") { out.push({ t: "play", uid: c.uid }); return; }
         targetList(s, d.target, me).forEach(function (tg) { out.push({ t: "play", uid: c.uid, target: tg }); });
@@ -373,7 +392,7 @@
         P.hand.splice(hi, 1); P.cr -= d.cost;
         ev(s, { e: "play", p: me, id: card.id });
         if (d.type === "unit") {
-          var u = place(s, me, card.id, a.cell); ev(s, { e: "summon", uid: u.uid, id: u.id, p: me, cell: a.cell });
+          var u = place(s, me, card.id, a.cell); ev(s, { e: "summon", uid: u.uid, id: u.id, p: me, cell: a.cell }); allyDeployed(s, u);
           if (d.ingreso) exec(s, d.ingreso, { owner: me, src: u }); else resolveDeaths(s);
           if (!s.over && P.cells[a.cell] === u) fireTrap(s, 1 - me, "despliegue", u.uid);
         } else if (d.type === "trap") { P.traps.push({ uid: card.uid, id: card.id }); ev(s, { e: "trapSet", p: me });
