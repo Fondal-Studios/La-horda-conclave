@@ -11,7 +11,7 @@
 Constructor de mazos y colección; combate con posición y movimientos por unidad (habilidades reales de los 41 guardianes); 6 mapas (arenas); Aventura solo y cooperativo; cuestionario inicial "invocador"; pasivas y ataques básicos propios; Invocador con vida, rango y 2 habilidades de apoyo; animaciones de combate (levantarse y chocar / cristal de vida); trampas; sinergias y combos por arquetipo; ayuda de maná y de cómo activar habilidades; "monstruos" en vez de "bichos".
 
 ## Estado de calidad (medido; ver README y docs)
-- Balance con bot (1.800 partidas): mazos 36–60 %, quien abre ~52 %. **Ciudad (Turba) es el más flojo (~36 %)**, Infernal el más fuerte (~60 %).
+- Balance con bot (v0.8, `gate.js 20`): mazos 46–55 %, quien abre ~54 %. Ciudad e Infernal se ajustaron en la v0.8 (expansión Reino Fúngico, 41 cartas; ver `docs/DISENO.md`). Arte pendiente de las cartas nuevas: `tools/arte-nuevas.json`.
 - Pasivas 31/31, combos 64 comprobaciones, 1v1 online y cooperativo sin fuga de información oculta, prueba de claridad automática sin callejones.
 - **Sin medir**: personas reales, celular, latencia, balance humano, retención.
 

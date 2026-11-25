@@ -213,3 +213,28 @@ node tools/online-test.js      # prueba de protocolo online completa
 * **Economía** del prototipo: 15/5 de oro por victoria/derrota (Aventura 20 y 60 por jefe), 400 de oro iniciales.
 * **Verificación**: `node tools/packs-test.js` (20.000 aperturas por paquete: garantías, pity, refuerzo del tema, sin cartas prohibidas, repetidas → polvo, todo fabricable), `node tools/economy-sim2.js` (gratis vs. paga), prueba de interfaz de la tienda (`tools/ui-packs.js`) y las regresiones anteriores.
 * **Límites**: el refuerzo del tema y el pity son diseño mío, no medidos con jugadores; el ingreso real depende de contenido por temporada; hay que pasar por revisión legal antes de cobrar (ver §5.7 del análisis).
+
+---
+
+# v0.8 — expansión Reino Fúngico
+* **41 cartas nuevas** (`set: "fungico"` en `data.js`; 141 → 182 coleccionables): 21 monstruos, 12 hechizos/bonus/maldiciones y 8 trampas. Por rareza: 8 Comunes · 18 Poco comunes · 10 Raras · 5 Épicas (la rareza sale de `rarityOf`, no se tocó).
+  | Linaje | Arquetipo | Cartas nuevas |
+  |---|---|---|
+  | Ciudad | Turba | Pregonero, Barricadista, Capitana de la Guardia (É), Clamor de la Turba, Motín, Turba Enfurecida (trampa) |
+  | Forja | Fábrica de cristal | Cristal Fragmentado, Horno de Cristal, Coloso de Cuarzo (É), Martillazo, Pulso Resonante, Fisura de Cristal (trampa) |
+  | Bosque | Manada y raíces | Lobezno, Jabalí Musgoso, Druida de los Hongos, Luna de Caza, Raíces Atrapantes (trampa) |
+  | Laberinto | Trampas | Trampero, Minotauro Joven (É), Plano Secreto, Foso Oculto y Galería de Espejos (trampas) |
+  | Marea | Hielo | Espíritu Glacial, Anguila de Escarcha, Sirena Abisal, Aliento Helado, Avalancha, Hielo Fino (trampa) |
+  | Infernal | Fuego y huesos | Calavera Ardiente, Aprendiz de Nigromante, Caballero de Hueso (É), Ceniza al Viento, Fosa Común (trampa) |
+  | Neutral (tipo **Hongo**) | Esporas | Hongo Saltarín, Esporero, Micelio Vivo, Reina Micelial (É), Nube de Esporas, Floración Tóxica, Simbiosis, Estallido de Esporas (trampa) |
+* **Motor**: una sola mecánica nueva, el objetivo `enemyPoisoned` ("las unidades enemigas envenenadas", igual que `enemyBurning`/`enemyFrozen`); la usa Floración Tóxica. Todo lo demás reutiliza ops, pasivas y disparadores que ya existían.
+* **8 combos nuevos** (`COMBOS`: Floración Tóxica, Motín, Formen filas, Fundición, Centro del laberinto, Alud, Luna de caza, Osamenta), cada uno comprobado en `tools/combo-test.js` junto con las trampas nuevas y los Ingresos cambiados (119 comprobaciones en total, antes 64).
+* **Paquetes temáticos**: las cartas nuevas llevan linaje (también las de magia/trampa: punto de color, filtro de la colección y refuerzo del paquete) y las neutrales el tipo Hongo, que se sumó al Paquete del Bosque ("Bosque y Hongos"). Además, las piezas de arquetipo de la v0.6 que los carteles nombraban (Combustión, Pira, Quebrar, Sobrecarga, Estampida…) ahora llevan linaje: antes **no** contaban para el refuerzo temático aunque el cartel dijera "más chances de…". No se creó un paquete "Reino Fúngico" propio porque la tienda (`index.html`) toma el fondo del linaje del tema; queda propuesto (con `assets/a/micelial.webp`).
+* **Balance** (Ciudad estaba en ~35 % e Infernal en ~61 %):
+  - Ingreso de los guardianes de **Ciudad**: ahora invocan un Saqueador (antes robaban 1 y +1 ATK temporal). Es el cambio que más movió a la Turba.
+  - Ingreso de los guardianes **Infernales**: ahora levantan un **Esqueleto Frágil** 1/1 (invocación nueva, tipo Esqueleto) en vez de un Esqueleto 2/2.
+  - Monstruos de Ciudad y del Laberinto que estaban por debajo de su presupuesto de puntos subieron hasta el presupuesto (Saqueador 2/2, Planidera 1/3, Raptor 2/4, Acechante 4/3, Sectario 3/3, Campanero 3/5, Espectro 4/5; Escorpión 2/3, Medusa 2/4, Druida de Arena 3/5, Esfinge 5/6). El gate de puntos sigue pasando (guardián mín. 13 > monstruo máx. 12).
+  - Mazos iniciales: Ciudad suma Pregonero, Barricadista, Capitana, Motín, Clamor y Turba Enfurecida; Laberinto cambia Ilkan/Axiom por Iria/Ismara y suma Trampero, Minotauro Joven, Foso Oculto, Galería de Espejos y Plano Secreto. Los otros cuatro mazos no cambiaron.
+* **Medido (con el bot, no con personas)**: `node tools/gate.js 20` → Ciudad 51,0 % · Forja 46,5 % · Bosque 54,0 % · Laberinto 46,5 % · Marea 47,0 % · Infernal 55,0 %; quien abre 54 %; 600 partidas, todas terminan, sin avisos. Una corrida aparte de 400 partidas por mazo (otras semillas) dio 48–55 % para los seis. Pasivas 31/31, combos 119 comprobaciones, paquetes OK (Común 49 · Poco común 55 · Rara 40 · Épica 31 · Legendaria 7).
+* **Arte**: no hay ilustraciones nuevas. Cada monstruo nuevo usa un sprite existente con filtro de color (como en la v0.6); la magia y las trampas usan el ícono genérico ✦ (los emoji viven en `index.html`, que no se tocó). La lista para ilustrar, con descripción visual en inglés, está en `tools/arte-nuevas.json` (41 cartas).
+* **Límites**: el bot no planifica combos; los porcentajes miden solidez, no el techo de cada arquetipo. La Galería de Espejos casi no se dispara en las simulaciones (el bot usa pocas habilidades contra unidades cuando hay otra trampa antes). Los cambios de Ingreso también afectan a la Aventura (el bot simple la sigue completando; no se midió con personas). `online-test` y `coop-test` no se corrieron en esta sesión (falta `server/node_modules`).
