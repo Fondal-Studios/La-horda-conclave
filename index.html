@@ -1,0 +1,1134 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>La Horda Cónclave</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#14110f; --bg2:#1d1814; --panel:#241d17; --line:#4a3b2a; --ink:#f0e6d2; --mute:#a89a82; --gold:#e0b556; --gold2:#fbe39a;
+  --red:#d9503a; --blue:#6fb4e8; --green:#7fc06a; --violet:#b58cf0; --hp:#e0584a; --atk:#e8b84a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{height:100%;font-size:clamp(6px,min(1.3vh,.8vw),15px)}
+body{background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif;min-height:100%;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+input,select{background:var(--panel);color:var(--ink);border:.12rem solid var(--line);border-radius:.4rem;padding:.6rem .9rem;font:inherit;font-size:1.5rem}
+.screen{display:none;min-height:100vh;padding-block:2rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.screen.on{display:block}
+h1{font-size:4.2rem;letter-spacing:.06em;color:var(--gold);text-shadow:0 .2rem 1.2rem #0008}
+h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
+.sub{color:var(--mute);font-size:1.5rem;margin:.4rem 0 1.4rem;max-width:84rem;line-height:1.4}
+.mini{font-size:1.2rem;color:var(--mute)}
+.btn{background:linear-gradient(#3a2d1e,#2a2016);border:.15rem solid var(--gold);color:var(--gold2);padding:.8rem 1.6rem;border-radius:.6rem;font-size:1.55rem;letter-spacing:.03em}
+.btn:hover{filter:brightness(1.25)} .btn.sec{border-color:var(--line);color:var(--ink)} .btn:disabled{opacity:.4;cursor:default;filter:none}
+.btn.sm{padding:.4rem .9rem;font-size:1.25rem}
+.row{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+.tabs{display:flex;gap:.6rem;margin:.5rem 0;flex-wrap:wrap}
+.tab{padding:.45rem 1.1rem;border:.12rem solid var(--line);border-radius:2rem;background:var(--panel);font-size:1.35rem}
+.tab.on{border-color:var(--gold);color:var(--gold2)}
+.note{background:var(--panel);border:.12rem solid var(--line);border-radius:.6rem;padding:.9rem 1.2rem;font-size:1.4rem;color:var(--mute);line-height:1.45;margin:.8rem 0;max-width:92rem}
+.note b{color:var(--gold2)}
+/* Inicio */
+.hub{display:grid;grid-template-columns:repeat(auto-fit,minmax(28rem,1fr));gap:1.2rem;margin:1.4rem 0;max-width:110rem}
+.hubb{position:relative;border:.2rem solid var(--line);border-radius:.8rem;padding:1.4rem;background:var(--panel);text-align:left;min-height:12rem;overflow:hidden}
+.hubb:hover{border-color:var(--gold)} .hubb b{display:block;font-size:2.2rem;color:var(--gold2);margin-bottom:.5rem} .hubb span{color:var(--mute);font-size:1.4rem;line-height:1.35}
+.lin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(30rem,1fr));gap:1.2rem;margin:1rem 0}
+.lin{position:relative;border:.2rem solid var(--line);border-radius:.8rem;overflow:hidden;background:var(--panel);cursor:pointer;min-height:16rem}
+.lin.sel{border-color:var(--gold);box-shadow:0 0 0 .25rem #e0b55655}
+.lin .bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.38}
+.lin .in{position:relative;padding:1.1rem 1.2rem}
+.lin b{font-size:2rem;display:block;margin-bottom:.4rem}
+.lin small{display:block;color:var(--ink);font-size:1.3rem;margin-bottom:.7rem}
+.thumbs{display:flex;gap:.4rem}
+.thumbs img{width:5.2rem;height:5.8rem;object-fit:cover;border-radius:.4rem;border:.12rem solid var(--gold)}
+.maps{display:grid;grid-template-columns:repeat(auto-fill,minmax(30rem,1fr));gap:1rem;margin:.6rem 0}
+.mapc{position:relative;border:.2rem solid var(--line);border-radius:.8rem;overflow:hidden;cursor:pointer;min-height:14rem;background:var(--panel)}
+.mapc.sel{border-color:var(--gold);box-shadow:0 0 0 .25rem #e0b55655}
+.mapc .bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.55}
+.mapc .in{position:relative;padding:1rem 1.2rem;background:linear-gradient(#0000,#000b)}
+.mapc b{font-size:1.9rem;display:block} .mapc p{font-size:1.25rem;line-height:1.35;color:var(--ink);margin-top:.3rem;text-shadow:0 .1rem .3rem #000}
+.tchip{display:inline-block;font-size:1.1rem;padding:.1rem .6rem;border-radius:1rem;background:#000a;border:.1rem solid var(--line);margin-right:.3rem}
+/* cartas */
+.card{position:relative;width:15rem;height:23rem;border-radius:.9rem;background:var(--panel);border:.22rem solid var(--line);overflow:hidden;display:flex;flex-direction:column;flex:none;user-select:none}
+.card .art{height:10rem;flex:none;background-size:cover;background-position:center top;background-color:#0003;border-bottom:.15rem solid #0006;position:relative}
+.card.bicho .art{background-size:contain;background-repeat:no-repeat;background-position:center bottom;background-color:#2a2420}
+.card .cost{position:absolute;left:.4rem;top:.4rem;width:2.8rem;height:2.8rem;border-radius:50%;background:radial-gradient(circle at 30% 30%,#7fb6ff,#2a58c4);border:.15rem solid #dbe8ff;display:grid;place-items:center;font-weight:bold;font-size:1.7rem;color:#fff;text-shadow:0 .1rem .2rem #000}
+.card .tier{position:absolute;right:0;top:.5rem;padding:.15rem .6rem .15rem .8rem;font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase;background:#000a;color:var(--gold2);border-radius:.6rem 0 0 .6rem}
+.card .nm{padding:.4rem .6rem 0;font-size:1.45rem;font-weight:bold;line-height:1.1}
+.card .ttl{padding:0 .6rem;font-size:1.05rem;color:var(--mute);font-style:italic;line-height:1.1;min-height:1.2rem}
+.card .tx{padding:.3rem .6rem;font-size:1rem;line-height:1.2;color:var(--ink);flex:1;min-height:0;overflow:hidden}
+.card .tx i{color:var(--gold2);font-style:normal}
+.card .ft{display:flex;justify-content:space-between;align-items:center;padding:.3rem .6rem .5rem;flex:none}
+.card .st{font-size:1.9rem;font-weight:bold;display:flex;gap:.7rem}
+.card .st .a{color:var(--atk)} .card .st .h{color:var(--hp)}
+.card .pts{font-size:1rem;color:var(--mute)}
+.card.guardian,.card.ascension{height:28rem}
+.card.guardian{border-color:var(--gold);box-shadow:0 0 0 .1rem #000,0 0 1.2rem #e0b55644}
+.card.ascension{border-color:var(--violet);box-shadow:0 0 0 .1rem #000,0 0 1.4rem #b58cf066}
+.card.normal{border-color:#7a6a56} .card.subelite{border-color:#6d9bc8} .card.elite{border-color:#c88d5a}
+.card.hechizo{border-color:#6fb4e8} .card.bonus{border-color:#7fc06a} .card.maldicion{border-color:#a56bd1}
+.card .ico{position:absolute;inset:0;display:grid;place-items:center;font-size:5.5rem;filter:drop-shadow(0 .2rem .5rem #000)}
+.card .role{position:absolute;left:.4rem;bottom:.4rem;font-size:1.05rem;background:#000b;color:var(--gold2);padding:.1rem .5rem;border-radius:.5rem;text-transform:uppercase;letter-spacing:.05em}
+.card .dot{position:absolute;right:.5rem;bottom:.5rem;width:1.3rem;height:1.3rem;border-radius:50%;border:.12rem solid #fff8}
+.card.big{width:27rem;height:auto;min-height:30rem}
+.card.big .art{height:15rem} .card.big .tx{font-size:1.2rem;line-height:1.28;overflow:visible;padding:.5rem .8rem} .card.big .nm{font-size:1.9rem} .card.big .st{font-size:2.3rem}
+.card .mv{display:block;margin-top:.25rem}
+.card.dim{filter:grayscale(1) brightness(.5)}
+.badge{position:absolute;right:.4rem;top:3.6rem;background:#000c;border:.1rem solid var(--gold);border-radius:1rem;padding:0 .6rem;font-size:1.2rem;color:var(--gold2);z-index:3}
+.grid{display:flex;flex-wrap:wrap;gap:1.1rem}
+/* constructor de mazos */
+.bld{display:grid;grid-template-columns:minmax(0,1fr) 38rem;gap:1.4rem;align-items:start}
+@media (max-width:1000px){.bld{grid-template-columns:1fr}}
+.pool{display:grid;grid-template-columns:repeat(auto-fill,minmax(28rem,1fr));gap:.5rem;margin-top:.6rem}
+.prow{display:flex;align-items:center;gap:.7rem;padding:.35rem .6rem .35rem .35rem;border:.12rem solid var(--line);border-radius:.6rem;background:var(--panel);cursor:pointer;min-width:0}
+.prow:hover{border-color:var(--gold)} .prow.no{opacity:.4;cursor:default} .prow.full{opacity:.65}
+.prow .th{width:4.6rem;height:4.6rem;border-radius:.4rem;background-size:cover;background-position:center top;flex:none;border:.12rem solid #0008;background-color:#2a2420;position:relative}
+.prow.bicho .th{background-size:contain;background-repeat:no-repeat;background-position:center bottom}
+.prow .cs{position:absolute;left:-.3rem;top:-.3rem;width:2rem;height:2rem;border-radius:50%;background:#2a58c4;border:.1rem solid #dbe8ff;display:grid;place-items:center;font-size:1.2rem;font-weight:bold;color:#fff}
+.prow .nn{flex:1;min-width:0} .prow .nn b{display:block;font-size:1.35rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .prow .nn small{font-size:1.1rem;color:var(--mute)}
+.prow .ct{font-size:1.3rem;color:var(--gold2);white-space:nowrap}
+.prow.guardian{border-color:#9a7d34} .prow.ascension{border-color:#7a5ab3}
+.deckp{position:sticky;top:1rem;background:var(--panel);border:.15rem solid var(--line);border-radius:.8rem;padding:1rem;max-height:calc(100vh - 2rem);overflow:auto}
+.deckp input{width:100%;margin-bottom:.6rem}
+.curve{display:flex;align-items:flex-end;gap:.4rem;height:7rem;margin:.6rem 0;border-bottom:.1rem solid var(--line)}
+.curve div{flex:1;background:linear-gradient(#6fb4e8,#2a58c4);border-radius:.3rem .3rem 0 0;position:relative;min-height:.2rem}
+.curve div span{position:absolute;top:-1.5rem;left:0;right:0;text-align:center;font-size:1.1rem;color:var(--ink)}
+.curve-l{display:flex;gap:.4rem;font-size:1.1rem;color:var(--mute)} .curve-l span{flex:1;text-align:center}
+.drow{display:flex;align-items:center;gap:.6rem;padding:.25rem .5rem;border-radius:.4rem;cursor:pointer;font-size:1.35rem}
+.drow:hover{background:#ffffff14} .drow .c{width:2.2rem;height:2.2rem;border-radius:50%;background:#2a58c4;display:grid;place-items:center;font-size:1.2rem;color:#fff;flex:none}
+.drow.g{color:var(--gold2)} .drow .x{margin-left:auto;color:var(--mute)}
+.err{color:#ff8b7b;font-size:1.25rem;margin:.3rem 0} .ok{color:#8fe08a;font-size:1.25rem}
+/* sobres */
+.packs{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin:1rem 0;min-height:29rem}
+.packs .card{animation:flip .6s both}
+@keyframes flip{from{transform:rotateY(90deg) scale(.7);opacity:0}}
+.gold{color:var(--gold2);font-size:1.8rem}
+/* invocador y ayuda */
+.skbar{display:flex;gap:.5rem;margin-left:.6rem}
+.skb{display:flex;align-items:center;gap:.5rem;background:#2a2016;border:.15rem solid var(--violet);border-radius:.6rem;padding:.2rem .8rem;font-size:1.2rem;line-height:1.1;text-align:left}
+.skb:hover:not(:disabled){background:#3a2b17;border-color:var(--gold2)} .skb:disabled{opacity:.5;cursor:default}
+.skb b{display:block;font-size:1.2rem} .skb small{font-size:1rem;color:var(--mute)} .skb .ic{font-size:1.9rem}
+.skpick{display:grid;grid-template-columns:repeat(auto-fill,minmax(25rem,1fr));gap:.7rem;margin:.6rem 0;max-width:110rem}
+.skp{border:.15rem solid var(--line);border-radius:.7rem;background:var(--panel);padding:.7rem .9rem;text-align:left;font-size:1.25rem;line-height:1.3}
+.skp b{display:block;font-size:1.45rem;color:var(--gold2)} .skp small{color:var(--mute)} .skp.on{border-color:var(--violet);background:#2d2140;box-shadow:0 0 0 .2rem #b58cf055}
+#coach{position:relative;background:#241a0ccc;border-bottom:.1rem solid var(--gold);padding:.35rem 1.4rem;font-size:1.35rem;color:var(--gold2);display:flex;align-items:center;gap:1rem;flex:none;min-height:3rem}
+#coach span{flex:1} #coach button{flex:none}
+#endBtn.nudge{animation:pulse 1s infinite;box-shadow:0 0 1.2rem var(--gold)}
+#tut{position:fixed;inset:0;background:#000d;display:none;place-items:center;z-index:98;padding:2rem}
+#tut.on{display:grid} #tut .box{max-width:78rem;background:var(--panel);border:.2rem solid var(--gold);border-radius:1rem;padding:2rem 2.4rem;text-align:left}
+#tut h2{margin:0 0 .8rem} #tut p{font-size:1.65rem;line-height:1.5;margin:.5rem 0} #tut .dots{display:flex;gap:.5rem;margin-top:1rem} #tut .dots i{width:1rem;height:1rem;border-radius:50%;background:#555} #tut .dots i.on{background:var(--gold)}
+.rankp{font-size:1.4rem;color:var(--violet)}
+/* cuestionario */
+#quiz,#quizR{background:radial-gradient(ellipse at 50% 20%,#2a1f14,#0e0b09 70%);text-align:center}
+.qbox{max-width:86rem;margin:0 auto;padding-top:3rem}
+.qbox .narr{font-size:1.5rem;color:var(--mute);font-style:italic;line-height:1.5;margin-bottom:1.4rem;min-height:4.4rem}
+.qbox h2{font-size:2.6rem;margin:.6rem 0 1.6rem;color:var(--gold2);line-height:1.25}
+.qans{display:grid;grid-template-columns:repeat(auto-fit,minmax(34rem,1fr));gap:.9rem}
+.qa{padding:1.1rem 1.3rem;border:.15rem solid var(--line);border-radius:.8rem;background:var(--panel);font-size:1.6rem;line-height:1.35;text-align:left}
+.qa:hover{border-color:var(--gold);background:#2f2416}
+.qa.picked{border-color:var(--gold2);background:#3a2b17}
+.qprog{height:.5rem;background:#ffffff15;border-radius:1rem;margin:0 auto 1.6rem;max-width:50rem}.qprog i{display:block;height:100%;background:var(--gold);border-radius:1rem;transition:width .4s}
+.qre{min-height:3.6rem;font-size:1.45rem;color:var(--gold2);font-style:italic;margin-top:1.2rem}
+.qheroes{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;margin:1.4rem 0}
+.qh{display:flex;flex-direction:column;align-items:center;gap:.6rem;max-width:27rem} .qh p{font-size:1.25rem;color:var(--mute);line-height:1.35}
+/* aventura */
+.chs{display:grid;grid-template-columns:repeat(auto-fill,minmax(20rem,1fr));gap:.8rem;margin:.6rem 0}
+.chc{position:relative;border:.15rem solid var(--line);border-radius:.7rem;overflow:hidden;min-height:8rem;background:var(--panel)}
+.chc .bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.4}
+.chc .in{position:relative;padding:.8rem 1rem} .chc b{font-size:1.6rem;display:block}
+.chc.cur{border-color:var(--gold);box-shadow:0 0 0 .2rem #e0b55655} .chc.lock{opacity:.45} .chc.done b::after{content:" ✔";color:#8fe08a}
+.nodes{display:flex;gap:.6rem;flex-wrap:wrap;margin:.8rem 0}
+.nd{min-width:15rem;flex:1;border:.15rem solid var(--line);border-radius:.6rem;padding:.6rem .8rem;background:var(--panel);font-size:1.3rem}
+.nd b{display:block;font-size:1.45rem}.nd small{color:var(--mute)}
+.nd.cur{border-color:var(--gold);background:#2f2416}.nd.done{opacity:.55}.nd.done b::after{content:" ✔";color:#8fe08a}
+.nd.boss{border-color:var(--red)}
+#rew{position:fixed;inset:0;background:#000d;display:none;place-items:center;z-index:95;overflow:auto;padding:2rem}
+#rew.on{display:grid}
+#rew .box{max-width:110rem;text-align:center}
+#rew .packs{min-height:0} #rew .card{cursor:pointer} #rew .card:hover{transform:translateY(-.6rem);box-shadow:0 0 0 .3rem var(--gold2)}
+/* partida */
+#game{padding:0;height:100vh;overflow:hidden;position:relative}
+#game.on{display:flex;flex-direction:column}
+.bgmap{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.28;pointer-events:none}
+.bar{position:relative;display:flex;align-items:center;gap:1.2rem;padding:.2rem 1.4rem;height:3.6rem;background:#1d1814ee;border-bottom:.1rem solid var(--line);font-size:1.4rem;flex:none}
+.bar.me{border-top:.1rem solid var(--line);border-bottom:0}
+.face{display:flex;align-items:center;gap:.6rem;padding:.1rem .9rem;border:.15rem solid var(--line);border-radius:2rem;background:var(--panel);min-width:10rem;justify-content:center}
+.face.tgt{border-color:var(--red);box-shadow:0 0 1.2rem var(--red);cursor:crosshair;animation:pulse 1s infinite}
+.face.tgtally{border-color:var(--green);box-shadow:0 0 1.2rem var(--green);cursor:crosshair;animation:pulse 1s infinite}
+.face .hp{color:var(--hp);font-weight:bold;font-size:1.8rem}
+.crys{display:flex;gap:.2rem;align-items:center}
+.crys i{width:1.1rem;height:1.7rem;background:#2a58c4;clip-path:polygon(50% 0,100% 35%,80% 100%,20% 100%,0 35%)}
+.crys i.off{background:#3a3a46;opacity:.45}
+.syn{display:flex;gap:.4rem;margin-left:auto;flex-wrap:wrap}
+.chip{font-size:1.1rem;padding:.1rem .6rem;border-radius:1rem;border:.1rem solid var(--line);background:#0006}
+.field{position:relative;flex:1;display:flex;flex-direction:column;min-height:0;justify-content:center}
+.brow{position:relative;display:flex;justify-content:center;align-items:center;gap:.9rem;padding:.35rem 1rem;height:12.4rem}
+.brow .tl{position:absolute;left:1rem;top:50%;transform:translateY(-50%);font-size:1.15rem;color:var(--mute);width:11rem;line-height:1.25}
+.brow .tl b{color:var(--gold2);display:block;font-size:1.25rem}
+.brow.t-burn{background:linear-gradient(90deg,#d9503a30,#0000 70%,#d9503a30)} .brow.t-heal{background:linear-gradient(90deg,#7fc06a30,#0000 70%,#7fc06a30)}
+.brow.t-cover{background:linear-gradient(90deg,#c9a14a30,#0000 70%,#c9a14a30)} .brow.t-amp{background:linear-gradient(90deg,#e8b84a38,#0000 70%,#e8b84a38)}
+.brow.t-slow{background:linear-gradient(90deg,#8a6a4a40,#0000 70%,#8a6a4a40)} .brow.t-dark{background:linear-gradient(90deg,#00000090,#0000 70%,#00000090)}
+.brow.t-frost{background:linear-gradient(90deg,#6fb4e830,#0000 70%,#6fb4e830)}
+.cell{position:relative;width:9rem;height:11.6rem;border:.15rem dashed #ffffff2a;border-radius:.8rem;display:grid;place-items:center;color:#ffffff30;font-size:3rem}
+.cell.dep{border:.2rem solid var(--green);color:var(--green);box-shadow:0 0 1.2rem var(--green);cursor:pointer;animation:pulse 1s infinite}
+.mid{position:relative;height:4.2rem;display:flex;align-items:center;gap:1.2rem;padding:0 1.4rem;background:#1d1814ee;border-top:.1rem solid var(--line);border-bottom:.1rem solid var(--line);font-size:1.35rem;flex:none}
+.mid .fieldc{flex:1;color:var(--gold2);font-size:1.25rem}
+.tile{position:absolute;inset:0;border-radius:.8rem;background:var(--panel);border:.2rem solid var(--line);overflow:hidden;cursor:pointer;transition:transform .15s}
+.tile .art{position:absolute;inset:0;background-size:cover;background-position:center top}
+.tile.bicho .art{background-size:contain;background-repeat:no-repeat;background-position:center 70%;background-color:#2a2420;inset:0 0 2.4rem 0}
+.tile .nm{position:absolute;left:0;right:0;bottom:0;height:2.4rem;background:#000b;color:#fff;font-size:1.05rem;display:grid;place-items:center;text-align:center;padding:0 .3rem;line-height:1}
+.tile .a,.tile .h{position:absolute;bottom:2rem;width:2.8rem;height:2.8rem;border-radius:50%;display:grid;place-items:center;font-weight:bold;font-size:1.6rem;color:#fff;border:.15rem solid #fff;text-shadow:0 .1rem .2rem #000}
+.tile .a{left:-.2rem;background:#b58a1c} .tile .h{right:-.2rem;background:#b03a30} .tile .h.dmg{background:#7a1d16}
+.tile .a.bonus,.tile .h.bonus{box-shadow:0 0 .8rem #8f8}
+.tile .kws{position:absolute;top:.3rem;left:.3rem;display:flex;flex-direction:column;gap:.2rem}
+.tile .kws span{background:#000b;border-radius:.5rem;font-size:1rem;padding:.05rem .4rem;color:var(--gold2)}
+.tile .charge{position:absolute;top:.3rem;right:.3rem;display:flex;gap:.2rem}
+.tile .charge i{width:.9rem;height:.9rem;border-radius:50%;background:#444;border:.08rem solid #fff8}.tile .charge i.on{background:var(--violet);box-shadow:0 0 .6rem var(--violet)}
+.tile .zz{position:absolute;top:.3rem;right:.3rem;font-size:1.4rem;background:#000b;border-radius:.5rem;padding:0 .3rem}
+.tile.guardian{border-color:var(--gold)} .tile.ascension{border-color:var(--violet)}
+.tile.taunt{box-shadow:0 0 0 .3rem #7a7a7a,0 0 .5rem #000}
+.tile.done .art{filter:grayscale(.7) brightness(.7)}
+.tile.ready{box-shadow:0 0 0 .22rem #5be05b,0 0 1.1rem #5be05b88}
+.tile.sel{transform:translateY(-.5rem) scale(1.06);box-shadow:0 0 0 .3rem var(--gold2),0 0 1.6rem var(--gold);z-index:5}
+.tile.tgt{box-shadow:0 0 0 .3rem var(--red),0 0 1.6rem var(--red);cursor:crosshair;animation:pulse 1s infinite}
+.tile.tgtally{box-shadow:0 0 0 .3rem var(--green),0 0 1.6rem var(--green);cursor:crosshair;animation:pulse 1s infinite}
+.tile.frozen::after{content:"❄";position:absolute;inset:0;display:grid;place-items:center;font-size:4rem;background:#7cc4ff55;color:#fff}
+.tile.hit{animation:shake .35s} .tile.in{animation:pop .3s}
+.tile.shield::before{content:"";position:absolute;inset:0;border:.3rem solid #bfe8ff;border-radius:.6rem;z-index:2;pointer-events:none;opacity:.85}
+@keyframes pulse{50%{filter:brightness(1.35)}}
+@keyframes shake{20%{transform:translateX(-.6rem)}60%{transform:translateX(.6rem)}}
+@keyframes pop{from{transform:scale(.3);opacity:0}}
+.float{position:fixed;font-weight:bold;font-size:2.6rem;text-shadow:0 .1rem .3rem #000;pointer-events:none;animation:up 1.1s forwards;z-index:60;white-space:nowrap}
+@keyframes up{to{transform:translateY(-4rem);opacity:0}}
+.handrow{position:relative;height:15.5rem;display:flex;justify-content:center;align-items:flex-end;padding:0 1rem;background:#1d1814ee;flex:none}
+.handrow .card,.handrow .card.guardian,.handrow .card.ascension{width:11.4rem;height:20rem;margin:0 -.3rem -5.2rem;transition:transform .15s,margin .15s;cursor:pointer;flex:none}
+.handrow .card:hover{transform:translateY(-8rem) scale(1.12);z-index:20}
+.handrow .card.no{filter:saturate(.35) brightness(.7)}
+.handrow .card.go{box-shadow:0 0 0 .22rem #5be05b88}
+.handrow .card.pend{transform:translateY(-6rem);box-shadow:0 0 0 .3rem var(--gold2)}
+.oppstrip{display:flex;gap:.3rem;margin-left:.6rem}
+.oppstrip i{width:1.6rem;height:2.4rem;border-radius:.3rem;background:repeating-linear-gradient(45deg,#4a3b2a,#4a3b2a .3rem,#3a2d1e .3rem,#3a2d1e .6rem);border:.1rem solid var(--gold)}
+#side{position:fixed;right:.8rem;top:7.6rem;width:31rem;display:flex;flex-direction:column;gap:.7rem;z-index:30;max-height:calc(100vh - 20rem);overflow:auto}
+#mp{background:#1d1814f2;border:.15rem solid var(--gold);border-radius:.8rem;padding:.8rem}
+#mp h4{font-size:1.6rem;color:var(--gold2);margin-bottom:.4rem} #mp .sub2{font-size:1.15rem;color:var(--mute);margin-bottom:.5rem}
+.mvb{display:block;width:100%;text-align:left;background:#2a2016;border:.12rem solid var(--line);border-radius:.5rem;padding:.4rem .6rem;margin-bottom:.4rem}
+.mvb:hover:not(:disabled){border-color:var(--gold2)} .mvb:disabled{opacity:.55;cursor:default}
+.mvb .t{display:flex;justify-content:space-between;font-size:1.4rem;font-weight:bold} .mvb .t em{font-style:normal;color:#7fb6ff;font-size:1.25rem}
+.mvb .d{display:block;font-size:1.08rem;color:var(--mute);line-height:1.25} .mvb .w{display:block;font-size:1.08rem;color:#ff9d8d}
+.mvb.ult{border-color:var(--violet)} .mvb.basic{border-color:#6d6d6d}
+#log{font-size:1.1rem;color:var(--mute);background:#000a;border:.1rem solid var(--line);border-radius:.5rem;padding:.4rem .6rem;line-height:1.35}
+#log div:last-child{color:var(--ink)}
+#preview{position:fixed;left:.8rem;top:7.6rem;z-index:50;pointer-events:none;display:none}
+#banner{position:fixed;left:50%;top:44%;transform:translate(-50%,-50%);font-size:5rem;color:var(--gold2);text-shadow:0 .3rem 1.4rem #000;pointer-events:none;z-index:70;animation:ban 1.4s forwards;white-space:nowrap}
+@keyframes ban{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}15%{opacity:1;transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{opacity:0}}
+#over{position:fixed;inset:0;background:#000c;display:none;place-items:center;z-index:100;text-align:center}
+#over.on{display:grid} #over h1{font-size:7rem}
+#toast{position:fixed;left:50%;top:5rem;transform:translateX(-50%);background:#000d;color:#fff;padding:.6rem 1.4rem;border-radius:2rem;font-size:1.5rem;z-index:80;display:none}
+@media (max-width:900px){#side{position:static;width:auto;max-height:none} #preview{display:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ===== INICIO ===== -->
+<section id="home" class="screen on">
+  <h1>LA HORDA · CÓNCLAVE</h1>
+  <p class="sub">Duelo de cartas por turnos 1 contra 1. Coleccioná <b>guardianes</b> y monstruos, armá tu mazo, elegí un <b>mapa</b> y peleá con posición y movimientos: cada guardián usa las habilidades reales que tiene en La Horda. Boceto v0.2.</p>
+  <div class="row"><span class="gold" id="goldH"></span><span class="mini" id="recH"></span><span class="rankp" id="rankH"></span></div>
+  <div class="hub">
+    <button class="hubb" id="hAdv"><b>🗺 Aventura</b><span>Recorré las arenas con un mazo chico. Capturá monstruos, reclutá guardianes y vencé a los jefes. Solo o con un amigo.</span></button>
+    <button class="hubb" id="hPlay"><b>⚔ Jugar</b><span>Elegí mazo y mapa. Contra el Bot o contra otra persona en línea.</span></button>
+    <button class="hubb" id="hDeck"><b>🂠 Constructor de mazos</b><span>30 cartas, hasta 5 guardianes. Curva de costos, filtros y mazos guardados.</span></button>
+    <button class="hubb" id="hColl"><b>✦ Colección y sobres</b><span>Abrí sobres con el oro que ganás. Mirá qué guardianes te faltan.</span></button>
+    <button class="hubb" id="hRules"><b>? Reglas</b><span>Filas, movimientos, terreno de cada mapa, linajes.</span></button>
+  </div>
+  <div class="row"><button class="btn sec sm" id="reQuiz">🔮 Rehacer el cuestionario del invocador</button><button class="btn sec sm" id="mute">Sonido: sí</button><button class="btn sec sm" id="reset">Borrar progreso</button></div>
+</section>
+
+<!-- ===== CUESTIONARIO DEL INVOCADOR ===== -->
+<section id="quiz" class="screen"><div class="qbox" id="quizBox"></div></section>
+<section id="quizR" class="screen"><div class="qbox" id="quizRBox"></div></section>
+
+<!-- ===== ELEGIR HORDA INICIAL ===== -->
+<section id="start" class="screen">
+  <h1>Tu primera Horda</h1>
+  <p class="sub">Empezás con las 30 cartas de un linaje (5 guardianes incluidos) y 400 de oro para abrir sobres. El resto de los guardianes hay que conseguirlos.</p>
+  <div class="lin-grid" id="linGrid"></div>
+  <button class="btn" id="startGo">Empezar con esta Horda</button>
+</section>
+
+<!-- ===== REGLAS ===== -->
+<section id="rules" class="screen">
+  <button class="btn sec" data-home>← Volver</button>
+  <h2>Reglas en 1 minuto</h2>
+  <div class="note"><b>Objetivo:</b> bajar la <b>vida del Invocador rival</b> (🔮) de 40 a 0: tus guardianes y monstruos son quienes le hacen daño. Cada victoria contra el Bot, en la Aventura o en cooperativo sube tu <b>rango</b>: +2 de vida máxima cada 2 victorias (hasta +12); en el 1v1 entre personas todos empiezan con 40. Mazo de 30 cartas (máx. 5 guardianes únicos). Mano inicial 3 (quien abre, sin robo en el turno 1) o 5 + <b>Chispa</b> (quien responde). <b>Cristales:</b> +1 por turno hasta 10.</div>
+  <div class="note"><b>Tablero 2 filas × 3 casillas por lado.</b> Fila de <b>frente</b> y fila de <b>fondo</b>. Jugás una unidad en la casilla libre que quieras. Mover una unidad (o intercambiarla con una aliada) cuesta 1 cristal, una vez por unidad y turno.</div>
+  <div class="note"><b>Cada unidad actúa una vez por turno y elige un movimiento</b>, como en Pokémon: <b>Ataque</b> (gratis), hasta 3 <b>habilidades</b> (cuestan cristales y tienen enfriamiento) y una <b>definitiva</b> única por partida que se carga con los turnos (3; los de Ascensión, 2). Los monstruos solo tienen Ataque.</div>
+  <div class="note"><b>Posición:</b> los movimientos <b>cuerpo a cuerpo</b> solo se usan desde la fila de frente y solo golpean la fila de frente rival (si hay un <b>Provocar</b> en ella, hay que pegarle a él). Los <b>a distancia</b> se usan desde cualquier fila y llegan a cualquiera (salvo terreno oscuro). Al <b>Invocador</b> solo se le pega si el frente rival está vacío. Los movimientos de área golpean toda la fila del objetivo; los de línea, al objetivo y a quien está detrás.</div>
+  <div class="note"><b>Invocador:</b> antes de jugar elegís <b>2 habilidades de invocador</b> entre 8 (Égida, Voz de Mando, Aliento, Paso Táctico, Llamado a la Horda, Mal de Ojo, Soplo Gélido, Segundo Aliento). Se usan desde tu barra inferior, cuestan cristales, tienen enfriamiento y no gastan la acción de ninguna unidad.</div>
+  <div class="note"><b>Guardianes</b> (oro/violeta): más puntos que cualquier monstruo (lo comprueba <code>tools/gate.js</code>), un Ingreso de su linaje, un <b>Ataque básico propio</b> (distinto en forma y alcance), una <b>Pasiva</b> propia y los 4 movimientos reales de su kit de La Horda. Su vida y su ataque salen de sus estadísticas reales (los tanques aguantan, los tiradores pegan). <b>Linajes:</b> 2 unidades del mismo linaje en mesa → +1 ATK a todas; 3 → +1 VID; 4 → +1 ATK más.</div>
+  <div class="note"><b>Mapas</b> (las arenas de La Horda): cada fila tiene un terreno. <b>Ciudad</b>: parapeto en el frente (−1 daño). <b>Minas</b>: el fondo es oscuro (inapuntable a distancia), el frente cobra +1 cristal por habilidad. <b>Infernal</b>: el frente arde, el fondo hace +1 de daño. <b>Bosque</b>: el fondo se cura 1. <b>Laberinto</b>: el frente es inapuntable a distancia. <b>Gélida</b>: enfriamientos +1 turno y −1 de daño desde el frente.</div>
+  <div class="note"><b>Aventura:</b> empezás con un mazo de 18 cartas y un guardián compañero. Cada arena tiene 6 nodos: dos <b>emboscadas</b> y una <b>retaguardia</b> (al ganar <b>capturás</b> un monstruo del enemigo), un <b>aliado</b> (elegís un guardián del linaje de la arena), un <b>cofre</b> (magia) y el <b>jefe</b> (ya en mesa; te da otro guardián y oro). Todo lo que ganás pasa también a tu colección. Podés ir <b>acompañado</b>: un amigo se une con un código y juegan como equipo (mismo tablero y mano) contra el enemigo.</div>
+  <div class="note"><b>Magia:</b> <b>Hechizos</b> (daño y control), <b>Bonus</b> (empoderan: Corazón de Ceniza, Égida, Sello de Mando… solo sobre guardianes) y <b>Maldiciones</b> (debilitan: Debilitar, Veneno, Cadenas, Marchitar…).</div>
+</section>
+
+<!-- ===== COLECCIÓN ===== -->
+<section id="coll" class="screen">
+  <button class="btn sec" data-home>← Volver</button>
+  <h2>Colección y sobres</h2>
+  <div class="row"><span class="gold" id="goldC"></span><button class="btn" id="openPack">Abrir sobre (100 de oro)</button><button class="btn sec sm" id="unlockAll">Modo prueba: desbloquear todo</button><span class="mini" id="progC"></span></div>
+  <div class="packs" id="packs"></div>
+  <div class="tabs" id="collTabs"></div><div class="tabs" id="collLin"></div>
+  <div class="grid" id="collGrid"></div>
+</section>
+
+<!-- ===== CONSTRUCTOR ===== -->
+<section id="builder" class="screen">
+  <button class="btn sec" data-home>← Volver</button>
+  <h2>Constructor de mazos</h2>
+  <div class="bld">
+    <div>
+      <div class="tabs" id="bTabs"></div>
+      <div class="tabs" id="bLin"></div>
+      <div class="row"><input id="bSearch" placeholder="Buscar carta…" size="16" aria-label="Buscar"><select id="bCost" aria-label="Costo"><option value="">Todos los costos</option></select>
+        <label class="mini"><input type="checkbox" id="bOwned" checked style="width:auto;margin-right:.4rem">Solo las que tengo</label></div>
+      <div class="pool" id="bPool"></div>
+    </div>
+    <div class="deckp" id="deckP"></div>
+  </div>
+</section>
+
+<!-- ===== PREPARAR PARTIDA ===== -->
+<section id="setup" class="screen">
+  <button class="btn sec" data-home>← Volver</button>
+  <h2>1 · Tu mazo</h2>
+  <div class="row"><select id="sDeck" aria-label="Mazo"></select><span id="sDeckInfo" class="mini"></span></div>
+  <h2>2 · Mapa</h2>
+  <div class="maps" id="sMaps"></div>
+  <h2>3 · Tus habilidades de invocador (elegí 2)</h2>
+  <p class="mini">Las usás durante la partida para apoyar a tus guardianes (cuestan cristales, no gastan la acción de ninguna unidad).</p>
+  <div class="skpick" id="skPick"></div>
+  <h2>4 · Rival</h2>
+  <div class="row">
+    <button class="btn" id="playBot">Jugar contra el Bot</button>
+    <span class="mini">Online 1v1 (servidor <code>server/duel-server.js</code>):</span>
+    <input id="srv" size="24" value="ws://localhost:8787" aria-label="Servidor"> <input id="nick" size="10" value="Invocador" aria-label="Apodo">
+    <button class="btn sec" id="playQ">Buscar rival</button><button class="btn sec" id="playC">Crear sala</button>
+    <input id="roomc" size="7" placeholder="código" aria-label="Código de sala"><button class="btn sec" id="playJ">Unirme</button>
+  </div>
+  <p class="mini" id="netmsg" style="margin-top:.8rem"></p>
+</section>
+
+<!-- ===== AVENTURA ===== -->
+<section id="adv" class="screen">
+  <button class="btn sec" data-home>← Volver</button>
+  <h2>Aventura de las Arenas</h2>
+  <div id="advBody"></div>
+</section>
+
+<!-- ===== PARTIDA ===== -->
+<section id="game" class="screen">
+  <div class="bgmap" id="bgmap"></div>
+  <div class="bar" id="oppBar"></div>
+  <div id="coach"><span id="coachT"></span><button class="btn sec sm" id="tutBtn">? Cómo se juega</button></div>
+  <div class="field" id="fieldBox">
+    <div class="brow" id="rOB"></div><div class="brow" id="rOF"></div>
+    <div class="mid" id="mid"></div>
+    <div class="brow" id="rMF"></div><div class="brow" id="rMB"></div>
+  </div>
+  <div class="bar me" id="meBar"></div>
+  <div class="handrow" id="hand"></div>
+  <div id="side"><div id="mp"></div><div id="log"></div></div>
+  <div id="preview"></div><div id="toast"></div>
+</section>
+<div id="rew"><div class="box"><h1 id="rewT" style="font-size:3.4rem"></h1><p class="sub" id="rewS" style="margin:.6rem auto"></p><div class="packs" id="rewC"></div><button class="btn sec" id="rewSkip">Seguir sin llevarme nada</button></div></div>
+<div id="tut"><div class="box"><h2 id="tutT"></h2><div id="tutB"></div><div class="dots" id="tutD"></div><div class="row" style="margin-top:1.2rem"><button class="btn sec" id="tutPrev">Atrás</button><button class="btn" id="tutNext">Siguiente</button></div></div></div>
+<div id="over"><div><h1 id="overT"></h1><p class="sub" id="overS" style="margin:1rem auto"></p><button class="btn" id="overB">Volver</button></div></div>
+
+<script src="movesets.js"></script>
+<script src="passives.js"></script>
+<script src="data.js"></script>
+<script src="engine.js"></script>
+<script src="ai.js"></script>
+<script>
+"use strict";
+var D = HORDA_DATA, CARDS = D.CARDS, MAPS = D.MAPS, E = createHordaEngine(CARDS, MAPS, D.SUMMONER), AI = createHordaAI(E), LIN = D.LINAJES;
+var $ = function (id) { return document.getElementById(id); };
+var EMOJI = { chispa:"✦", rayo:"⚡", llamarada:"🔥", escarcha:"❄", tormenta:"🌩", corazon:"❤‍🔥", egida:"🛡", sello:"⚜", bendicion:"✨", furia:"💢", banquete:"🍄", piedra:"💎", debilitar:"🕸", podredumbre:"☠", veneno:"🧪", silencio:"🤫", cadenas:"⛓", marchitar:"🥀" };
+var TICON = { burn: "🔥", heal: "🌿", cover: "🛡", amp: "⚒", slow: "⏳", dark: "🌑", frost: "❄" };
+var ROLE_N = { tanque: "Tanque", asesino: "Asesino", mago: "Mago", soporte: "Soporte" };
+var KW = D.KW_NAME;
+var muted = false, ctx = null, S = null, V = null, LEGAL = [], sel = null, pend = null, lock = false, lastEv = [], ws = null, deadline = 0, logLines = [];
+var mem = {};   // respaldo si localStorage no está disponible
+
+function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+function show(id) { document.querySelectorAll(".screen").forEach(function (s) { s.classList.toggle("on", s.id === id); }); window.scrollTo(0, 0); if (id === "home") buildHome(); }
+function toast(t) { var e = $("toast"); e.textContent = t; e.style.display = "block"; clearTimeout(toast.t); toast.t = setTimeout(function () { e.style.display = "none"; }, 1800); }
+var SFX = {}; ["hitFlesh_0","hitHeavy_0","arcane_0","fire_0","glass_0","blade_0","creatureDie_0","swing_0"].forEach(function (n) { try { SFX[n] = new Audio("assets/sfx/" + n + ".mp3"); SFX[n].volume = .5; } catch (e) {} });
+function sfx(n) { if (muted || !SFX[n]) return; try { var a = SFX[n].cloneNode(); a.volume = .5; a.play().catch(function () {}); } catch (e) {} }
+
+/* ---------- guardado (oro, colección, mazos) ---------- */
+var KEY = "horda-conclave-v2", SAVE = null;
+function loadSave() {
+  var raw = null; try { raw = localStorage.getItem(KEY); } catch (e) { raw = mem[KEY] || null; }
+  try { SAVE = raw ? JSON.parse(raw) : null; } catch (e) { SAVE = null; }
+}
+function persist() { var s = JSON.stringify(SAVE); try { localStorage.setItem(KEY, s); } catch (e) { mem[KEY] = s; } }
+function newSave(lin) {
+  var owned = {}; D.DECKS[lin].forEach(function (id) { owned[id] = (owned[id] || 0) + 1; });
+  SAVE = { gold: 400, owned: owned, decks: [{ name: "Horda " + LIN[lin].name, cards: D.DECKS[lin].slice() }], sel: 0, wins: 0, losses: 0, pity: 0, map: "ciudad" };
+  persist();
+}
+function maxCopies(id) { var c = CARDS[id]; return c.kind === "guardian" ? 1 : c.kind === "bicho" ? (c.cost <= 3 ? 3 : 2) : 2; }
+function deckErrors(cards, checkOwned) {
+  var err = D.validateDeck(cards);
+  if (checkOwned) { var cnt = {}; cards.forEach(function (id) { cnt[id] = (cnt[id] || 0) + 1; }); Object.keys(cnt).forEach(function (id) { if ((SAVE.owned[id] || 0) < cnt[id]) err.push("no tenés " + CARDS[id].name + " ×" + cnt[id]); }); }
+  return err;
+}
+
+/* ---------- tarjetas ---------- */
+function kwText(c) { return Object.keys(c.kw || {}).map(function (k) { return "<i>" + KW[k] + "</i>"; }).join(" · "); }
+function cardText(c, full) {
+  if (c.type === "unit") {
+    var t = [];
+    if (Object.keys(c.kw).length) t.push(kwText(c));
+    if (c.ingreso) t.push("<i>Ingreso:</i> " + D.describe(c.ingreso));
+    if (c.ultimo) t.push("<i>Al morir:</i> " + D.describe(c.ultimo));
+    if (c.passive) t.push("<i>Pasiva " + esc(c.passive.name) + ":</i> " + (full ? esc(D.describePassive(c.passive)) : "ver detalle"));
+    if (c.moves.length > 1 || (c.kind === "guardian")) {
+      if (full) c.moves.slice(1).forEach(function (m) { t.push('<span class="mv"><i>' + (m.ult ? "★ " : "") + esc(m.name) + "</i> (" + (m.ult ? "def." : m.cost + "✦") + "): " + esc(D.describeMove(m)) + "</span>"); });
+      else t.push("<i>Mov.:</i> " + c.moves.slice(1).map(function (m) { return (m.ult ? "★" : "") + esc(m.name); }).join(" · "));
+    }
+    t.push('<span class="mini">' + (full && c.kind === "guardian" ? "<i>Ataque «" + esc(c.moves[0].name) + "»:</i> " + esc(D.describeMove(c.moves[0])) : (c.reach === "melee" ? "Ataque cuerpo a cuerpo" : "Ataque a distancia")) + "</span>");
+    return t.join("<br>");
+  }
+  return esc(c.text || "");
+}
+function cardEl(id, extra, full) {
+  var c = CARDS[id], p = D.points(c), cls = "card " + (c.kind === "bicho" ? "bicho " : "") + c.rarity + (extra ? " " + extra : "");
+  var art = c.type === "unit" ? '<div class="art" style="background-image:url(' + c.art + ')"></div>'
+    : '<div class="art" style="background:radial-gradient(circle at 50% 40%,' + ({ hechizo: "#2c5b8a", bonus: "#2f6b3a", maldicion: "#5a2f7e" })[c.cat] + ',#14110f)"><div class="ico">' + (EMOJI[id] || "✦") + "</div></div>";
+  var st = c.type === "unit" ? '<div class="st"><span class="a">⚔' + c.atk + '</span><span class="h">♥' + c.hp + "</span></div>" : '<div class="st"></div>';
+  var role = c.kind === "guardian" ? '<span class="role">' + ROLE_N[c.role] + "</span>" : "";
+  var dot = c.origin ? '<span class="dot" style="background:' + LIN[c.origin].color + '" title="' + LIN[c.origin].name + '"></span>' : "";
+  return '<div class="' + cls + '" data-id="' + id + '">' + art + '<span class="cost">' + c.cost + '</span><span class="tier">' + c.tier + "</span>" + role + dot +
+    '<div class="nm">' + esc(c.name) + '</div><div class="ttl">' + esc(c.title || "") + '</div><div class="tx">' + cardText(c, full) + '</div><div class="ft">' + st + '<span class="pts">' + (p ? p + " pts" : "") + "</span></div></div>";
+}
+function allCardIds() { return Object.keys(CARDS).filter(function (id) { return !CARDS[id].coin && !CARDS[id].token; }); }
+function typeKey(c) { return c.kind === "guardian" ? "guardian" : c.kind === "bicho" ? "bicho" : c.cat; }
+
+/* ---------- inicio ---------- */
+function buildHome() {
+  if (!SAVE) return;
+  $("goldH").textContent = "Oro: " + SAVE.gold; $("rankH").textContent = "Rango de invocador " + (1 + Math.floor(SAVE.wins / 2)) + " · vida " + (40 + rankBonus()) + (rankBonus() >= 12 ? " (máx.)" : "");
+  var own = Object.keys(SAVE.owned).filter(function (k) { return SAVE.owned[k] > 0; }).length;
+  $("recH").textContent = "Cartas distintas: " + own + "/" + allCardIds().length + " · Victorias " + SAVE.wins + " · Derrotas " + SAVE.losses;
+}
+function go(id) { if (!SAVE && id !== "rules") { quizStart("new"); return; } show(id); if (id === "coll") buildColl(); if (id === "builder") buildBuilder(); if (id === "setup") buildSetup(); if (id === "adv") buildAdv(); }
+$("hAdv").onclick = function () { go("adv"); }; $("hPlay").onclick = function () { go("setup"); }; $("hDeck").onclick = function () { go("builder"); }; $("hColl").onclick = function () { go("coll"); }; $("hRules").onclick = function () { show("rules"); };
+document.addEventListener("click", function (e) { if (e.target.hasAttribute && e.target.hasAttribute("data-home")) show("home"); });
+$("mute").onclick = function () { muted = !muted; this.textContent = "Sonido: " + (muted ? "no" : "sí"); };
+$("reset").onclick = function () { if (this.dataset.sure) { try { localStorage.removeItem(KEY); } catch (e) {} delete mem[KEY]; SAVE = null; this.dataset.sure = ""; this.textContent = "Borrar progreso"; quizStart("new"); } else { this.dataset.sure = "1"; this.textContent = "¿Seguro? Tocá de nuevo"; } };
+
+/* ---------- CUESTIONARIO DEL INVOCADOR (rompe la cuarta pared) ---------- */
+var QUIZ = [
+  { q: "Antes de abrir esta ventana, ¿qué estabas haciendo?", a: [
+    { t: "Ordenando algo por colores, categorías o carpetas", r: { mago: 2 }, l: { laberinto: 2 }, re: "Lo sabía. Tu escritorio tiene subcarpetas dentro de subcarpetas." },
+    { t: "Mirando el celular sin mirarlo realmente", r: { asesino: 1 }, l: { ciudad: 2 }, re: "Sí, yo también te vi. No voy a decir nada." },
+    { t: "Cocinando o preparando algo para otra persona", r: { soporte: 2 }, l: { bosque: 2 }, re: "Anotado: alguien come bien gracias a vos." },
+    { t: "Mirando el techo, pensando en nada", r: { tanque: 1 }, l: { marea: 2 }, re: "El techo no tiene nada nuevo. Ya lo revisé." }] },
+  { q: "Un amigo te escribe a las 3 de la mañana: “tengo un problema”. ¿Qué hacés?", a: [
+    { t: "Le contesto en diez segundos", r: { soporte: 2 }, l: { ciudad: 1 }, re: "Con el teléfono en la mano, claro. Dormís con él." },
+    { t: "Me tomo un taxi y voy a su casa", r: { tanque: 2 }, l: { forja: 1 }, re: "Ni preguntaste cuál era el problema." },
+    { t: "Le mando un plan de cinco pasos con viñetas", r: { mago: 2 }, l: { laberinto: 1 }, re: "Con una sexta viñeta opcional." },
+    { t: "Lo dejo en visto y lo resuelvo mañana", r: { asesino: 2 }, l: { infernal: 1 }, re: "Mañana a las 9, con café. Muy tuyo." }] },
+  { q: "Te cierran el paso en un pasillo angosto. ¿Qué hacés?", a: [
+    { t: "Me planto y no me muevo", r: { tanque: 3 }, l: { forja: 1 }, re: "El pasillo ya se cansó de vos." },
+    { t: "Doy media vuelta y busco otro camino más rápido", r: { asesino: 2 }, l: { laberinto: 1 }, re: "Y llegás antes. Qué fastidio." },
+    { t: "Espero a que se acostumbren a mi presencia", r: { soporte: 1 }, l: { marea: 2 }, re: "Funciona más seguido de lo que parece." },
+    { t: "Digo algo incómodo para romper el hielo", r: { asesino: 1 }, l: { infernal: 2, ciudad: 1 }, re: "El hielo se rompió. El clima, no." }] },
+  { q: "Tenés que pasar una semana en un solo lugar. ¿Cuál elegís?", a: [
+    { t: "Una ciudad que nunca duerme", r: {}, l: { ciudad: 3 }, re: "Ruido blanco con luces. Te entiendo." },
+    { t: "Un bosque con ruinas viejas", r: { soporte: 1 }, l: { bosque: 3 }, re: "Con un mapa, espero." },
+    { t: "Una mina con linternas", r: { tanque: 1 }, l: { forja: 3 }, re: "Bajo tierra todo suena a eco. Te va a gustar." },
+    { t: "Un laberinto de espejos", r: { mago: 1 }, l: { laberinto: 3 }, re: "Ya hay uno de vos adentro, esperándote." },
+    { t: "Un lago congelado", r: {}, l: { marea: 3 }, re: "Patines opcionales." },
+    { t: "Un volcán, pero con wifi", r: { asesino: 1 }, l: { infernal: 3 }, re: "Contraseña: 12345. No me juzgues." }] },
+  { q: "En un juego de cartas, ¿cómo jugás?", a: [
+    { t: "Armo un combo y espero el momento perfecto", r: { mago: 3 }, l: {}, re: "Con cara de póker. La cara de póker es mentira." },
+    { t: "Ataco desde el primer turno", r: { asesino: 3 }, l: {}, re: "Y llorás recién en el turno cinco." },
+    { t: "Aguanto y gano por desgaste", r: { tanque: 3 }, l: {}, re: "Hasta que el rival se aburre. Es una táctica válida." },
+    { t: "Cuido a mis cartas para que sobrevivan", r: { soporte: 3 }, l: {}, re: "Les ponés nombre. No lo niegues." }] },
+  { q: "Perdés una partida por un error tuyo. ¿Qué hacés?", a: [
+    { t: "Reviso la jugada para entender qué pasó", r: { mago: 2 }, l: { laberinto: 1 }, re: "Y lo anotás en un cuaderno que nadie va a leer." },
+    { t: "Pido revancha en el acto", r: { asesino: 2 }, l: { infernal: 1 }, re: "La segunda es la buena. Siempre es la segunda." },
+    { t: "Me río, tomo agua y sigo", r: { soporte: 1 }, l: { ciudad: 1, marea: 1 }, re: "Hablando de agua…" },
+    { t: "Agradezco la lección y pongo la pava", r: { soporte: 2 }, l: { bosque: 1 }, re: "Té de manzanilla. Previsible y correcto." }] },
+  { q: "Última pregunta, invocador. Y no es de juego: ¿hace cuánto que no tomás agua?", a: [
+    { t: "Hace un rato, tranquilo", r: { tanque: 1 }, l: { forja: 1 }, re: "Mentira. Pero me caés bien." },
+    { t: "Ahora que lo preguntás… voy a buscar un vaso", r: { soporte: 1 }, l: { bosque: 1 }, re: "Te espero. Vuelve." },
+    { t: "No tomo agua, tomo café", r: { asesino: 1 }, l: { ciudad: 1 }, re: "Eso explica los turnos de las 3 de la mañana." },
+    { t: "Más de lo que debería, la verdad", r: { mago: 1 }, l: { marea: 1, infernal: 1 }, re: "Gracias por la honestidad. Es lo más importante del cuestionario." }] }
+];
+var ROLE_TITLE = {
+  tanque: ["Invocador Muralla", "No te movés y eso, en esta Horda, es una virtud. Tus guardianes van a pelear al frente… porque vos los mandás ahí y no te corrés."],
+  asesino: ["Invocador de Filo", "Llegás, golpeás y te vas antes de que alguien pregunte. Tus guardianes también."],
+  mago: ["Invocador Estratega", "Preparás todo con tres turnos de anticipación y rara vez lo contás. Tus guardianes saben los planes y los respetan."],
+  soporte: ["Invocador de Cobijo", "Alguien tiene que cuidar al grupo y siempre terminás siendo vos. Tus guardianes lo saben y te lo van a devolver."]
+};
+var quiz = null;
+function quizStart(mode) {
+  quiz = { mode: mode, i: -1, role: { tanque: 0, asesino: 0, mago: 0, soporte: 0 }, lin: { ciudad: 0, forja: 0, bosque: 0, laberinto: 0, marea: 0, infernal: 0 }, name: (SAVE && SAVE.name) || "" };
+  show("quiz"); renderQuiz();
+}
+function renderQuiz() {
+  var q = quiz, box = $("quizBox");
+  if (q.i < 0) {
+    box.innerHTML = '<p class="narr">Todavía no apareció ningún guardián. Hay una sala oscura, un tablero vacío… y alguien del otro lado de la pantalla. Vos.</p><h1>La Horda te estaba esperando</h1><p class="narr" style="margin-top:1.4rem">No sos un personaje: sos el <b>invocador</b>. Los guardianes no obedecen a cualquiera, así que primero necesito conocerte. Siete preguntas. Contestá sin pensar demasiado: ellos ya te están mirando.</p>' +
+      '<div class="row" style="justify-content:center;margin-top:1.4rem"><input id="qName" maxlength="14" placeholder="¿Cómo te llamamos, invocador?" size="26" value="' + esc(q.name) + '" aria-label="Tu nombre"><button class="btn" id="qGo">Empezar</button></div>' +
+      (q.mode === "new" ? '<p class="mini" style="margin-top:1.4rem"><a href="#" id="qSkip" style="color:var(--mute)">Prefiero elegir mi Horda a mano</a></p>' : '<p class="mini" style="margin-top:1.4rem"><a href="#" id="qCancel" style="color:var(--mute)">Volver</a></p>');
+    return;
+  }
+  var Q = QUIZ[q.i];
+  box.innerHTML = '<div class="qprog"><i style="width:' + Math.round(100 * q.i / QUIZ.length) + '%"></i></div><p class="narr">Pregunta ' + (q.i + 1) + " de " + QUIZ.length + (q.name ? " · " + esc(q.name) : "") + '</p><h2>' + esc(Q.q) + '</h2><div class="qans">' + Q.a.map(function (a, k) { return '<button class="qa" data-qa="' + k + '">' + esc(a.t) + "</button>"; }).join("") + '</div><div class="qre" id="qre"></div>';
+}
+$("quizBox").addEventListener("click", function (e) {
+  var T = e.target;
+  if (T.id === "qSkip") { e.preventDefault(); quiz = null; buildStart(); show("start"); return; }
+  if (T.id === "qCancel") { e.preventDefault(); show("home"); return; }
+  if (T.id === "qGo") { quiz.name = ($("qName").value || "").trim() || "Invocador"; quiz.i = 0; renderQuiz(); return; }
+  var b = T.closest("[data-qa]"); if (!b || quiz.busy) return;
+  var a = QUIZ[quiz.i].a[parseInt(b.dataset.qa, 10)]; quiz.busy = 1; b.classList.add("picked");
+  Object.keys(a.r).forEach(function (k) { quiz.role[k] += a.r[k]; }); Object.keys(a.l).forEach(function (k) { quiz.lin[k] += a.l[k]; });
+  $("qre").textContent = a.re;
+  setTimeout(function () { quiz.busy = 0; quiz.i++; if (quiz.i >= QUIZ.length) quizResult(); else renderQuiz(); }, 1500);
+});
+function pickHeroes(role, lin) {
+  var c = allCardIds().filter(function (id) { return CARDS[id].kind === "guardian" && CARDS[id].rarity === "guardian" && CARDS[id].cost <= 5; });
+  var sc = {}; c.forEach(function (id) { var g = CARDS[id]; sc[id] = role[g.role] * 2 + (lin[g.origin] || 0) * 1.5 + (6 - g.cost) * 0.1; });
+  c.sort(function (a, b) { return sc[b] - sc[a] || a.localeCompare(b); });
+  var out = [], roles = {};
+  c.forEach(function (id) { if (out.length < 3 && (roles[CARDS[id].role] || 0) < 2) { out.push(id); roles[CARDS[id].role] = (roles[CARDS[id].role] || 0) + 1; } });
+  return out;
+}
+function topKey(o) { return Object.keys(o).sort(function (a, b) { return o[b] - o[a]; })[0]; }
+function starterDeck(lin, heroes) {
+  var base = D.DECKS[lin].filter(function (id) { return CARDS[id].kind !== "guardian"; }), deck = base.concat(heroes);
+  var uniq = Array.from(new Set(base)).sort(function (a, b) { return CARDS[a].cost - CARDS[b].cost; });
+  for (var pass = 0; deck.length < 30 && pass < 20; pass++) uniq.forEach(function (id) { if (deck.length < 30 && deck.filter(function (x) { return x === id; }).length < maxCopies(id)) deck.push(id); });
+  return deck;
+}
+function quizResult() {
+  var q = quiz, role = topKey(q.role), lin = topKey(q.lin), heroes = pickHeroes(q.role, q.lin); q.res = { role: role, lin: lin, heroes: heroes };
+  var tt = ROLE_TITLE[role];
+  var why = function (id) { var g = CARDS[id]; return ROLE_N[g.role] + " · " + LIN[g.origin].name + (q.lin[g.origin] >= q.lin[lin] ? " (tu lugar favorito)" : ""); };
+  $("quizRBox").innerHTML = '<p class="narr">Listo, ' + esc(q.name) + '. Ya te leí. (No guardo nada que no esté en tu navegador, tranquilo.)</p><h1>' + tt[0] + '</h1><p class="narr" style="margin-top:1rem">' + tt[1] + '</p><p class="narr">Tu lugar es <b>' + LIN[lin].name + '</b>. Estos guardianes levantaron la mano:</p>' +
+    '<div class="row" style="justify-content:center"><button class="btn" id="qFin">' + (q.mode === "new" ? "Empezar con ellos" : "Sumar estos guardianes") + '</button></div>' +
+    '<div class="qheroes">' + heroes.map(function (id) { return '<div class="qh">' + cardEl(id, "big", true) + "<p>" + why(id) + "</p></div>"; }).join("") + '</div>';
+  show("quizR");
+}
+$("quizRBox").addEventListener("click", function (e) {
+  if (e.target.id !== "qFin") return;
+  var r = quiz.res;
+  if (quiz.mode === "new") {
+    var deck = starterDeck(r.lin, r.heroes), owned = {}; deck.forEach(function (id) { owned[id] = (owned[id] || 0) + 1; });
+    SAVE = { gold: 400, owned: owned, decks: [{ name: "Horda del " + quiz.name, cards: deck }], sel: 0, wins: 0, losses: 0, pity: 0, map: "ciudad", adv: null, name: quiz.name, heroes: r.heroes, profile: r.role, lin: r.lin };
+  } else {
+    r.heroes.forEach(function (id) { SAVE.owned[id] = 1; }); SAVE.heroes = r.heroes; SAVE.profile = r.role; SAVE.lin = r.lin; SAVE.name = quiz.name;
+  }
+  persist(); quiz = null; show("home"); toast("Bienvenido, " + SAVE.name);
+});
+$("reQuiz").onclick = function () { quizStart("redo"); };
+
+/* ---------- INVOCADOR: habilidades y rango ---------- */
+function myLoadout() { if (!SAVE.sk || !D.validLoadout(SAVE.sk)) SAVE.sk = ["voz", "egida"]; return SAVE.sk; }
+function rankBonus() { return D.summonerBonus(SAVE.wins); }
+function skPickerHTML() {
+  var L = myLoadout();
+  return D.SUMMONER_IDS.map(function (id) { var s = D.SUMMONER[id]; return '<button class="skp' + (L.indexOf(id) >= 0 ? " on" : "") + '" data-skp="' + id + '"><b>' + s.icon + " " + esc(s.name) + "</b>" + esc(s.about) + "<br><small>" + s.cost + "✦ · enfriamiento " + s.cd + (L.indexOf(id) >= 0 ? " · ELEGIDA" : "") + "</small></button>"; }).join("");
+}
+function refreshPickers() { if ($("skPick")) $("skPick").innerHTML = skPickerHTML(); if ($("skPickA")) $("skPickA").innerHTML = skPickerHTML(); }
+document.addEventListener("click", function (e) {
+  var b = e.target.closest("[data-skp]"); if (!b || !SAVE) return;
+  var L = myLoadout().slice(), id = b.dataset.skp, i = L.indexOf(id);
+  if (i >= 0) return toast("Tenés que llevar 2: elegí otra para reemplazarla");
+  L.shift(); L.push(id); SAVE.sk = L; persist(); refreshPickers();
+});
+function randLoadout() { var ids = D.SUMMONER_IDS.slice(), a = pick(ids); ids.splice(ids.indexOf(a), 1); return [a, pick(ids)]; }
+function skButtons(P, mine, myTurn) {
+  return '<div class="skbar">' + P.sk.map(function (id, i) {
+    var s = D.SUMMONER[id], why = mine ? (myTurn ? E.sumWhyNot(V, V.you, i) : "no es tu turno") : null;
+    return '<button class="skb" ' + (mine ? 'data-sk="' + i + '"' : "disabled") + (mine && !why ? "" : " disabled") + ' title="' + esc(s.about + (why && mine ? " — ✖ " + why : "")) + '"><span class="ic">' + s.icon + "</span><span><b>" + esc(s.name) + "</b><small>" + s.cost + "✦" + (P.skcd[i] > 0 ? " · cd " + P.skcd[i] : "") + (why && mine ? " · " + esc(why) : "") + "</small></span></button>";
+  }).join("") + "</div>";
+}
+
+/* ---------- AYUDA CONTEXTUAL Y TUTORIAL ---------- */
+function actionable() {
+  var plays = {}, units = {}, sums = 0;
+  LEGAL.forEach(function (x) { if (x.t === "play") plays[x.uid] = 1; else if (x.t === "use") units[x.uid] = 1; else if (x.t === "sum") sums++; });
+  return { plays: Object.keys(plays).length, units: Object.keys(units).length, sums: sums };
+}
+function coachText() {
+  if (!V || !ctx) return "";
+  if (V.over) return "La partida terminó.";
+  var me = ctx.me, myTurn = V.active === me && !lock;
+  if (!myTurn) return "Turno del rival. Mirá qué juega; pasá el mouse sobre sus unidades para ver sus movimientos.";
+  if (pend && pend.mode === "cell") return "Elegí una casilla marcada en verde. Frente (arriba): pelea cuerpo a cuerpo y protege. Fondo (abajo): ideal para tiradores y apoyos. Esc cancela.";
+  if (pend) return "Elegí un objetivo: borde rojo = enemigo, borde verde = aliado (o la 🔮 del Invocador). Esc cancela.";
+  if (sel) { var r = E.find(V, sel); if (r && r.p === me) return "Elegiste a " + r.u.name + ": tocá uno de sus movimientos en el panel de la derecha. «Ataque» es gratis; las habilidades cuestan cristales ✦."; }
+  var a = actionable();
+  if (!a.plays && !a.units && !a.sums) return "No te queda nada útil por hacer: tocá «Terminar turno».";
+  var parts = [];
+  if (a.plays) parts.push(a.plays + " carta" + (a.plays > 1 ? "s" : "") + " de tu mano con borde verde (tocá una y elegí dónde)");
+  if (a.units) parts.push(a.units + " unidad" + (a.units > 1 ? "es" : "") + " lista" + (a.units > 1 ? "s" : "") + " en el tablero (tocá una para ver qué puede hacer)");
+  if (a.sums) parts.push("tus habilidades de invocador de abajo");
+  return "Tu turno. Podés usar: " + parts.join(" · ") + ". Cuando termines, «Terminar turno».";
+}
+function updateCoach() {
+  $("coachT").textContent = coachText();
+  var eb = $("endBtn"); if (!eb || !V || !ctx) return;
+  var a = actionable(), idle = V.active === ctx.me && !lock && !pend && !sel && !a.plays && !a.units && !a.sums;
+  eb.classList.toggle("nudge", idle);
+}
+var TUT = [
+  ["Tu objetivo", "<p>Cada jugador es un <b>Invocador 🔮</b> con puntos de vida (40, más tu rango). <b>Ganás bajando la vida del Invocador rival a 0.</b></p><p>Quienes le hacen daño son tus <b>guardianes y monstruos</b>: no pelean solos, vos los desplegás y les decís qué hacer.</p>"],
+  ["El tablero", "<p>Cada lado tiene <b>2 filas de 3 casillas</b>: <b>frente</b> (la que mira al rival) y <b>fondo</b>.</p><p>Los ataques <b>cuerpo a cuerpo</b> salen del frente y golpean el frente rival (si hay un <b>Provocar</b>, hay que pegarle a él). Los <b>a distancia</b> salen de cualquier fila. A la 🔮 del rival solo le llegás si su <b>frente está vacío</b>.</p>"],
+  ["Cada unidad, un movimiento", "<p>En tu turno, <b>cada unidad actúa una vez</b> y elige un movimiento, como en Pokémon: <b>Ataque</b> (gratis, distinto en cada guardián), hasta 3 <b>habilidades</b> (cuestan cristales ✦) y una <b>definitiva</b> que se carga con los turnos.</p><p>Tocá una unidad tuya con <b>borde verde</b> y mirá el panel de la derecha. Cambiar de lugar cuesta 1 ✦.</p>"],
+  ["Cristales y cartas", "<p>Tenés <b>1 cristal más por turno</b> (hasta 10) para <b>jugar cartas</b> y usar habilidades. Las cartas con <b>borde verde</b> en tu mano se pueden jugar ahora.</p><p>Monstruos y guardianes ocupan una casilla; los <b>hechizos, bonus y maldiciones</b> se usan una vez y se van.</p>"],
+  ["Tu invocador y el mapa", "<p>Abajo tenés tus <b>2 habilidades de invocador</b> (Égida, Voz de Mando…): apoyan a tus guardianes sin gastar la acción de ninguna unidad.</p><p>Cada <b>mapa</b> da un terreno distinto a cada fila (se ve en el costado de cada fila). La barra dorada de arriba te va diciendo qué podés hacer. Cuando no quede nada, tocá <b>Terminar turno</b>.</p>"]
+];
+var tutI = 0;
+function showTut() { tutI = 0; renderTut(); $("tut").classList.add("on"); }
+function renderTut() {
+  $("tutT").textContent = (tutI + 1) + "/" + TUT.length + " · " + TUT[tutI][0]; $("tutB").innerHTML = TUT[tutI][1];
+  $("tutD").innerHTML = TUT.map(function (_, i) { return '<i class="' + (i === tutI ? "on" : "") + '"></i>'; }).join("");
+  $("tutPrev").disabled = tutI === 0; $("tutNext").textContent = tutI === TUT.length - 1 ? "Entendido" : "Siguiente";
+}
+$("tutNext").onclick = function () { if (tutI < TUT.length - 1) { tutI++; renderTut(); } else { $("tut").classList.remove("on"); if (SAVE && !SAVE.seenTut) { SAVE.seenTut = true; persist(); } } };
+$("tutPrev").onclick = function () { if (tutI > 0) { tutI--; renderTut(); } };
+$("tutBtn").onclick = showTut;
+function maybeTut() { if (SAVE && !SAVE.seenTut && ctx && ctx.mode !== "online") setTimeout(showTut, 600); }
+
+var startLin = "ciudad";
+function buildStart() {
+  var h = "";
+  Object.keys(LIN).forEach(function (k) {
+    var gs = D.DECKS[k].filter(function (id) { return CARDS[id].kind === "guardian"; });
+    h += '<div class="lin' + (k === startLin ? " sel" : "") + '" data-lin="' + k + '"><div class="bg" style="background-image:url(assets/a/' + LIN[k].arena + '.webp)"></div><div class="in"><b style="color:' + LIN[k].color + '">' + LIN[k].name + "</b><small>" +
+      ({ ciudad: "Aluvión de monstruos baratos y robo de cartas. Maldiciones y Furia.", forja: "Muros con Provocar, Égida y Marchitar: gana el que aguanta.", bosque: "Bendiciones y curación: tus unidades crecen y no mueren.", laberinto: "Control: Cadenas, Silencio y Escarcha.", marea: "Congela y fríe: Escarcha, dragones y tiburones.", infernal: "Esqueletos, fuego y presión constante." })[k] +
+      '</small><div class="thumbs">' + gs.map(function (g) { return '<img src="' + CARDS[g].art + '" alt="' + CARDS[g].name + '" title="' + CARDS[g].name + '">'; }).join("") + "</div></div></div>";
+  });
+  $("linGrid").innerHTML = h;
+}
+$("linGrid").addEventListener("click", function (e) { var l = e.target.closest(".lin"); if (!l) return; startLin = l.dataset.lin; buildStart(); });
+$("startGo").onclick = function () { newSave(startLin); SAVE.name = ""; show("home"); };
+
+/* ---------- colección y sobres ---------- */
+var collTab = "guardian", collLin = "all";
+function buildColl() {
+  $("goldC").textContent = "Oro: " + SAVE.gold; $("openPack").disabled = SAVE.gold < 100;
+  var tabs = [["guardian", "Guardianes"], ["bicho", "Monstruos"], ["hechizo", "Hechizos"], ["bonus", "Bonus"], ["maldicion", "Maldiciones"]];
+  $("collTabs").innerHTML = tabs.map(function (t) { return '<button class="tab' + (collTab === t[0] ? " on" : "") + '" data-t="' + t[0] + '">' + t[1] + "</button>"; }).join("");
+  $("collLin").innerHTML = '<button class="tab' + (collLin === "all" ? " on" : "") + '" data-l="all">Todos los linajes</button>' + Object.keys(LIN).map(function (k) { return '<button class="tab' + (collLin === k ? " on" : "") + '" data-l="' + k + '" style="border-left:.5rem solid ' + LIN[k].color + '">' + LIN[k].name + "</button>"; }).join("");
+  var ids = allCardIds(), have = ids.filter(function (id) { return SAVE.owned[id] > 0; }).length;
+  var gAll = ids.filter(function (id) { return CARDS[id].kind === "guardian"; }), gHave = gAll.filter(function (id) { return SAVE.owned[id] > 0; }).length;
+  $("progC").textContent = "Tenés " + have + "/" + ids.length + " cartas · " + gHave + "/" + gAll.length + " guardianes";
+  var list = ids.filter(function (id) { var c = CARDS[id]; return typeKey(c) === collTab && (collLin === "all" || c.origin === collLin || (!c.origin && collLin === "all")); })
+    .sort(function (a, b) { return CARDS[a].cost - CARDS[b].cost || CARDS[a].name.localeCompare(CARDS[b].name); });
+  $("collGrid").innerHTML = list.map(function (id) { var n = SAVE.owned[id] || 0; return cardEl(id, n ? "" : "dim").replace('<span class="cost">', (n > 1 ? '<span class="badge">×' + n + "</span>" : "") + '<span class="cost">'); }).join("") || '<p class="mini">Sin cartas con ese filtro.</p>';
+}
+$("collTabs").addEventListener("click", function (e) { var t = e.target.dataset.t; if (t) { collTab = t; buildColl(); } });
+$("collLin").addEventListener("click", function (e) { var t = e.target.dataset.l; if (t) { collLin = t; buildColl(); } });
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+$("openPack").onclick = function () {
+  if (SAVE.gold < 100) return; SAVE.gold -= 100;
+  var ids = allCardIds(), g = ids.filter(function (i) { return CARDS[i].rarity === "guardian"; }), asc = ids.filter(function (i) { return CARDS[i].rarity === "ascension"; }),
+    b = ids.filter(function (i) { return CARDS[i].kind === "bicho"; }), sp = ids.filter(function (i) { return CARDS[i].type === "spell"; }), got = [], hasG = false;
+  for (var i = 0; i < 5; i++) {
+    var r = Math.random(), id;
+    if (r < .13 || (i === 4 && !hasG && SAVE.pity >= 2)) { id = Math.random() < .15 ? pick(asc) : pick(g); hasG = true; }
+    else if (r < .58) id = pick(b); else id = pick(sp);
+    got.push(id); SAVE.owned[id] = (SAVE.owned[id] || 0) + 1;
+  }
+  SAVE.pity = hasG ? 0 : SAVE.pity + 1; persist();
+  $("packs").innerHTML = got.map(function (id) { return cardEl(id); }).join(""); buildColl();
+};
+$("unlockAll").onclick = function () { allCardIds().forEach(function (id) { SAVE.owned[id] = Math.max(SAVE.owned[id] || 0, maxCopies(id)); }); persist(); buildColl(); toast("Todo desbloqueado (modo prueba)"); };
+
+/* ---------- constructor de mazos ---------- */
+var bTab = "all", bLin = "all", bCurrent = null;
+function curDeck() { return SAVE.decks[SAVE.sel]; }
+function buildBuilder() {
+  bCurrent = bCurrent || null;
+  var tabs = [["all", "Todas"], ["guardian", "Guardianes"], ["bicho", "Monstruos"], ["hechizo", "Hechizos"], ["bonus", "Bonus"], ["maldicion", "Maldiciones"]];
+  $("bTabs").innerHTML = tabs.map(function (t) { return '<button class="tab' + (bTab === t[0] ? " on" : "") + '" data-t="' + t[0] + '">' + t[1] + "</button>"; }).join("");
+  $("bLin").innerHTML = '<button class="tab' + (bLin === "all" ? " on" : "") + '" data-l="all">Todos</button>' + Object.keys(LIN).map(function (k) { return '<button class="tab' + (bLin === k ? " on" : "") + '" data-l="' + k + '" style="border-left:.5rem solid ' + LIN[k].color + '">' + LIN[k].name + "</button>"; }).join("");
+  if ($("bCost").options.length < 2) { var o = ""; for (var i = 0; i <= 8; i++) o += '<option value="' + i + '">Costo ' + i + (i === 8 ? "+" : "") + "</option>"; $("bCost").innerHTML = '<option value="">Todos los costos</option>' + o; }
+  renderPool(); renderDeck();
+}
+function deckCounts() { var cnt = {}; curDeck().cards.forEach(function (id) { cnt[id] = (cnt[id] || 0) + 1; }); return cnt; }
+function renderPool() {
+  var q = $("bSearch").value.trim().toLowerCase(), cost = $("bCost").value, onlyOwned = $("bOwned").checked, cnt = deckCounts();
+  var list = allCardIds().filter(function (id) {
+    var c = CARDS[id]; if (bTab !== "all" && typeKey(c) !== bTab) return false;
+    if (bLin !== "all" && c.origin !== bLin) return false;
+    if (cost !== "" && Math.min(c.cost, 8) !== parseInt(cost, 10)) return false;
+    if (q && (c.name + " " + (c.title || "")).toLowerCase().indexOf(q) < 0) return false;
+    if (onlyOwned && !(SAVE.owned[id] > 0)) return false;
+    return true;
+  }).sort(function (a, b) { return CARDS[a].cost - CARDS[b].cost || CARDS[a].name.localeCompare(CARDS[b].name); });
+  $("bPool").innerHTML = list.map(function (id) {
+    var c = CARDS[id], own = SAVE.owned[id] || 0, inD = cnt[id] || 0, lim = Math.min(own, maxCopies(id)), full = inD >= lim;
+    var art = c.type === "unit" ? "background-image:url(" + c.art + ")" : "background:radial-gradient(circle,#3a4a5a,#14110f)";
+    var emo = c.type === "unit" ? "" : '<span style="position:absolute;inset:0;display:grid;place-items:center;font-size:2.4rem">' + (EMOJI[id] || "✦") + "</span>";
+    var line = c.type === "unit" ? "⚔" + c.atk + " ♥" + c.hp + " · " + (c.kind === "guardian" ? ROLE_N[c.role] : c.tier) : c.tier;
+    return '<div class="prow ' + (c.kind === "bicho" ? "bicho " : "") + c.rarity + (own ? "" : " no") + (own && full ? " full" : "") + '" data-add="' + id + '" data-id="' + id + '"><div class="th" style="' + art + '"><span class="cs">' + c.cost + "</span>" + emo + '</div><div class="nn"><b>' + esc(c.name) + "</b><small>" + line + '</small></div><span class="ct">' + inD + "/" + lim + "</span></div>";
+  }).join("") || '<p class="mini">Ninguna carta con ese filtro.</p>';
+}
+function renderDeck() {
+  var d = curDeck(), cnt = deckCounts(), ids = Object.keys(cnt).sort(function (a, b) { return CARDS[a].cost - CARDS[b].cost || CARDS[a].name.localeCompare(CARDS[b].name); });
+  var gC = d.cards.filter(function (id) { return CARDS[id].kind === "guardian"; }).length, err = deckErrors(d.cards, true), curve = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  d.cards.forEach(function (id) { curve[Math.min(8, CARDS[id].cost)]++; });
+  var mx = Math.max.apply(null, curve.concat([1]));
+  var tabs = SAVE.decks.map(function (x, i) { return '<button class="tab' + (i === SAVE.sel ? " on" : "") + '" data-deck="' + i + '">' + esc(x.name) + "</button>"; }).join("") + (SAVE.decks.length < 6 ? '<button class="tab" data-newdeck="1">+ Nuevo</button>' : "");
+  $("deckP").innerHTML = '<div class="tabs">' + tabs + '</div><input id="dName" value="' + esc(d.name) + '" maxlength="24" aria-label="Nombre del mazo">' +
+    '<div class="row" style="justify-content:space-between"><b>Cartas ' + d.cards.length + '/30</b><b style="color:var(--gold2)">Guardianes ' + gC + "/5</b></div>" +
+    '<div class="curve">' + curve.map(function (n) { return '<div style="height:' + Math.round(100 * n / mx) + '%"><span>' + (n || "") + "</span></div>"; }).join("") + '</div><div class="curve-l">' + curve.map(function (_, i) { return "<span>" + (i === 8 ? "8+" : i) + "</span>"; }).join("") + "</div>" +
+    '<div style="margin-top:.6rem">' + (ids.map(function (id) { var c = CARDS[id]; return '<div class="drow' + (c.kind === "guardian" ? " g" : "") + '" data-rem="' + id + '" data-id="' + id + '"><span class="c">' + c.cost + "</span>" + esc(c.name) + '<span class="x">×' + cnt[id] + "</span></div>"; }).join("") || '<p class="mini">Hacé clic en las cartas de la izquierda para agregarlas.</p>') + "</div>" +
+    (err.length ? err.slice(0, 4).map(function (e) { return '<p class="err">' + esc(e) + "</p>"; }).join("") : '<p class="ok">✔ Mazo válido: se puede jugar.</p>') +
+    '<div class="row" style="margin-top:.6rem"><button class="btn sm" id="dAuto">Completar</button><button class="btn sec sm" id="dClear">Vaciar</button><button class="btn sec sm" id="dDel"' + (SAVE.decks.length < 2 ? " disabled" : "") + ">Borrar</button></div>" +
+    '<p class="mini" style="margin-top:.4rem">Se guarda solo. Completar rellena con monstruos y hechizos que tengas, sin pasarte de las reglas.</p>';
+  $("dName").oninput = function () { d.name = this.value || "Mazo"; persist(); };
+}
+$("bTabs").addEventListener("click", function (e) { var t = e.target.dataset.t; if (t) { bTab = t; buildBuilder(); } });
+$("bLin").addEventListener("click", function (e) { var t = e.target.dataset.l; if (t) { bLin = t; buildBuilder(); } });
+["bSearch", "bCost", "bOwned"].forEach(function (i) { $(i).addEventListener("input", renderPool); $(i).addEventListener("change", renderPool); });
+$("bPool").addEventListener("click", function (e) {
+  var r = e.target.closest("[data-add]"); if (!r) return; var id = r.dataset.add, d = curDeck(), cnt = deckCounts();
+  if (!(SAVE.owned[id] > 0)) { toast("No tenés esta carta: abrí sobres en Colección"); return; }
+  if (d.cards.length >= 30) { toast("El mazo ya tiene 30 cartas"); return; }
+  if ((cnt[id] || 0) >= Math.min(SAVE.owned[id], maxCopies(id))) { toast(CARDS[id].kind === "guardian" ? "Los guardianes son únicos" : "No tenés más copias o llegaste al máximo"); return; }
+  if (CARDS[id].kind === "guardian" && d.cards.filter(function (x) { return CARDS[x].kind === "guardian"; }).length >= 5) { toast("Máximo 5 guardianes"); return; }
+  d.cards.push(id); persist(); renderPool(); renderDeck();
+});
+$("deckP").addEventListener("click", function (e) {
+  var d = curDeck(), t = e.target;
+  var rem = t.closest("[data-rem]"); if (rem) { var i = d.cards.lastIndexOf(rem.dataset.rem); if (i >= 0) d.cards.splice(i, 1); persist(); renderPool(); renderDeck(); return; }
+  if (t.dataset.deck !== undefined) { SAVE.sel = parseInt(t.dataset.deck, 10); persist(); renderPool(); renderDeck(); return; }
+  if (t.dataset.newdeck) { SAVE.decks.push({ name: "Mazo " + (SAVE.decks.length + 1), cards: [] }); SAVE.sel = SAVE.decks.length - 1; persist(); renderPool(); renderDeck(); return; }
+  if (t.id === "dClear") { d.cards = []; persist(); renderPool(); renderDeck(); return; }
+  if (t.id === "dDel") { SAVE.decks.splice(SAVE.sel, 1); SAVE.sel = 0; persist(); renderPool(); renderDeck(); return; }
+  if (t.id === "dAuto") {
+    var cnt = deckCounts(), pool = allCardIds().filter(function (id) { return CARDS[id].kind !== "guardian" && SAVE.owned[id] > 0; }).sort(function (a, b) { return CARDS[a].cost - CARDS[b].cost; });
+    var g = d.cards.filter(function (x) { return CARDS[x].kind === "guardian"; }).length;
+    allCardIds().filter(function (id) { return CARDS[id].kind === "guardian" && SAVE.owned[id] > 0 && !cnt[id]; }).forEach(function (id) { if (g < 5 && d.cards.length < 30) { d.cards.push(id); cnt[id] = 1; g++; } });
+    // prioriza el linaje dominante del mazo
+    var dom = {}; d.cards.forEach(function (id) { var o = CARDS[id].origin; if (o) dom[o] = (dom[o] || 0) + 1; });
+    var top = Object.keys(dom).sort(function (a, b) { return dom[b] - dom[a]; })[0];
+    pool.sort(function (a, b) { return ((CARDS[b].origin === top) - (CARDS[a].origin === top)) || CARDS[a].cost - CARDS[b].cost; });
+    for (var k = 0; k < 4 && d.cards.length < 30; k++) pool.forEach(function (id) { if (d.cards.length < 30 && (cnt[id] || 0) < Math.min(SAVE.owned[id], maxCopies(id))) { d.cards.push(id); cnt[id] = (cnt[id] || 0) + 1; } });
+    persist(); renderPool(); renderDeck();
+  }
+});
+
+/* ---------- preparar partida ---------- */
+var chosenMap = "random";
+function buildSetup() {
+  var opts = SAVE.decks.map(function (d, i) { var ok = !deckErrors(d.cards, true).length; return '<option value="' + i + '"' + (i === SAVE.sel ? " selected" : "") + (ok ? "" : " disabled") + ">" + esc(d.name) + (ok ? "" : " (incompleto)") + "</option>"; }).join("");
+  $("sDeck").innerHTML = opts;
+  var upd = function () { var d = SAVE.decks[parseInt($("sDeck").value, 10)]; SAVE.sel = parseInt($("sDeck").value, 10); var g = d.cards.filter(function (x) { return CARDS[x].kind === "guardian"; }).map(function (x) { return CARDS[x].name; }); $("sDeckInfo").textContent = "Guardianes: " + (g.join(", ") || "ninguno"); };
+  $("sDeck").onchange = upd; upd();
+  var h = '<div class="mapc' + (chosenMap === "random" ? " sel" : "") + '" data-map="random"><div class="in" style="min-height:14rem"><b>🎲 Aleatorio</b><p>El mapa se sortea al empezar. En línea cada jugador propone el suyo y el servidor sortea.</p></div></div>';
+  Object.keys(MAPS).forEach(function (k) {
+    var m = MAPS[k], row = function (lbl, r) { return r ? '<span class="tchip">' + lbl + ": " + TICON[r.t] + " " + D.TERRAIN_TXT[r.t] + (r.n ? " " + r.n : "") + "</span>" : ""; };
+    h += '<div class="mapc' + (chosenMap === k ? " sel" : "") + '" data-map="' + k + '"><div class="bg" style="background-image:url(assets/a/' + m.arena + '.webp)"></div><div class="in" style="min-height:14rem"><b>' + m.name + "</b>" + row("Frente", m.front) + row("Fondo", m.back) + (m.cdPlus ? '<span class="tchip">⏳ Enfriamientos +' + m.cdPlus + "</span>" : "") + "<p>" + m.desc + "</p></div></div>";
+  });
+  $("sMaps").innerHTML = h; refreshPickers();
+}
+$("sMaps").addEventListener("click", function (e) { var m = e.target.closest(".mapc"); if (!m) return; chosenMap = m.dataset.map; buildSetup(); });
+function myDeckCards() { return SAVE.decks[parseInt($("sDeck").value, 10)].cards.slice(); }
+
+/* ---------- red ---------- */
+function net(kind) {
+  var url = $("srv").value.trim(), nick = $("nick").value.trim() || "Invocador";
+  if (deckErrors(myDeckCards(), true).length) { $("netmsg").textContent = "Tu mazo no es válido."; return; }
+  $("netmsg").textContent = "Conectando…";
+  try { ws = new WebSocket(url); } catch (e) { $("netmsg").textContent = "URL inválida"; return; }
+  ws.onerror = function () { $("netmsg").textContent = "No se pudo conectar a " + url + ". Levantá el servidor: cd server && npm i && node duel-server.js"; };
+  ws.onopen = function () {
+    var m = { t: kind, name: nick, sk: myLoadout(), deck: myDeckCards(), map: chosenMap === "random" ? null : chosenMap };
+    if (kind === "join") m.code = $("roomc").value.trim();
+    ws.send(JSON.stringify(m)); $("netmsg").textContent = kind === "queue" ? "Buscando rival…" : kind === "create" ? "Creando sala…" : "Entrando…";
+  };
+  ws.onmessage = function (e) { onNetMsg(JSON.parse(e.data)); };
+  ws.onclose = function () { if (ctx && ctx.mode === "online" && !$("over").classList.contains("on")) endGame("Conexión perdida", "En esta versión no hay reconexión (ver docs)."); };
+}
+function onNetMsg(m) {
+  var msg = ctx && ctx.adv ? "advMsg" : "netmsg";
+  if (m.t === "waiting") { var txt = m.code ? "Sala " + m.code + " — pasale el código a tu amigo" : "Buscando rival…"; $("netmsg").textContent = txt; if ($("advMsg")) $("advMsg").textContent = txt; }
+  if (m.t === "error") { $("netmsg").textContent = m.msg; if ($("advMsg")) $("advMsg").textContent = m.msg; toast(m.msg); }
+  if (m.t === "coopstart") { pendingCoop = m; }
+  if (m.t === "state") {
+    if (!ctx || ctx.mode !== "online") {
+      ctx = { mode: "online", me: m.you, coop: !!pendingCoop }; if (pendingCoop) { if (coopHostEnc) ctx.adv = coopHostEnc; else ctx.advGuest = { enemy: pendingCoop.enemy, kind: pendingCoop.kind, name: pendingCoop.name }; }
+      logLines = []; sel = pend = null; show("game");
+    }
+    onState(m.view, m.legal, m.events, m.deadline);
+  }
+  if (m.t === "over") { var w = m.winner; ctx.advWin = w === ctx.me; endGame(w === ctx.me ? "¡Victoria!" : w === -1 ? "Empate" : "Derrota", m.reason === "fin" ? "" : "Motivo: " + m.reason); }
+}
+var pendingCoop = null, coopHostEnc = null;
+$("playQ").onclick = function () { pendingCoop = null; coopHostEnc = null; net("queue"); }; $("playC").onclick = function () { pendingCoop = null; coopHostEnc = null; net("create"); }; $("playJ").onclick = function () { pendingCoop = null; coopHostEnc = null; net("join"); };
+
+/* ---------- partida local (bot) ---------- */
+$("playBot").onclick = function () {
+  var mine = myDeckCards(); if (deckErrors(mine, true).length) { toast("Tu mazo no es válido"); return; }
+  var lins = Object.keys(LIN), opp = pick(lins), first = Math.random() < .5, decks = first ? [mine, D.DECKS[opp]] : [D.DECKS[opp], mine];
+  var map = chosenMap === "random" ? pick(Object.keys(MAPS)) : chosenMap;
+  ctx = { mode: "bot", me: first ? 0 : 1 }; logLines = []; sel = pend = null; lock = false;
+  var nm = "Bot · " + LIN[opp].name;
+  var bb = rankBonus(), ml = myLoadout(), bl = randLoadout();
+  S = E.newGame(decks, (Math.random() * 4e9) >>> 0, first ? [SAVE.name || "Tú", nm] : [nm, SAVE.name || "Tú"], map, { hp: first ? [E.HP + bb, E.HP] : [E.HP, E.HP + bb], sk: first ? [ml, bl] : [bl, ml] });
+  show("game");
+  onState(E.view(S, ctx.me), S.active === ctx.me ? E.legalActions(S) : [], [], 0);
+  if (S.active !== ctx.me) botTurn();
+  maybeTut();
+};
+function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+async function botTurn() {
+  lock = true; render(); await sleep(700);
+  while (S && !S.over && S.active !== ctx.me) {
+    var a = AI.choose(S, 1.0), r = E.apply(S, a);
+    onState(E.view(S, ctx.me), [], r.events, 0);
+    await sleep(a.t === "end" ? 200 : 800);
+  }
+  lock = false;
+  if (S && !S.over) onState(E.view(S, ctx.me), E.legalActions(S), [], 0);
+}
+function submit(a) {
+  sel = pend = null;
+  if (ctx.mode === "online") { ws.send(JSON.stringify({ t: "act", action: a })); return; }
+  if (lock) return;
+  var r = E.apply(S, a);
+  onState(E.view(S, ctx.me), S.active === ctx.me && !S.over ? E.legalActions(S) : [], r.events, 0);
+  if (!S.over && S.active !== ctx.me) botTurn();
+}
+
+/* ---------- estado → pantalla ---------- */
+function onState(view, legal, events, dl) {
+  V = view; LEGAL = legal || []; lastEv = events || []; deadline = dl || 0;
+  if (sel && !E.find(V, sel)) sel = null;
+  pushLog(lastEv); render(); lastEv.forEach(fx);
+  if (V.over) {
+    var win = V.winner === ctx.me; ctx.advWin = win;
+    if (ctx.mode === "bot" && !ctx.paid) {
+      ctx.paid = 1;
+      if (ctx.adv) { var g = win ? (ctx.adv.node === 5 ? 100 : 30) : 0; SAVE.gold += g; if (win) SAVE.wins++; persist(); endGame(win ? "¡Victoria!" : "Derrota", win ? "Ganaste " + g + " de oro." : "Podés reintentar el combate."); return; }
+      SAVE.gold += win ? 80 : 30; if (win) SAVE.wins++; else if (V.winner !== -1) SAVE.losses++; persist();
+    }
+    endGame(win ? "¡Victoria!" : V.winner === -1 ? "Empate" : "Derrota", ctx.mode === "bot" ? "Ganaste " + (win ? 80 : 30) + " de oro." : "");
+  }
+  var t = lastEv.filter(function (e) { return e.e === "turn"; }).pop(); if (t) banner(t.p === ctx.me ? "Tu turno" : "Turno rival");
+}
+function unitName(uid) { var r = E.find(V, uid); return r ? r.u.name : "unidad"; }
+function pushLog(evs) {
+  evs.forEach(function (e) {
+    var who = function (p) { return p === ctx.me ? "Tú" : "Rival"; }, t = null;
+    if (e.e === "play") t = who(e.p) + " juega " + CARDS[e.id].name;
+    else if (e.e === "use") t = (e.ult ? "★ " : "") + unitName(e.uid) + ": " + e.name;
+    else if (e.e === "die") t = CARDS[e.id].name + " cae";
+    else if (e.e === "face") t = "Invocador " + (e.p === ctx.me ? "tuyo" : "rival") + " −" + e.n;
+    else if (e.e === "sum") t = (e.p === ctx.me ? "Tú" : "Rival") + " (invocador): " + e.name;
+    else if (e.e === "passive") t = unitName(e.uid) + ": pasiva " + e.name;
+    else if (e.e === "moved" && e.from !== undefined) t = unitName(e.uid) + " cambia de lugar";
+    if (t) logLines.push(t);
+  });
+  logLines = logLines.slice(-7); $("log").innerHTML = logLines.map(function (l) { return "<div>" + esc(l) + "</div>"; }).join("");
+}
+function banner(t) { var b = document.createElement("div"); b.id = "banner"; b.textContent = t; document.body.appendChild(b); setTimeout(function () { b.remove(); }, 1400); }
+function endGame(t, s) { $("overT").textContent = t; $("overS").textContent = s || ""; $("over").classList.add("on"); }
+$("overB").onclick = function () {
+  $("over").classList.remove("on"); if (ws) { try { ws.close(); } catch (e) {} ws = null; }
+  var c = ctx; S = null; ctx = null; $("netmsg").textContent = "";
+  if (c && c.adv) return advAfter(c);
+  if (c && c.advGuest) return guestAfter(c);
+  show("home");
+};
+
+function crystals(P) { var h = ""; for (var i = 0; i < 10; i++) h += '<i class="' + (i < P.cr ? "" : "off") + '" style="' + (i >= P.maxCr ? "opacity:.15" : "") + '"></i>'; return h + " <b>" + P.cr + "/" + P.maxCr + "</b>"; }
+function synChips(p) {
+  var cnt = {}; E.units(V, p).forEach(function (u) { if (u.origin) cnt[u.origin] = (cnt[u.origin] || 0) + 1; });
+  return Object.keys(cnt).filter(function (k) { return cnt[k] >= 2; }).map(function (k) { var b = E.synBonus(cnt[k]); return '<span class="chip" style="border-color:' + LIN[k].color + '">' + LIN[k].name + " ×" + cnt[k] + " → +" + b.atk + "/+" + b.hp + "</span>"; }).join("");
+}
+function isTarget(x) { return pend && pend.mode === "unit" && pend.targets.indexOf(x) >= 0; }
+function tileEl(u, mine) {
+  var c = CARDS[u.id], a = E.atkOf(V, u), h = E.hpOf(V, u), mh = E.maxHpOf(V, u), cls = "tile " + (c.kind === "bicho" ? "bicho " : "") + c.rarity;
+  if (u.kw.taunt) cls += " taunt"; if (u.frozen || u.iced) cls += " frozen"; if (u.kw.shield) cls += " shield";
+  if (isTarget(u.uid)) cls += mine ? " tgtally" : " tgt";
+  if (mine && sel === u.uid) cls += " sel";
+  var myTurn = ctx && V.active === ctx.me && !lock;
+  var canAct = mine && myTurn && !u.acted && !u.sick;
+  if (canAct && c.moves.some(function (m, i) { return !E.whyNot(V, u, i); })) cls += " ready"; else if (mine && (u.acted || u.sick)) cls += " done";
+  var charge = ""; if (c.kind === "guardian") { var need = c.ultNeed || 3; charge = '<div class="charge" title="Carga de definitiva">'; for (var i = 0; i < need; i++) charge += '<i class="' + (u.usedUlt ? "" : i < u.charge ? "on" : "") + '"></i>'; charge += "</div>"; }
+  var zz = u.sick ? '<div class="zz" title="Recién llegó">💤</div>' : "";
+  var kws = Object.keys(u.kw).map(function (k) { return "<span>" + KW[k] + "</span>"; }).join("") + (u.poison ? "<span>☠" + u.poison.n + "</span>" : "") + (u.silenced ? "<span>Silenciado</span>" : "");
+  return '<div class="' + cls + '" data-uid="' + u.uid + '" data-id="' + u.id + '"><div class="art" style="background-image:url(' + c.art + ')"></div><div class="kws">' + kws + "</div>" + (zz || charge) +
+    '<div class="a' + (a > c.atk ? " bonus" : "") + '">' + a + '</div><div class="h' + (u.dmg > 0 ? " dmg" : "") + (mh > c.hp ? " bonus" : "") + '">' + h + '</div><div class="nm">' + esc(u.name) + "</div></div>";
+}
+function rowHTML(p, row, mine) {
+  var m = MAPS[V.map], tr = row === 0 ? m.front : m.back, cells = row === 0 ? [0, 1, 2] : [3, 4, 5], h = "";
+  cells.forEach(function (ci) {
+    var u = V.players[p].cells[ci], dep = mine && pend && pend.mode === "cell" && pend.targets.indexOf(ci) >= 0;
+    h += '<div class="cell' + (dep ? " dep" : "") + '" data-cell="' + ci + '" data-side="' + (mine ? "me" : "opp") + '">' + (u ? tileEl(u, mine) : (dep ? "+" : "")) + "</div>";
+  });
+  var lbl = '<div class="tl"><b>' + (row === 0 ? "Frente" : "Fondo") + "</b>" + (tr ? TICON[tr.t] + " " + D.TERRAIN_TXT[tr.t] + (tr.n ? " " + tr.n : "") : "") + "</div>";
+  return { cls: "brow" + (tr ? " t-" + tr.t : ""), html: lbl + h };
+}
+function render() {
+  if (!V) return;
+  var me = ctx.me, foe = 1 - me, M = V.players[me], O = V.players[foe], myTurn = V.active === me && !lock && !V.over;
+  var m = MAPS[V.map]; $("bgmap").style.backgroundImage = "url(assets/a/" + m.arena + ".webp)";
+  var foeTgt = pend && pend.mode === "unit" && pend.targets.indexOf("f" + foe) >= 0, meTgt = pend && pend.mode === "unit" && pend.targets.indexOf("f" + me) >= 0;
+  var oc = O.handCount !== undefined ? O.handCount : O.hand.length, od = O.deckCount !== undefined ? O.deckCount : O.deck.length, md = M.deckCount !== undefined ? M.deckCount : M.deck.length;
+  var selFoeFace = false;
+  $("oppBar").innerHTML = '<div class="face' + (foeTgt ? " tgt" : "") + '" data-face="' + foe + '" title="Vida del Invocador rival: bajala a 0 para ganar">🔮 <span class="hp">' + O.hp + '</span><small>/' + O.maxHp + '</small></div><b>' + esc(O.name) + ' <span class="mini">· Invocador</span></b><div class="crys">' + crystals(O) + '</div><div class="oppstrip">' + Array(Math.min(oc, 8) + 1).join("<i></i>") + '</div><span class="mini">mazo ' + od + '</span><span class="chip">' + m.name + '</span>' + skButtons(O, false, false) + '<div class="syn">' + synChips(foe) + "</div>";
+  [["rOB", foe, 1, false], ["rOF", foe, 0, false], ["rMF", me, 0, true], ["rMB", me, 1, true]].forEach(function (r) { var o = rowHTML(r[1], r[2], r[3]); $(r[0]).className = o.cls; $(r[0]).innerHTML = o.html; });
+  var turnTxt = V.active === me ? (lock ? "…" : "TU TURNO") : "Turno rival";
+  $("mid").innerHTML = '<span class="fieldc">' + esc(m.desc) + '</span><span id="timer" class="mini"></span><b>' + turnTxt + '</b><button class="btn sm" id="endBtn" ' + (myTurn ? "" : "disabled") + '>Terminar turno</button><button class="btn sec sm" id="resign">Rendirse</button>';
+  $("meBar").innerHTML = '<div class="face' + (meTgt ? " tgtally" : "") + '" data-face="' + me + '" title="Tu vida de Invocador">🔮 <span class="hp">' + M.hp + '</span><small>/' + M.maxHp + '</small></div><b>' + esc(M.name) + ' <span class="mini">· Invocador</span></b><div class="crys">' + crystals(M) + '</div><span class="mini">mazo ' + md + '</span>' + skButtons(M, true, myTurn) + '<div class="syn">' + synChips(me) + "</div>";
+  $("hand").innerHTML = M.hand.map(function (c) {
+    var playable = myTurn && LEGAL.some(function (x) { return x.t === "play" && x.uid === c.uid; });
+    return cardEl(c.id, (playable ? "go" : "no") + (pend && pend.hand === c.uid ? " pend" : "")).replace('data-id="', 'data-huid="' + c.uid + '" data-id="');
+  }).join("");
+  renderPanel(myTurn); updateCoach();
+  lastEv.forEach(function (e) { if (e.e === "summon") { var el = document.querySelector('[data-uid="' + e.uid + '"]'); if (el) el.classList.add("in"); } });
+}
+function movesHTML(u, mine, myTurn) {
+  var c = CARDS[u.id], h = '<h4>' + esc(u.name) + (c.title ? ' <span class="mini">' + esc(c.title) + "</span>" : "") + '</h4><div class="sub2">' + (c.reach === "melee" ? "Pelea cuerpo a cuerpo" : "Pelea a distancia") + " · fila " + (E.rowOf(u.cell) === 0 ? "de frente" : "de fondo") + (mine ? "" : " · rival") + "</div>";
+  if (c.passive) h += '<div class="sub2" style="color:var(--gold2)"><b>Pasiva ' + esc(c.passive.name) + ':</b> ' + esc(D.describePassive(c.passive)) + "</div>";
+  c.moves.forEach(function (m, i) {
+    var why = mine && myTurn ? E.whyNot(V, u, i) : (mine ? "no es tu turno" : null), cost = E.moveCost(V, u, i), cdT = E.moveCdTurns(V, m);
+    var meta = m.ult ? "★ definitiva" : (m.basic ? "gratis" : cost + "✦" + (cdT > 1 ? " · cd " + cdT : ""));
+    h += '<button class="mvb ' + (m.ult ? "ult" : m.basic ? "basic" : "") + '" data-mv="' + i + '"' + (mine && !why ? "" : " disabled") + '><span class="t"><span>' + esc(m.name) + "</span><em>" + meta + '</em></span><span class="d">' + esc(D.describeMove(m)) + "</span>" + (why && mine ? '<span class="w">✖ ' + esc(why) + "</span>" : "") + "</button>";
+  });
+  if (mine) {
+    var canMove = myTurn && !u.moved && V.players[V.you].cr >= E.MOVE_COST;
+    h += '<button class="mvb" data-reposition="1"' + (canMove ? "" : " disabled") + '><span class="t"><span>↔ Cambiar de lugar</span><em>1✦</em></span><span class="d">Mové a la casilla libre o intercambiá con una aliada. Una vez por turno.</span>' + (u.moved ? '<span class="w">✖ ya se movió</span>' : "") + "</button>";
+  }
+  return h;
+}
+function renderPanel(myTurn) {
+  var el = $("mp"), r = sel ? E.find(V, sel) : null;
+  if (!r) { el.innerHTML = '<h4>Movimientos</h4><div class="sub2">Elegí una de tus unidades para ver sus movimientos. Tocá una unidad rival para ver los suyos.</div>'; return; }
+  el.innerHTML = movesHTML(r.u, r.p === ctx.me, myTurn);
+}
+function fx(e) {
+  var host = function (uid) { return document.querySelector('[data-uid="' + uid + '"]'); };
+  function flo(el, txt, col) { if (!el) return; var r = el.getBoundingClientRect(), f = document.createElement("div"); f.className = "float"; f.textContent = txt; f.style.color = col; f.style.left = (r.left + r.width / 2 - 14) + "px"; f.style.top = (r.top + 10) + "px"; document.body.appendChild(f); setTimeout(function () { f.remove(); }, 1100); }
+  if (e.e === "dmg") { var el = host(e.uid); if (el) el.classList.add("hit"); flo(el, "−" + e.n, "#ff6a5a"); sfx("hitFlesh_0"); }
+  if (e.e === "heal") flo(host(e.uid), "+" + e.n, "#7fe08a");
+  if (e.e === "shield") { sfx("glass_0"); flo(host(e.uid), "🛡", "#bfe8ff"); }
+  if (e.e === "face" || e.e === "healface") { flo(document.querySelector('[data-face="' + e.p + '"]'), (e.e === "face" ? "−" : "+") + e.n, e.e === "face" ? "#ff6a5a" : "#7fe08a"); if (e.e === "face") sfx("hitHeavy_0"); }
+  if (e.e === "die") sfx("creatureDie_0");
+  if (e.e === "freeze") sfx("glass_0");
+  if (e.e === "play") sfx(CARDS[e.id].type === "unit" ? "swing_0" : "arcane_0");
+  if (e.e === "use") { flo(host(e.uid), e.name, e.ult ? "#d9b8ff" : "#fbe39a"); sfx(e.ult ? "fire_0" : "blade_0"); }
+}
+setInterval(function () { var t = $("timer"); if (t && deadline) { t.textContent = "⏱ " + Math.max(0, Math.round((deadline - Date.now()) / 1000)) + " s"; } else if (t) t.textContent = ""; }, 500);
+
+/* ---------- interacción ---------- */
+function startPending(p) { pend = p; render(); toast(p.mode === "cell" ? "Elegí una casilla" : "Elegí un objetivo"); }
+function onMoveButton(mv) {
+  var opts = LEGAL.filter(function (x) { return x.t === "use" && x.uid === sel && x.mv === mv; });
+  if (!opts.length) return;
+  if (opts.length === 1 && opts[0].target === undefined) return submit(opts[0]);
+  startPending({ mode: "unit", targets: opts.map(function (x) { return x.target; }), build: function (tg) { return { t: "use", uid: sel, mv: mv, target: tg }; } });
+}
+document.addEventListener("click", function (e) {
+  if (!ctx || !V || V.over || !$("game").classList.contains("on")) return;
+  var me = ctx.me, foe = 1 - me, T = e.target;
+  if (T.id === "endBtn") { if (V.active === me && !lock) submit({ t: "end" }); return; }
+  if (T.id === "resign") { if (ctx.mode === "online") ws.send(JSON.stringify({ t: "resign" })); else { S.players[me].hp = 0; if (!ctx.paid) { ctx.paid = 1; SAVE.losses++; SAVE.gold += 30; persist(); } endGame("Derrota", "Te rendiste."); } return; }
+  var skb = T.closest(".skb");
+  if (skb && !skb.disabled && V.active === me && !lock) {
+    var si = parseInt(skb.dataset.sk, 10), so = LEGAL.filter(function (x) { return x.t === "sum" && x.i === si; });
+    if (!so.length) return;
+    sel = null;
+    if (so[0].uid !== undefined) {   // Paso Táctico: primero la unidad, después la casilla
+      var uids = Array.from(new Set(so.map(function (x) { return x.uid; })));
+      return startPending({ mode: "unit", targets: uids, build: function (uid) { var cs = so.filter(function (x) { return x.uid === uid; }).map(function (x) { return x.cell; }); pend = null; startPending({ mode: "cell", targets: cs, build: function (c) { return { t: "sum", i: si, uid: uid, cell: c }; } }); return { chain: 1 }; } });
+    }
+    if (so.length === 1 && so[0].target === undefined) return submit(so[0]);
+    return startPending({ mode: "unit", targets: so.map(function (x) { return x.target; }), build: function (tg) { return { t: "sum", i: si, target: tg }; } });
+  }
+  var mvb = T.closest(".mvb");
+  if (mvb && !mvb.disabled) { if (mvb.dataset.reposition) { var o = LEGAL.filter(function (x) { return x.t === "move" && x.uid === sel; }); if (o.length) startPending({ mode: "cell", targets: o.map(function (x) { return x.cell; }), build: function (c) { return { t: "move", uid: sel, cell: c }; } }); } else onMoveButton(parseInt(mvb.dataset.mv, 10)); return; }
+  if (V.active !== me || lock) { var tt0 = T.closest(".tile"); if (tt0) { sel = parseInt(tt0.dataset.uid, 10); render(); } return; }
+  var hc = T.closest(".handrow .card");
+  if (hc) {
+    var uid = parseInt(hc.dataset.huid, 10), opts = LEGAL.filter(function (x) { return x.t === "play" && x.uid === uid; });
+    if (!opts.length) { toast("No podés jugarla ahora (cristales, lugar o sin objetivo)"); return; }
+    sel = null;
+    if (opts[0].cell !== undefined) return startPending({ mode: "cell", hand: uid, targets: opts.map(function (x) { return x.cell; }), build: function (c) { return { t: "play", uid: uid, cell: c }; } });
+    if (opts.length === 1 && opts[0].target === undefined) return submit(opts[0]);
+    return startPending({ mode: "unit", hand: uid, targets: opts.map(function (x) { return x.target; }), build: function (tg) { return { t: "play", uid: uid, target: tg }; } });
+  }
+  var tile = T.closest(".tile"), face = T.closest("[data-face]"), cell = T.closest(".cell");
+  if (pend) {
+    if (pend.mode === "cell") { if (cell && cell.dataset.side === "me" && pend.targets.indexOf(parseInt(cell.dataset.cell, 10)) >= 0) return submit(pend.build(parseInt(cell.dataset.cell, 10))); }
+    else { var tg = tile ? parseInt(tile.dataset.uid, 10) : face ? "f" + face.dataset.face : null; if (tg !== null && pend.targets.indexOf(tg) >= 0) { var act = pend.build(tg); if (act && act.chain) return; return submit(act); } }
+    pend = null; render(); return;
+  }
+  if (tile) {
+    var u = parseInt(tile.dataset.uid, 10); sel = sel === u ? null : u; render(); return;
+  }
+  if (sel) { sel = null; render(); }
+});
+document.addEventListener("keydown", function (e) { if (e.key === "Escape" && (pend || sel)) { pend = sel = null; if (V) render(); } });
+/* vista previa grande */
+document.addEventListener("mouseover", function (e) {
+  var el = e.target.closest && e.target.closest("[data-id]"), pv = $("preview");
+  if (!el || el.closest("#preview") || el.closest(".packs")) { pv.style.display = "none"; return; }
+  if ($("home").classList.contains("on") || $("rules").classList.contains("on") || $("start").classList.contains("on") || $("setup").classList.contains("on") || $("adv").classList.contains("on") || $("rew").classList.contains("on")) { pv.style.display = "none"; return; }
+  var inBuilder = $("builder").classList.contains("on");
+  pv.innerHTML = cardEl(el.dataset.id, "big", true);
+  pv.style.display = "block"; pv.style.top = inBuilder || $("coll").classList.contains("on") ? "6rem" : "4.6rem";
+  if (inBuilder) { pv.style.left = "auto"; pv.style.right = "41rem"; } else if ($("coll").classList.contains("on")) { pv.style.left = "auto"; pv.style.right = "1rem"; } else { pv.style.right = "auto"; pv.style.left = ".8rem"; }
+});
+
+/* ---------- AVENTURA ---------- */
+var advStart = null;
+function starters() { return SAVE.heroes && SAVE.heroes.length ? SAVE.heroes : ["tanque", "guerrero", "mago", "soporte"]; }
+function advDeckCount(id) { return SAVE.adv.deck.filter(function (x) { return x === id; }).length; }
+function advGuardians() { return SAVE.adv.deck.filter(function (x) { return CARDS[x].kind === "guardian"; }); }
+function pickN(a, n) { var c = a.slice(), o = []; while (o.length < n && c.length) o.push(c.splice(Math.floor(Math.random() * c.length), 1)[0]); return o; }
+function giveCard(id, toRun) {
+  if (toRun) SAVE.adv.deck.push(id);
+  SAVE.owned[id] = CARDS[id].kind === "guardian" ? 1 : (SAVE.owned[id] || 0) + 1; persist();
+}
+function buildAdv() {
+  var h = "", A = SAVE.adv;
+  if (!A) {
+    h += '<p class="sub">Empezás con un mazo de 18 cartas y <b>un guardián compañero</b> a elección. En cada arena vas a combatir, <b>capturar monstruos</b> del enemigo, <b>reclutar guardianes</b> y enfrentar a un jefe. Todo lo que consigas también se suma a tu colección.</p><h2>Elegí tu compañero inicial' + (SAVE.heroes ? ' (los guardianes que te eligieron)' : '') + '</h2><div class="packs">';
+    if (!advStart || starters().indexOf(advStart) < 0) advStart = starters()[0];
+    starters().forEach(function (id) { h += cardEl(id, "big", true).replace('class="card ', 'data-comp="' + id + '" style="cursor:pointer;' + (id === advStart ? "outline:.3rem solid var(--gold2)" : "") + '" class="card '); });
+    h += '</div><button class="btn" id="advBegin">Comenzar con ' + CARDS[advStart].name + "</button>";
+    $("advBody").innerHTML = h; return;
+  }
+  if (A.done) { $("advBody").innerHTML = '<div class="note"><b>¡Aventura completada!</b> Venciste a los seis jefes. Tu mazo de aventura tiene ' + A.deck.length + ' cartas y todo lo capturado quedó en tu colección.</div><div class="row"><button class="btn" id="advNew">Empezar otra aventura</button></div>'; return; }
+  var C = D.CHAPTERS[A.ch], N = D.NODES[A.node];
+  h += '<div class="chs">' + D.CHAPTERS.map(function (c, i) { return '<div class="chc' + (i === A.ch ? " cur" : i < A.ch ? " done" : " lock") + '"><div class="bg" style="background-image:url(assets/a/' + c.map + '.webp)"></div><div class="in"><b>' + (i + 1) + ". " + c.name + "</b><span class='mini'>" + (i < A.ch ? "completada" : i === A.ch ? "nodo " + (A.node + 1) + "/" + D.NODES.length : "bloqueada") + "</span></div></div>"; }).join("") + "</div>";
+  h += '<div class="note"><b>' + C.name + ".</b> " + C.blurb + "</div>";
+  h += '<div class="nodes">' + D.NODES.map(function (n, i) { var tn = { fight: "Combate", ally: "Aliado", cache: "Cofre", boss: "Jefe" }[n.t]; return '<div class="nd' + (i < A.node ? " done" : i === A.node ? " cur" : "") + (n.t === "boss" ? " boss" : "") + '"><b>' + (n.t === "boss" ? CARDS[C.boss].name : n.title) + "</b><small>" + tn + "</small></div>"; }).join("") + "</div>";
+  var txt = N.t === "boss" ? C.bossText + " Llega ya en mesa, pero empezás con +3 cartas y más vida." : N.text;
+  h += '<div class="note"><b>Ahora:</b> ' + txt + "</div>";
+  var isFight = N.t === "fight" || N.t === "boss";
+  h += '<div class="row"><button class="btn" id="advGo">' + (isFight ? "⚔ Combatir" : N.t === "ally" ? "🤝 Reclutar" : "🎁 Abrir cofre") + "</button></div>";
+  if (isFight) {
+    h += '<h2>Acompañado</h2><div class="note">Un amigo se une con un código y juegan <b>como equipo</b>: mismo tablero, misma mano, cada uno puede jugar cartas y mover unidades en el turno del equipo. Al ganar, los dos se llevan una carta a su colección y vos avanzás en tu aventura. Necesita el servidor <code>server/duel-server.js</code>.</div>' +
+      '<div class="row"><input id="advSrv" size="24" value="' + esc($("srv").value) + '" aria-label="Servidor"><input id="advNick" size="10" value="' + esc($("nick").value) + '" aria-label="Apodo"><button class="btn sec" id="advInvite">Invitar a un amigo</button><input id="advCode" size="7" placeholder="código" aria-label="Código"><button class="btn sec" id="advJoin">Unirme a un amigo</button></div><p class="mini" id="advMsg" style="margin-top:.6rem"></p>';
+  }
+  h += '<h2>Tus habilidades de invocador (elegí 2)</h2><div class="skpick" id="skPickA">' + skPickerHTML() + "</div>";
+  var gs = advGuardians();
+  h += '<h2>Tu mazo de aventura · ' + A.deck.length + " cartas</h2><p class='mini'>Guardianes: " + gs.map(function (x) { return CARDS[x].name; }).join(", ") + '</p><div class="row"><button class="btn sec sm" id="advDeck">Ver mazo</button></div><div class="grid" id="advDeckGrid" style="margin-top:1rem"></div>';
+  $("advBody").innerHTML = h;
+}
+$("advBody").addEventListener("click", function (e) {
+  var T = e.target, c = T.closest("[data-comp]");
+  if (c) { advStart = c.dataset.comp; buildAdv(); return; }
+  if (T.id === "advBegin") { SAVE.adv = { deck: D.advStarter(advStart), ch: 0, node: 0, done: false }; giveCard(advStart, false); persist(); buildAdv(); return; }
+  if (T.id === "advNew") { SAVE.adv = null; buildAdv(); return; }
+  if (T.id === "advDeck") { var g = $("advDeckGrid"); if (g.innerHTML) g.innerHTML = ""; else { var seen = {}; g.innerHTML = SAVE.adv.deck.filter(function (id) { if (seen[id]) return false; seen[id] = 1; return true; }).map(function (id) { return cardEl(id).replace('<span class="cost">', '<span class="badge">×' + advDeckCount(id) + '</span><span class="cost">'); }).join(""); } return; }
+  if (T.id === "advGo") return advPlayNode();
+  if (T.id === "advInvite") return advCoop("coop_create");
+  if (T.id === "advJoin") return advCoop("coop_join");
+});
+
+function showReward(title, sub, ids, cb, skipLabel) {
+  $("rewT").textContent = title; $("rewS").textContent = sub; $("rewSkip").textContent = skipLabel || "Seguir sin llevarme nada";
+  $("rewC").innerHTML = ids.map(function (id) { return cardEl(id, "big", true).replace('class="card ', 'data-pick="' + id + '" class="card '); }).join("");
+  $("rew").classList.add("on"); $("rew")._cb = cb;
+}
+$("rew").addEventListener("click", function (e) {
+  var c = e.target.closest("[data-pick]"), skip = e.target.id === "rewSkip"; if (!c && !skip) return;
+  $("rew").classList.remove("on"); var cb = $("rew")._cb; $("rew")._cb = null; if (cb) cb(c ? c.dataset.pick : null);
+});
+function advancePast() {
+  var A = SAVE.adv; A.node++;
+  if (A.node >= D.NODES.length) { A.node = 0; A.ch++; if (A.ch >= D.CHAPTERS.length) { A.done = true; A.ch = D.CHAPTERS.length - 1; } else toast("Capítulo completado: " + D.CHAPTERS[A.ch].name); }
+  persist(); show("adv"); buildAdv();
+}
+function guardianOptions(ch) {
+  var C = D.CHAPTERS[ch], have = SAVE.adv.deck;
+  var pool = allCardIds().filter(function (id) { return CARDS[id].kind === "guardian" && CARDS[id].origin === C.lin && have.indexOf(id) < 0; });
+  if (!pool.length) pool = allCardIds().filter(function (id) { return CARDS[id].kind === "guardian" && have.indexOf(id) < 0; });
+  return pickN(pool, 3);
+}
+function advPlayNode() {
+  var A = SAVE.adv, N = D.NODES[A.node], C = D.CHAPTERS[A.ch];
+  if (N.t === "fight" || N.t === "boss") return advFight(false);
+  if (N.t === "ally") {
+    if (advGuardians().length >= 5) { var el = allCardIds().filter(function (id) { return CARDS[id].kind === "bicho" && CARDS[id].cost >= 4 && advDeckCount(id) < 2; }); return showReward("Un aliado se suma", "Ya tenés 5 guardianes (el máximo). Un veterano te regala un monstruo de élite.", pickN(el, 3), function (id) { if (id) giveCard(id, true); advancePast(); }); }
+    return showReward("Un guardián pide ayuda", N.text, guardianOptions(A.ch), function (id) { if (id) giveCard(id, true); advancePast(); });
+  }
+  if (N.t === "cache") {
+    var sp = allCardIds().filter(function (id) { return CARDS[id].type === "spell" && advDeckCount(id) < 2; });
+    return showReward("Cofre abandonado", N.text, pickN(sp, 3), function (id) { if (id) giveCard(id, true); advancePast(); });
+  }
+}
+function advFight(coop) {
+  var A = SAVE.adv, enc = D.encounter(A.ch, A.node), first = Math.random() < .5;
+  var mine = A.deck.slice(), decks = first ? [mine, enc.deck] : [enc.deck, mine], mi = first ? 0 : 1;
+  var bb = rankBonus(), hp = first ? [enc.php + bb, enc.hp] : [enc.hp, enc.php + bb], eSk = ["voz", "mal"], skk = first ? [myLoadout(), eSk] : [eSk, myLoadout()], hand = first ? [enc.bonusHand, 0] : [0, enc.bonusHand];
+  var pre = enc.pre.map(function (x) { return { p: 1 - mi, id: x.id, cell: x.cell }; });
+  ctx = { mode: "bot", me: mi, adv: { ch: A.ch, node: A.node, enc: enc } }; logLines = []; sel = pend = null; lock = false;
+  S = E.newGame(decks, (Math.random() * 4e9) >>> 0, first ? [SAVE.name || "Tú", enc.name] : [enc.name, SAVE.name || "Tú"], enc.map, { hp: hp, pre: pre, hand: hand, sk: skk });
+  show("game"); onState(E.view(S, ctx.me), S.active === ctx.me ? E.legalActions(S) : [], [], 0);
+  if (S.active !== ctx.me) botTurn();
+  maybeTut();
+}
+function advCoop(kind) {
+  var A = SAVE.adv, enc = D.encounter(A.ch, A.node), url = $("advSrv").value.trim(), nick = $("advNick").value.trim() || "Invocador";
+  $("srv").value = url; $("nick").value = nick; $("advMsg").textContent = "Conectando…";
+  try { ws = new WebSocket(url); } catch (e) { $("advMsg").textContent = "URL inválida"; return; }
+  ws.onerror = function () { $("advMsg").textContent = "No se pudo conectar a " + url + ". Levantá el servidor: cd server && npm i && node duel-server.js"; };
+  pendingCoop = null;
+  coopHostEnc = kind === "coop_create" ? { ch: A.ch, node: A.node, enc: enc, coopHost: true } : null;
+  ws.onopen = function () {
+    if (kind === "coop_create") ws.send(JSON.stringify({ t: "coop_create", name: nick, enc: { name: enc.name, kind: D.NODES[A.node].t === "boss" ? "boss" : "fight", deck: A.deck, enemy: enc.deck, map: enc.map, hp: [enc.php + rankBonus(), enc.hp], pre: enc.pre, hand: [enc.bonusHand, 0] }, sk: myLoadout() }));
+    else ws.send(JSON.stringify({ t: "coop_join", name: nick, code: $("advCode").value.trim() }));
+  };
+  ws.onmessage = function (e) { onNetMsg(JSON.parse(e.data)); };
+  ws.onclose = function () { if (ctx && ctx.mode === "online" && !$("over").classList.contains("on")) endGame("Conexión perdida", "En esta versión no hay reconexión (ver docs)."); };
+}
+// después de un combate de aventura (solo o como anfitrión)
+function advAfter(c) {
+  var A = SAVE.adv; show("adv");
+  if (!c.advWin) { buildAdv(); toast("Derrota: podés reintentar el combate"); return; }
+  var N = D.NODES[c.adv.node], enc = c.adv.enc;
+  var bichos = Array.from(new Set(enc.deck.filter(function (id) { return CARDS[id].kind === "bicho" && advDeckCount(id) < maxCopies(id); })));
+  if (N.t === "boss") {
+    var gs = guardianOptions(c.adv.ch);
+    if (advGuardians().length >= 5) return showReward("¡Jefe vencido!", "Ya tenés 5 guardianes: capturá un monstruo del jefe.", pickN(bichos, 3), function (id) { if (id) giveCard(id, true); advancePast(); });
+    return showReward("¡Jefe vencido!", "Un guardián se suma a tu causa. Elegí a tu nuevo compañero.", gs, function (id) { if (id) giveCard(id, true); advancePast(); });
+  }
+  showReward("¡Victoria! Captura", "Elegí un monstruo del enemigo para sumarlo a tu mazo de aventura (también va a tu colección).", pickN(bichos, 3), function (id) { if (id) giveCard(id, true); advancePast(); }, "No capturar");
+}
+// invitado de una aventura acompañada: se lleva una carta a su colección
+function guestAfter(c) {
+  show("home");
+  if (!c.advWin) { toast("Derrota. ¡Suerte la próxima!"); return; }
+  var en = Array.from(new Set(c.advGuest.enemy.filter(function (id) { return CARDS[id] && CARDS[id].kind === "bicho" && !CARDS[id].token; })));
+  var opts = pickN(en, 3);
+  if (c.advGuest.kind === "boss") opts = pickN(allCardIds().filter(function (id) { return CARDS[id].kind === "guardian" && !(SAVE.owned[id] > 0); }), 3);
+  if (!opts.length) return;
+  showReward("¡Ganaron!", "Como compañero te llevás una carta a tu colección.", opts, function (id) { if (id) giveCard(id, false); show("home"); });
+}
+
+loadSave();
+if (!SAVE) quizStart("new"); else buildHome();
+</script>
+</body>
+</html>

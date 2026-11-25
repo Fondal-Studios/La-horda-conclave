@@ -1,0 +1,282 @@
+{
+ "tanque": {
+  "passive": {
+   "name": "Bastión",
+   "desc": "Los aliados a menos de 200 u de Aldric reciben 8% menos daño."
+  },
+  "basic": "Golpe de Escudo",
+  "basicDesc": "Golpe corto en arco: alcanza a todos los enemigos frente a él."
+ },
+ "guerrero": {
+  "passive": {
+   "name": "Depredador",
+   "desc": "Sus ataques básicos hacen 15% más de daño a enemigos que sangran o están envenenados."
+  },
+  "basic": "Puñalada",
+  "basicDesc": "Corte rápido a un solo objetivo."
+ },
+ "mago": {
+  "passive": {
+   "name": "Maestro Elemental",
+   "desc": "Las reacciones que provoca (Vapor, Quiebre, Conducción) pegan más: su bonus de daño crece 50%."
+  },
+  "basic": "Proyectil Arcano",
+  "basicDesc": "Disparo mágico a distancia contra el enemigo más cercano."
+ },
+ "soporte": {
+  "passive": {
+   "name": "Gracia del Alba",
+   "desc": "Sus curaciones a aliados con menos de 35% de vida curan 25% más."
+  },
+  "basic": "Rayo de Alba",
+  "basicDesc": "Disparo de luz a distancia."
+ },
+ "segador": {
+  "passive": {
+   "name": "Furia",
+   "desc": "No regenera energía sola: la Furia se gana golpeando y recibiendo daño. Pelear es su recurso."
+  },
+  "basic": "Siega",
+  "basicDesc": "Tajo amplio en arco a corta distancia."
+ },
+ "axiom": {
+  "passive": {
+   "name": "Recompilar",
+   "desc": "Cada enemigo que muere por sus habilidades le devuelve 3 de energía (hasta 15 por segundo)."
+  },
+  "basic": "Paquete Corrupto",
+  "basicDesc": "Disparo a distancia contra el enemigo más cercano."
+ },
+ "profeta": {
+  "passive": {
+   "name": "Presagio",
+   "desc": "Cada 4 golpes básicos consecutivos dispara sola un giro extra que golpea en área."
+  },
+  "basic": "Hoja del Augurio",
+  "basicDesc": "Corte cuerpo a cuerpo a un solo objetivo."
+ },
+ "musashi": {
+  "passive": {
+   "name": "Marca de Duelo",
+   "desc": "Marca a su rival: golpearlo acumula Concentración (hasta 10), que aumenta su daño contra ese objetivo."
+  },
+  "basic": "Combo del Bokken",
+  "basicDesc": "Cadena muy rápida de golpes a un objetivo; el tercero pega más fuerte."
+ },
+ "cazadora": {
+  "passive": {
+   "name": "Instinto de Caza",
+   "desc": "Rastreo marca a su Presa e Impulso crece mientras se mueve o ataca: más velocidad y cadencia."
+  },
+  "basic": "Flecha",
+  "basicDesc": "Disparo a distancia; cuanto más Impulso, más rápido dispara."
+ },
+ "nigromante": {
+  "passive": {
+   "name": "Necromancia",
+   "desc": "Los enemigos caídos dejan cadáveres: sus esqueletos se levantan solos de los cuerpos cercanos."
+  },
+  "basic": "Proyectil de Hueso",
+  "basicDesc": "Disparo a distancia contra el enemigo más cercano."
+ },
+ "libertador": {
+  "passive": {
+   "name": "Soldado Cabral",
+   "desc": "Una vez por partida, un golpe mortal lo deja en 1 de vida, invulnerable 2 s y más rápido."
+  },
+  "basic": "Fusil de Granadero",
+  "basicDesc": "Disparo lento y potente; cada 4 impactos el siguiente es un Disparo de Oficial."
+ },
+ "ilkan": {
+  "passive": {
+   "name": "Sed de Horizonte",
+   "desc": "Con menos de 25% de vida gana velocidad, daño y más Tormenta."
+  },
+  "basic": "Hoces Gemelas",
+  "basicDesc": "Combo de tres cortes en arco; el tercero carga más Tormenta."
+ },
+ "vesper": {
+  "passive": {
+   "name": "Hilván",
+   "desc": "Los básicos dejan hasta 3 puntadas por objetivo y dueña durante 5 s. Al caer un marcado libera una única rotura de hilo: no provoca cadenas de explosiones."
+  },
+  "weapon": "Tijeras de luto"
+ },
+ "nahir": {
+  "passive": {
+   "name": "Ángulo muerto",
+   "desc": "Cambiar al menos 60° el ángulo de ataque contra el mismo enemigo añade 15% de daño; recarga interna 900 ms."
+  },
+  "weapon": "Hojas de espejo"
+ },
+ "baltra": {
+  "passive": {
+   "name": "Resonancia de rescate",
+   "desc": "Recibir daño efectivo en vida o escudo suma vibración: máximo 5, una cada 500 ms."
+  },
+  "weapon": "Badajo de salvamento"
+ },
+ "maura": {
+  "passive": {
+   "name": "Semillero",
+   "desc": "Impactos directos generan hasta 5 semillas, como máximo una cada 500 ms."
+  },
+  "weapon": "Cayado de zarza"
+ },
+ "dariel": {
+  "passive": {
+   "name": "Contrapunto",
+   "desc": "Alternar habilidades distintas acumula hasta 3 notas; repetir la misma no añade notas."
+  },
+  "weapon": "Diapasón del telón"
+ },
+ "orsa": {
+  "passive": {
+   "name": "Carga conductora",
+   "desc": "Los básicos dejan hasta 3 cargas por blanco y dueña durante 5 s."
+  },
+  "weapon": "Ballesta de bobina"
+ },
+ "tibor": {
+  "passive": {
+   "name": "Colonia viva",
+   "desc": "Fuerza de colonia 0–100. Sin nube recupera 9/s; cada pulso de nube cuesta 8. Una sola nube por dueño."
+  },
+  "weapon": "Incensario de apicultor"
+ },
+ "zahra": {
+  "passive": {
+   "name": "Calor prestado",
+   "desc": "Calor 0–100: desde 60, +15% de daño. A 100 entra 1,8 s en recuperación; puede usar Enfriar. Fuera de uso pierde 1,5/s."
+  },
+  "weapon": "Guante de horno"
+ },
+ "renko": {
+  "passive": {
+   "name": "Tierra removida",
+   "desc": "Un básico contra un blanco junto a sus surcos produce una sacudida de ×0,25; recarga interna 900 ms."
+  },
+  "weapon": "Pala de nombres"
+ },
+ "sira": {
+  "passive": {
+   "name": "Trazado reciente",
+   "desc": "Conserva hasta 12 puntos de los últimos 4 s. Un salto de más de 75 unidades o terreno inaccesible interrumpe el trazo."
+  },
+  "weapon": "Pluma de agrimensor"
+ },
+ "nano_gm": {
+  "passive": {
+   "name": "Autoridad del GM",
+   "desc": "Cada habilidad tiene afinidad LUZ (protege, restaura, ordena) u OSCURIDAD (daña, debilita, ejecuta). Alternar afinidades acumula Equilibrio; con 2 de Luz y 2 de Sombra entra en FORMA DEL REGENTE (8 s): ambas afinidades a la vez, +20% daño, −15% daño recibido y más alcance."
+  },
+  "weapon": "Brazos del Umbral"
+ },
+ "facu_gm": {
+  "passive": {
+   "name": "Mente de Marea",
+   "desc": "Flujo Corriente → Presión → Oleada: cada eslabón en orden sube la Marea (máx. 3), +20% de potencia y −15% de recarga a la siguiente. Con Marea 3, MAREA ALTA (8 s): básicos con ola, +15% de velocidad y doble área en la próxima. Romper el orden da Marea Baja y un escudo."
+  },
+  "weapon": "Quilla Ceremonial"
+ },
+ "aurelia": {
+  "passive": {
+   "name": "Convergencia",
+   "desc": "Sus habilidades dejan Nodos Solares (máx. 3). Con tres nodos se forma un triángulo de luz: los enemigos dentro reciben daño periódico y se frenan."
+  },
+  "weapon": "Compás de Luz Sólida"
+ },
+ "khepri": {
+  "passive": {
+   "name": "Carroñeros",
+   "desc": "Cada enemigo que muere cerca alimenta el enjambre (máx. 60 escarabajos). El enjambre es visible y potencia sus habilidades."
+  },
+  "weapon": "Hoces de Élitro"
+ },
+ "velmira": {
+  "passive": {
+   "name": "Mil Rostros",
+   "desc": "Lleva una máscara activa: Inspiración, Terror, Silencio o Protección. Cada habilidad aplica el efecto de la máscara; cambiar de rostro potencia la siguiente habilidad un 30%."
+  },
+  "weapon": "Cetro de Bambalinas"
+ },
+ "vhal": {
+  "passive": {
+   "name": "Masa Crítica",
+   "desc": "Sus habilidades acumulan Masa en los enemigos (máx. 5). Los enemigos con 3 o más Masa atraen poco a poco a los comunes cercanos."
+  },
+  "weapon": "Astrolabio Roto"
+ },
+ "bront": {
+  "passive": {
+   "name": "Bastión",
+   "desc": "Al recibir daño desprende placas (una cada 2,5 s, máx. 4). Las placas protegen: aliados cerca reciben −12% de daño y enemigos que las tocan se frenan."
+  },
+  "weapon": "Puño de Bastión"
+ },
+ "oriel": {
+  "passive": {
+   "name": "Paso entre Cicatrices",
+   "desc": "Los aliados que atraviesan sus portales salen del otro lado con escudo y +20% de velocidad (3 s). Los enemigos que los tocan son rechazados y dañados."
+  },
+  "weapon": "Llave de las Cicatrices"
+ },
+ "saelis": {
+  "passive": {
+   "name": "Muda Celeste",
+   "desc": "Sus habilidades dejan Plumas en el suelo (máx. 8). Un aliado (nunca ella) que pisa una Pluma la absorbe y recibe la Bendición del Plumaje: +15% de velocidad y +8% de daño durante 3 s."
+  },
+  "weapon": "Báculo de Plumas"
+ },
+ "ynara": {
+  "weapon": "Halo Nacarado"
+ },
+ "myla": {
+  "weapon": "Cuchara Encantada"
+ },
+ "brasa": {
+  "weapon": "Remachadora"
+ },
+ "eslabon": {
+  "weapon": "Cadena de Grilletes"
+ },
+ "morwen": {
+  "weapon": "Aguja de Vidrio"
+ },
+ "farolero": {
+  "weapon": "Piqueta de Guardia"
+ },
+ "iria": {
+  "weapon": "Aguja Rúnica"
+ },
+ "solciju": {
+  "passive": {
+   "name": "Fermentación",
+   "desc": "Básicos y vino añaden hasta tres marcas por objetivo durante 5 s. El siguiente impacto de vino las consume para infligir 25% más daño y ralentizar."
+  }
+ },
+ "veyra": {
+  "passive": {
+   "name": "Al filo",
+   "desc": "Sus habilidades y sangrados infligen 15% más daño cuando tiene menos de 40% de vida."
+  }
+ },
+ "brakk": {
+  "passive": {
+   "name": "Cimientos firmes",
+   "desc": "Recibe 8% menos daño mientras permanece a 120 unidades de una construcción propia."
+  }
+ },
+ "morveth": {
+  "passive": {
+   "name": "Contagio terminal",
+   "desc": "Cuando muere un enemigo infectado contagia hasta tres vecinos. Los contagios secundarios no vuelven a propagarse."
+  }
+ },
+ "aelith": {
+  "passive": {
+   "name": "Segundos hurtados",
+   "desc": "Cada tercer lanzamiento reduce 0,5 s las otras habilidades activas, sin bajar de 1 s ni alterar la definitiva."
+  }
+ }
+}
