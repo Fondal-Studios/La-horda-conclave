@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tools/anakin-arte.py — DIBUJA las ilustraciones de cartas con el motor local de Anakin (sd-server, DreamShaper 8 LCM).
+"""tools/anakin-arte.py — le PIDE a Anakin (API de proyectos) las ilustraciones de cartas.
 
 Cómo dibuja (img2img, para que el monstruo se reconozca):
   1. arma una "placa" con la composición canon de los guardianes (luna grande, torres en ruinas, suelo), teñida según el linaje;
@@ -12,14 +12,16 @@ Uso:
   python tools/anakin-arte.py --grupo monstruos|magia|nuevas [--n 3]
   Deja <out>/<id>_<k>.png (528x600) y <out>/_hoja_<grupo>.png para elegir. La elegida se copia a assets/art-incoming/<id>.png
   y sigue el flujo de siempre: tools/art-intake.py --judge / --approve (la aprobación es de una persona).
-Necesita el servidor de dibujo de Anakin en http://127.0.0.1:7861 (img_servidor.ps1) y respetar la fila de la placa (placa_fila.py).
+Desde el 25/11 todo se PIDE a Anakin por su API de proyectos (neon-panel/docs/API_PROYECTOS.md, clave en ANAKIN_API_KEY):
+Anakin toma el turno de la placa y aprende de cada dibujo. Nunca hablar directo con sd-server.
+Monstruos: imagen a imagen con init= (boceto con su sprite) y fuerza_init; magia: desde texto. --ref <guardian> suma referencia de estilo.
+  python tools/anakin-arte.py --opinar ../conclave-arte-candidatas/_elegidas.txt   (le cuenta a Anakin cuales se eligieron)
 """
-import base64, io, json, os, random, subprocess, sys, time, urllib.request, zlib
+import io, json, os, random, subprocess, sys, time, urllib.error, urllib.parse, urllib.request, zlib
 from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-URL = os.environ.get("SD_URL", "http://127.0.0.1:7861")
-W, H = 512, 576
+W, H = 512, 768   # formato 'vertical' de la API de Anakin
 ESCENA = {
     "ciudad": "streets and walls of a cursed medieval city, old lanterns, dark brick",
     "forja": "mine tunnels with glowing blue crystals, mine carts and lanterns",
@@ -42,9 +44,9 @@ TINTE = {
 POS = ("(chibi:1.2) painted fantasy illustration of (({d})), full body, three-quarter view, centered, standing on dirt and stones, "
        "{e}, tall ruined towers silhouetted against a huge dusky moon, torn banners, dust, warm brown and ochre palette, "
        "soft digital painting, expressive eyes, clean readable silhouette, dark fantasy game card art, masterpiece, best quality")
-POS_MAGIA = ("painted fantasy card illustration of {d}, centered composition, dramatic magic effect, {e}, "
-             "ruined towers silhouetted against a huge dusky moon in the background, warm brown and ochre palette, "
-             "soft digital painting, dark fantasy game card art, masterpiece, best quality")
+POS_MAGIA = ("close-up of {d}, the magic effect fills the frame, glowing, dramatic, painted fantasy card illustration, "
+             "dark fantasy game card art, soft digital painting, warm ochre and dusk tones, simple blurred background of {e}, "
+             "masterpiece, best quality")
 NEG = ("text, letters, words, watermark, signature, logo, frame, border, card frame, ui, pixel art, pixelated, 3d render, photo, "
        "photorealistic, blurry, lowres, jpeg artifacts, multiple characters, duplicate, cropped, deformed, extra limbs, bad anatomy, nsfw, nude")
 
@@ -54,7 +56,7 @@ def cartas():
     return json.loads(subprocess.check_output(["node", "-e", js], cwd=ROOT))
 
 
-def placa(lin, seed):
+def placa(lin, seed):   # (se usaba como base del img2img directo; queda para cuando la API acepte imagen)
     top, bot, luna, suelo = TINTE.get(lin, TINTE["ciudad"]); rnd = random.Random(seed)
     im = Image.new("RGB", (W, H)); d = ImageDraw.Draw(im)
     for y in range(H):
@@ -89,37 +91,47 @@ def con_sprite(base, art, jefe):
     return out
 
 
-def b64(im):
-    f = io.BytesIO(); im.save(f, "PNG"); return base64.b64encode(f.getvalue()).decode()
+API = os.environ.get("ANAKIN_API", "http://127.0.0.1:8778/core/v1")
+PROYECTO = "La-Horda-Conclave"
 
 
-def marcar_uso():
-    """Anakin apaga el servidor tras 10 min 'sin dibujos' mirando data/img_servidor.uso: lo marcamos como hace Img-ServidorDibujar."""
-    u = os.environ.get("ANAKIN_IMG_USO", "C:/Users/MARIANO/neon-panel/pc/data/img_servidor.uso")
-    try: open(u, "w").write(time.strftime("%Y-%m-%dT%H:%M:%S"))
-    except Exception: pass
+def clave():
+    k = os.environ.get("ANAKIN_API_KEY", "")
+    if not k and os.name == "nt":   # variable de usuario creada despues de abrir esta terminal
+        try:
+            import winreg
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment") as r: k = winreg.QueryValueEx(r, "ANAKIN_API_KEY")[0]
+        except OSError: pass
+    if not k: sys.exit("falta la variable de entorno ANAKIN_API_KEY (ver neon-panel/docs/API_PROYECTOS.md)")
+    return k
 
 
-def dibujar(init, prompt, fuerza, seed):
-    marcar_uso()
-    body = {"init_images": [b64(init)], "prompt": prompt, "negative_prompt": NEG, "denoising_strength": fuerza, "steps": 8,
-            "cfg_scale": 1.8, "width": W, "height": H, "seed": seed, "sampler_name": "lcm"}
-    req = urllib.request.Request(URL + "/sdapi/v1/img2img", data=json.dumps(body).encode(), headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=300) as r:
-        im = Image.open(io.BytesIO(base64.b64decode(json.load(r)["images"][0]))).convert("RGB")
-    marcar_uso(); return im
+def api(ruta, **q):
+    req = urllib.request.Request(API + "/" + ruta + "?" + urllib.parse.urlencode(q), headers={"X-Anakin-Key": clave()})
+    for intento in range(60):   # si el nucleo se esta reiniciando, esperarlo (nunca levantarlo desde aca)
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r: return json.load(r)
+        except urllib.error.URLError as e:
+            if isinstance(e, urllib.error.HTTPError) or intento == 59: raise
+            print("  nucleo de Anakin sin respuesta, espero:", e.reason, flush=True); time.sleep(30)
 
 
-def levantar():
-    """Si el servidor de Anakin se cayo o se apago solo, lo levanta como lo hace Anakin (img_servidor.ps1) y espera."""
-    try: urllib.request.urlopen(URL + "/sdapi/v1/options", timeout=5); return
-    except Exception: pass
-    ps = os.environ.get("ANAKIN_IMG_SERVIDOR", "C:/Users/MARIANO/neon-panel/pc/img_servidor.ps1")
-    subprocess.Popen(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-WindowStyle", "Hidden", "-File", ps])
-    for _ in range(75):
-        time.sleep(2)
-        try: urllib.request.urlopen(URL + "/sdapi/v1/options", timeout=3); return
-        except Exception: pass
+def dibujar_api(prompt, registro, cid, k, **extra):
+    """Le PIDE el dibujo a Anakin (/core/v1/dibujar): Anakin toma turno de placa en la fila, lo registra en sus creaciones
+    con el proyecto y aprende de la opinion que le devolvamos (--opinar). No arranca servidores ni toca la placa por su cuenta."""
+    t0 = time.time()
+    while time.time() - t0 < 3 * 3600:   # si el doctor juega, Anakin no dibuja: esperar sin pelear por la placa
+        r = api("dibujar", prompt=prompt[:900], evitar=NEG, formato="vertical", proyecto=PROYECTO, **extra)
+        if not r.get("ok"): raise RuntimeError(r.get("error") or r)
+        registro["%s_%d" % (cid, k)] = r["id"]
+        while True:
+            time.sleep(8); e = api("dibujo", id=r["id"])
+            if e.get("estado") == "listo": return Image.open(e["archivo"]).convert("RGB")
+            if e.get("estado") == "error": break
+        err = str(e.get("error"))
+        if "de nuevo" not in err and "ocupad" not in err: raise RuntimeError(err)
+        print("  Anakin ocupado:", err, flush=True); time.sleep(60)   # hoy no encola: avisa que esta ocupado y hay que volver a pedir
+    raise TimeoutError("tres horas sin turno")
 
 
 def hoja(out, ids, n, nombre):
@@ -147,24 +159,35 @@ def main():
     todos = {**ped["monstruos"], **ped["magia"]}
     if "--ids" in a: ids = arg("--ids").split(","); nombre = arg("--nombre", "ids")
     else: nombre = arg("--grupo", "monstruos"); ids = list(ped[nombre].keys())
+    regp = os.path.join(out, "_api_ids.json"); registro = json.load(open(regp)) if os.path.exists(regp) else {}
+    if "--opinar" in a:   # "--opinar elegidas.txt": las elegidas por una persona se aprueban y el resto se rechaza; Anakin aprende
+        el = {tuple(l.split()[:2]) for l in open(arg("--opinar"), encoding="utf8") if l.strip()}
+        for key, did in registro.items():
+            cid, k = key.rsplit("_", 1); bien = (cid, k) in el
+            if any(c == cid for c, _ in el) or bien:
+                print(key, api("dibujo_opinion", id=did, ok="1" if bien else "0", motivo="elegida para la carta" if bien else "otra candidata fue elegida").get("msg"))
+        return
+    ref = arg("--ref")   # opcional: ilustracion de guardian como referencia de estilo (IP-Adapter), p. ej. assets/g/myla.webp
     for cid in ids:
-        lin, desc = todos[cid]; c = cs[cid]; es_unidad = c["type"] == "unit"
+        lin, desc = todos[cid]; c = cs[cid]; es_unidad = c["type"] == "unit" and c["art"]
         for k in range(n):
-            fz = float(arg("--fuerza", ([0.5, 0.58, 0.66][k % 3]) if es_unidad else ([0.72, 0.8, 0.86][k % 3])))
             dst = os.path.join(out, "%s_%d.png" % (cid, k))
             if os.path.exists(dst) and "--rehacer" not in a: continue
+            fz = float(arg("--fuerza", ([0.5, 0.58, 0.66][k % 3]) if es_unidad else 0))
             seed = zlib.crc32(("%s|%d|%.2f" % (cid, k, fz)).encode()) % 2 ** 31
-            base = placa(lin, seed)
-            init = con_sprite(base, c["art"], c["boss"]) if es_unidad and c["art"] else base
-            pr = (POS if es_unidad else POS_MAGIA).format(d=desc, e=ESCENA[lin])
+            extra = {"semilla": seed}
+            if es_unidad:   # imagen a imagen: placa canon (luna y ruinas) + sprite encima; Anakin lo repinta y el monstruo se reconoce
+                bd = os.path.join(os.path.abspath(out), "_bocetos"); os.makedirs(bd, exist_ok=True)
+                bp = os.path.join(bd, "%s_%d.png" % (cid, k)); con_sprite(placa(lin, seed), c["art"], c["boss"]).save(bp)
+                extra.update(init=bp, fuerza_init="%.2f" % fz)
+                if ref: extra.update(referencia=os.path.abspath(os.path.join(ROOT, ref)), fuerza_ref=arg("--fuerza-ref", "0.3"))
+                pr = POS.format(d=desc, e=ESCENA[lin])
+            else: pr = POS_MAGIA.format(d=desc, e=ESCENA[lin])
             t0 = time.time()
-            ok = False
-            for intento in range(40):  # sd-server responde 500 al instante si esta dibujando para otro (Fondal RPG): esperar y reintentar
-                try: dibujar(init, pr, fz, seed).save(dst); ok = True; break
-                except Exception as e:
-                    print("x", cid, k, e, "(reintento %d)" % intento, flush=True); levantar(); time.sleep(min(8 + 2 * intento, 30))
-            if not ok: continue
-            print("✔ %s_%d %.0fs" % (cid, k, time.time() - t0), flush=True)
+            try: dibujar_api(pr, registro, cid, k, **extra).save(dst)
+            except Exception as e: print("x", cid, k, e, flush=True); continue
+            finally: json.dump(registro, open(regp, "w"), indent=0)
+            print("ok %s_%d %.0fs" % (cid, k, time.time() - t0), flush=True)
     hoja(out, ids, n, nombre); print("hoja:", os.path.join(out, "_hoja_%s.png" % nombre))
 
 
