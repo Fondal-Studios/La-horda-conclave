@@ -16,7 +16,7 @@ function client(port, name, deck, pickFn) {
       if (m.t === "state") {
         st.states++;
         var foe = m.view.players[1 - m.you];
-        if (foe.hand.some(function (c) { return c !== null; }) || foe.deck.length) st.leaks++;
+        if (foe.hand.some(function (c) { return c !== null; }) || foe.deck.length || (foe.traps || []).some(function (t) { return t.id; })) st.leaks++;
         if (m.view.map !== "infernal") st.leaks++; if (m.view.rng !== undefined || m.view.seed !== undefined) st.leaks++;
         if (m.legal.length) {
           if (st.states === 3) { ws.send(JSON.stringify({ t: "act", action: { t: "play", uid: 99999 } })); }   // acción ilegal a propósito

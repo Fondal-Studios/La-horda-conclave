@@ -55,17 +55,17 @@ function invariants(s, tag) {
   });
 }
 var LOAD = function (n) { var ids = D.SUMMONER_IDS.slice(), a = ids[n % ids.length], b = ids[(n * 3 + 1) % ids.length]; if (a === b) b = ids[(n + 1) % ids.length]; return [a, b]; };
-var sumUses = 0, sumBy = {};
+var sumUses = 0, sumBy = {}, trapSet = 0, trapFired = {};
 function play(da, db, seed, map) {
   var s = E.newGame([da, db], seed, null, map, { sk: [LOAD(seed), LOAD(seed + 5)] }), steps = 0;
   while (!s.over && steps < 4000) {
     var a = AI.choose(s, 1.2);
     if (!E.isLegal(s, a)) { fails.push("acción ilegal del bot " + JSON.stringify(a)); break; }
     if (a.t === "use" && D.CARDS[E.find(s, a.uid).u.id].moves[a.mv].ult) ultUses++; if (a.t === "use" && a.mv > 0) skillUses++; if (a.t === "move") reposUses++; if (a.t === "sum") { sumUses++; var nm = s.players[s.active].sk[a.i]; sumBy[nm] = (sumBy[nm] || 0) + 1; }
-    var r = E.apply(s, a); if (!r.ok) { fails.push("apply falló " + r.error); break; }
+    var r = E.apply(s, a); r.events.forEach(function (e) { if (e.e === "trapSet") trapSet++; if (e.e === "trap") trapFired[e.id] = (trapFired[e.id] || 0) + 1; }); if (!r.ok) { fails.push("apply falló " + r.error); break; }
     invariants(s, "seed" + seed);
     steps++;
-    if (s.turn > 60) break;
+    if (s.turn > 110) break;
   }
   return s;
 }
@@ -81,6 +81,7 @@ for (var i = 0; i < names.length; i++) for (var j = 0; j < names.length; j++) {
   }
 }
 console.log("\nhabilidades del invocador usadas:", sumUses, JSON.stringify(sumBy));
+console.log("trampas colocadas:", trapSet, "· disparadas:", JSON.stringify(trapFired));
 console.log("habilidades usadas:", skillUses, "· reposicionamientos:", reposUses);
 console.log("por mapa (gana quien abre %):", Object.keys(D.MAPS).map(function (m) { return m + " " + (100 * mapWins[m][0] / Math.max(1, mapWins[m][0] + mapWins[m][1])).toFixed(0); }).join(" · "));
 console.log("partidas:", total, "· turnos promedio (ambos jugadores):", (turnsSum / total).toFixed(1), "· máx:", maxTurn, "· definitivas usadas:", ultUses);

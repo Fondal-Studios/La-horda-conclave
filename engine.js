@@ -35,7 +35,7 @@
 
     E.newGame = function (decks, seed, names, mapId, opts) {
       var s = { seed: seed, rng: (seed >>> 0) || 1, turn: 0, active: 0, over: false, winner: null, nextUid: 1, events: [], map: mapId || "ciudad", pq: [],
-        players: [0, 1].map(function (i) { return { name: (names && names[i]) || "Jugador " + (i + 1), hp: (opts && opts.hp && opts.hp[i]) || E.HP, maxHp: (opts && opts.hp && opts.hp[i]) || E.HP, maxCr: 0, cr: 0, deck: [], hand: [], cells: [null, null, null, null, null, null], fatigue: 0, sk: ((opts && opts.sk && opts.sk[i]) || ["voz", "egida"]).slice(), skcd: [0, 0] }; }) };
+        players: [0, 1].map(function (i) { return { name: (names && names[i]) || "Jugador " + (i + 1), hp: (opts && opts.hp && opts.hp[i]) || E.HP, maxHp: (opts && opts.hp && opts.hp[i]) || E.HP, maxCr: 0, cr: 0, deck: [], hand: [], cells: [null, null, null, null, null, null], fatigue: 0, traps: [], sk: ((opts && opts.sk && opts.sk[i]) || ["voz", "egida"]).slice(), skcd: [0, 0] }; }) };
       [0, 1].forEach(function (i) {
         var p = s.players[i];
         p.deck = shuffle(s, decks[i].map(function (id) { return { uid: s.nextUid++, id: id }; }));
@@ -128,6 +128,17 @@
       u.pc++; if (p.every && u.pc % p.every) return; if (p.max && u.pn >= p.max) return; u.pn++;
       ev(s, { e: "passive", uid: u.uid, name: p.name });
       exec(s, p.cycle ? p.cycle[(u.pn - 1) % p.cycle.length] : p.ops, { owner: u.owner, src: u, target: tgt });
+    }
+    // TRAMPAS: se colocan boca abajo (máx. 2) y se disparan solas cuando el rival hace algo que coincide con su condición
+    function fireTrap(s, defender, trig, targetUid) {
+      var P = s.players[defender];
+      for (var i = 0; i < P.traps.length; i++) {
+        var d = CARDS[P.traps[i].id]; if (d.trig !== trig) continue;
+        P.traps.splice(i, 1); ev(s, { e: "trap", p: defender, id: d.id, name: d.name });
+        if (d.ops && d.ops.length) exec(s, d.ops, { owner: defender, src: null, target: targetUid });
+        return d;
+      }
+      return null;
     }
     function emptyCell(s, p) { var c = s.players[p].cells, i; for (i = 0; i < 6; i++) if (!c[i]) return i; return -1; }
 
@@ -305,6 +316,7 @@
           for (var i = 0; i < 6; i++) if (!P.cells[i]) { if (compact && seenRow[rowOf(i)]) continue; seenRow[rowOf(i)] = 1; out.push({ t: "play", uid: c.uid, cell: i }); }
           return;
         }
+        if (d.type === "trap") { if (P.traps.length < 2) out.push({ t: "play", uid: c.uid }); return; }
         if (d.target === "none") { out.push({ t: "play", uid: c.uid }); return; }
         targetList(s, d.target, me).forEach(function (tg) { out.push({ t: "play", uid: c.uid, target: tg }); });
       });
@@ -363,7 +375,13 @@
         if (d.type === "unit") {
           var u = place(s, me, card.id, a.cell); ev(s, { e: "summon", uid: u.uid, id: u.id, p: me, cell: a.cell });
           if (d.ingreso) exec(s, d.ingreso, { owner: me, src: u }); else resolveDeaths(s);
-        } else exec(s, d.ops, { owner: me, src: null, target: a.target });
+          if (!s.over && P.cells[a.cell] === u) fireTrap(s, 1 - me, "despliegue", u.uid);
+        } else if (d.type === "trap") { P.traps.push({ uid: card.uid, id: card.id }); ev(s, { e: "trapSet", p: me });
+        } else {
+          var spellCancel = false;
+          if (d.cat === "hechizo" || d.cat === "maldicion") { var tr0 = fireTrap(s, 1 - me, "hechizo", null); if (tr0 && tr0.cancel) spellCancel = true; }
+          if (!spellCancel && !s.over) exec(s, d.ops, { owner: me, src: null, target: a.target });
+        }
         return { ok: true, events: s.events };
       }
       if (a.t === "sum") {
@@ -388,6 +406,14 @@
         P.cr -= E.moveCost(s, un, a.mv); un.acted = true;
         if (m.ult) un.usedUlt = true; else un.cd[a.mv] = E.moveCdTurns(s, m) - 0;
         ev(s, { e: "use", uid: un.uid, mv: a.mv, name: m.name, target: a.target === undefined ? null : a.target, ult: !!m.ult });
+        var cancelled = false, trp = null;
+        if (m.tgt === "enemy" && a.target !== undefined) {
+          trp = faceOf(a.target) === 1 - me ? fireTrap(s, 1 - me, "ataqueFace", un.uid) : fireTrap(s, 1 - me, "ataque", un.uid);
+          if (!trp && !m.basic) trp = fireTrap(s, 1 - me, "habilidad", un.uid);
+          if (trp && trp.cancel) cancelled = true;
+          if (s.players[me].cells[un.cell] !== un) cancelled = true;   // el atacante cayó por la trampa
+        }
+        if (cancelled) { ev(s, { e: "cancel", uid: un.uid }); return { ok: true, events: s.events }; }
         exec(s, m.ops, { owner: me, src: un, target: a.target });
         if (!s.over && s.players[me].cells[un.cell] === un) pFire(s, un, m.basic ? "ataque" : "uso", a.target);
         return { ok: true, events: s.events };
@@ -400,6 +426,7 @@
       var q = v.players[1 - p];
       q.handCount = q.hand.length; q.hand = q.hand.map(function () { return null; }); q.deckCount = q.deck.length; q.deck = [];
       var m = v.players[p]; m.deckCount = m.deck.length; m.deck = [];
+      q.traps = q.traps.map(function (x) { return { uid: x.uid }; });   // las trampas rivales son secretas
       v.you = p; return v;
     };
     return E;

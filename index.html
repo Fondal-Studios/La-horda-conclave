@@ -106,6 +106,17 @@ h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
 .packs .card{animation:flip .6s both}
 @keyframes flip{from{transform:rotateY(90deg) scale(.7);opacity:0}}
 .gold{color:var(--gold2);font-size:1.8rem}
+/* trampas y avisos */
+.card.trampa{border-color:#c0813a}
+.traps{display:flex;gap:.4rem;margin-left:.6rem}
+.tslot{width:9rem;height:3rem;border:.12rem dashed #ffffff33;border-radius:.5rem;display:grid;place-items:center;font-size:1.1rem;color:var(--mute);line-height:1.05;text-align:center;padding:0 .3rem}
+.tslot.set{border:.15rem solid #c0813a;background:#3a2410;color:#ffd9a0}.tslot.back{border:.15rem solid #c0813a;background:repeating-linear-gradient(45deg,#4a3b2a,#4a3b2a .3rem,#3a2d1e .3rem,#3a2d1e .6rem);color:#e0b556;font-weight:bold}
+.tslot.pop{animation:pop .4s,pulse .6s 2}
+#info{position:fixed;inset:0;background:#000d;display:none;place-items:center;z-index:97;padding:2rem;overflow:auto}
+#info.on{display:grid} #info .box{max-width:84rem;background:var(--panel);border:.2rem solid var(--gold);border-radius:1rem;padding:2rem 2.4rem;text-align:left}
+#info p,.manab p{font-size:1.55rem;line-height:1.5;margin:.6rem 0} #info h2{margin:0 0 .6rem}
+.manab{background:#1f2433;border:.15rem solid #4a6aa8;border-radius:.8rem;padding:.6rem 1.4rem;margin:1rem auto;max-width:86rem;text-align:left}
+.manab b.t{color:#9ec0ff;font-size:1.7rem}
 /* invocador y ayuda */
 .skbar{display:flex;gap:.5rem;margin-left:.6rem}
 .skb{display:flex;align-items:center;gap:.5rem;background:#2a2016;border:.15rem solid var(--violet);border-radius:.6rem;padding:.2rem .8rem;font-size:1.2rem;line-height:1.1;text-align:left}
@@ -264,6 +275,9 @@ h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
   <button class="btn sec" data-home>← Volver</button>
   <h2>Reglas en 1 minuto</h2>
   <div class="note"><b>Objetivo:</b> bajar la <b>vida del Invocador rival</b> (🔮) de 40 a 0: tus guardianes y monstruos son quienes le hacen daño. Cada victoria contra el Bot, en la Aventura o en cooperativo sube tu <b>rango</b>: +2 de vida máxima cada 2 victorias (hasta +12); en el 1v1 entre personas todos empiezan con 40. Mazo de 30 cartas (máx. 5 guardianes únicos). Mano inicial 3 (quien abre, sin robo en el turno 1) o 5 + <b>Chispa</b> (quien responde). <b>Cristales:</b> +1 por turno hasta 10.</div>
+  <div class="note"><b>Maná (cristales ✦):</b> es del <b>Invocador</b>, no de los guardianes. Empezás con 1, ganás 1 por turno (hasta 10) y se recargan al empezar tu turno. Se gastan en jugar cartas, en las habilidades de tus guardianes (✦ de cada botón), en cambiar una unidad de lugar (1 ✦) y en tus habilidades de invocador. El <b>Ataque</b> es gratis; la <b>definitiva</b> no cuesta cristales pero necesita carga (puntos violetas).</div>
+  <div class="note"><b>Cómo se activa una habilidad:</b> tocá una unidad tuya con borde verde → tocá el movimiento en el panel de la derecha → tocá el objetivo (rojo = enemigo, verde = aliado). Cada unidad hace una sola cosa por turno. Las habilidades tienen enfriamiento.</div>
+  <div class="note"><b>Trampas 🪤:</b> se ponen boca abajo (máx. 2) y se disparan solas cuando el rival hace algo que coincide (atacar a tus unidades o a tu Invocador, jugar un hechizo, desplegar una unidad, usar una habilidad). Algunas anulan la acción. Las del rival son secretas.</div>
   <div class="note"><b>Tablero 2 filas × 3 casillas por lado.</b> Fila de <b>frente</b> y fila de <b>fondo</b>. Jugás una unidad en la casilla libre que quieras. Mover una unidad (o intercambiarla con una aliada) cuesta 1 cristal, una vez por unidad y turno.</div>
   <div class="note"><b>Cada unidad actúa una vez por turno y elige un movimiento</b>, como en Pokémon: <b>Ataque</b> (gratis), hasta 3 <b>habilidades</b> (cuestan cristales y tienen enfriamiento) y una <b>definitiva</b> única por partida que se carga con los turnos (3; los de Ascensión, 2). Los monstruos solo tienen Ataque.</div>
   <div class="note"><b>Posición:</b> los movimientos <b>cuerpo a cuerpo</b> solo se usan desde la fila de frente y solo golpean la fila de frente rival (si hay un <b>Provocar</b> en ella, hay que pegarle a él). Los <b>a distancia</b> se usan desde cualquier fila y llegan a cualquiera (salvo terreno oscuro). Al <b>Invocador</b> solo se le pega si el frente rival está vacío. Los movimientos de área golpean toda la fila del objetivo; los de línea, al objetivo y a quien está detrás.</div>
@@ -288,6 +302,8 @@ h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
 <section id="builder" class="screen">
   <button class="btn sec" data-home>← Volver</button>
   <h2>Constructor de mazos</h2>
+  <div class="row"><button class="btn" id="bNew">＋ Crear mazo nuevo</button><button class="btn sec" id="bHelp">? Reglas del mazo y cómo funciona el maná</button></div>
+  <div id="bRules" class="note" hidden></div>
   <div class="bld">
     <div>
       <div class="tabs" id="bTabs"></div>
@@ -345,6 +361,7 @@ h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
 </section>
 <div id="rew"><div class="box"><h1 id="rewT" style="font-size:3.4rem"></h1><p class="sub" id="rewS" style="margin:.6rem auto"></p><div class="packs" id="rewC"></div><button class="btn sec" id="rewSkip">Seguir sin llevarme nada</button></div></div>
 <div id="tut"><div class="box"><h2 id="tutT"></h2><div id="tutB"></div><div class="dots" id="tutD"></div><div class="row" style="margin-top:1.2rem"><button class="btn sec" id="tutPrev">Atrás</button><button class="btn" id="tutNext">Siguiente</button></div></div></div>
+<div id="info"><div class="box"><h2 id="infoT"></h2><div id="infoB"></div><div class="row" style="margin-top:1rem"><button class="btn" id="infoOk">Entendido</button></div></div></div>
 <div id="over"><div><h1 id="overT"></h1><p class="sub" id="overS" style="margin:1rem auto"></p><button class="btn" id="overB">Volver</button></div></div>
 
 <script src="movesets.js"></script>
@@ -356,7 +373,7 @@ h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
 "use strict";
 var D = HORDA_DATA, CARDS = D.CARDS, MAPS = D.MAPS, E = createHordaEngine(CARDS, MAPS, D.SUMMONER), AI = createHordaAI(E), LIN = D.LINAJES;
 var $ = function (id) { return document.getElementById(id); };
-var EMOJI = { chispa:"✦", rayo:"⚡", llamarada:"🔥", escarcha:"❄", tormenta:"🌩", corazon:"❤‍🔥", egida:"🛡", sello:"⚜", bendicion:"✨", furia:"💢", banquete:"🍄", piedra:"💎", debilitar:"🕸", podredumbre:"☠", veneno:"🧪", silencio:"🤫", cadenas:"⛓", marchitar:"🥀" };
+var EMOJI = { espinas:"🌵", muro_hielo:"🧊", barrera:"🔰", espejo:"🪞", emboscada:"🗡", red:"🪢", inspiracion:"📖", segunda:"🔁", robovida:"🩸", fuego:"☄", invierno:"❄", marea:"🌊", manada:"🐺", muro_piedra:"🧱", pacto:"🔪", chispa:"✦", rayo:"⚡", llamarada:"🔥", escarcha:"❄", tormenta:"🌩", corazon:"❤‍🔥", egida:"🛡", sello:"⚜", bendicion:"✨", furia:"💢", banquete:"🍄", piedra:"💎", debilitar:"🕸", podredumbre:"☠", veneno:"🧪", silencio:"🤫", cadenas:"⛓", marchitar:"🥀" };
 var TICON = { burn: "🔥", heal: "🌿", cover: "🛡", amp: "⚒", slow: "⏳", dark: "🌑", frost: "❄" };
 var ROLE_N = { tanque: "Tanque", asesino: "Asesino", mago: "Mago", soporte: "Soporte" };
 var KW = D.KW_NAME;
@@ -409,7 +426,7 @@ function cardText(c, full) {
 function cardEl(id, extra, full) {
   var c = CARDS[id], p = D.points(c), cls = "card " + (c.kind === "bicho" ? "bicho " : "") + c.rarity + (extra ? " " + extra : "");
   var art = c.type === "unit" ? '<div class="art" style="background-image:url(' + c.art + ')"></div>'
-    : '<div class="art" style="background:radial-gradient(circle at 50% 40%,' + ({ hechizo: "#2c5b8a", bonus: "#2f6b3a", maldicion: "#5a2f7e" })[c.cat] + ',#14110f)"><div class="ico">' + (EMOJI[id] || "✦") + "</div></div>";
+    : '<div class="art" style="background:radial-gradient(circle at 50% 40%,' + ({ hechizo: "#2c5b8a", bonus: "#2f6b3a", maldicion: "#5a2f7e", trampa: "#7a4a1c" })[c.cat] + ',#14110f)"><div class="ico">' + (EMOJI[id] || "✦") + "</div></div>";
   var st = c.type === "unit" ? '<div class="st"><span class="a">⚔' + c.atk + '</span><span class="h">♥' + c.hp + "</span></div>" : '<div class="st"></div>';
   var role = c.kind === "guardian" ? '<span class="role">' + ROLE_N[c.role] + "</span>" : "";
   var dot = c.origin ? '<span class="dot" style="background:' + LIN[c.origin].color + '" title="' + LIN[c.origin].name + '"></span>' : "";
@@ -426,7 +443,7 @@ function buildHome() {
   var own = Object.keys(SAVE.owned).filter(function (k) { return SAVE.owned[k] > 0; }).length;
   $("recH").textContent = "Cartas distintas: " + own + "/" + allCardIds().length + " · Victorias " + SAVE.wins + " · Derrotas " + SAVE.losses;
 }
-function go(id) { if (!SAVE && id !== "rules") { quizStart("new"); return; } show(id); if (id === "coll") buildColl(); if (id === "builder") buildBuilder(); if (id === "setup") buildSetup(); if (id === "adv") buildAdv(); }
+function go(id) { if (!SAVE && id !== "rules") { quizStart("new"); return; } show(id); if (id === "coll") buildColl(); if (id === "builder") { buildBuilder(); if (!SAVE.seenBld) { SAVE.seenBld = true; persist(); showInfo("Tu primer mazo: cómo se arma y cómo funciona el maná", DECK_RULES_HTML + SKILL_HTML); } } if (id === "setup") buildSetup(); if (id === "adv") buildAdv(); }
 $("hAdv").onclick = function () { go("adv"); }; $("hPlay").onclick = function () { go("setup"); }; $("hDeck").onclick = function () { go("builder"); }; $("hColl").onclick = function () { go("coll"); }; $("hRules").onclick = function () { show("rules"); };
 document.addEventListener("click", function (e) { if (e.target.hasAttribute && e.target.hasAttribute("data-home")) show("home"); });
 $("mute").onclick = function () { muted = !muted; this.textContent = "Sonido: " + (muted ? "no" : "sí"); };
@@ -526,7 +543,8 @@ function quizResult() {
   var why = function (id) { var g = CARDS[id]; return ROLE_N[g.role] + " · " + LIN[g.origin].name + (q.lin[g.origin] >= q.lin[lin] ? " (tu lugar favorito)" : ""); };
   $("quizRBox").innerHTML = '<p class="narr">Listo, ' + esc(q.name) + '. Ya te leí. (No guardo nada que no esté en tu navegador, tranquilo.)</p><h1>' + tt[0] + '</h1><p class="narr" style="margin-top:1rem">' + tt[1] + '</p><p class="narr">Tu lugar es <b>' + LIN[lin].name + '</b>. Estos guardianes levantaron la mano:</p>' +
     '<div class="row" style="justify-content:center"><button class="btn" id="qFin">' + (q.mode === "new" ? "Empezar con ellos" : "Sumar estos guardianes") + '</button></div>' +
-    '<div class="qheroes">' + heroes.map(function (id) { return '<div class="qh">' + cardEl(id, "big", true) + "<p>" + why(id) + "</p></div>"; }).join("") + '</div>';
+    '<div class="qheroes">' + heroes.map(function (id) { return '<div class="qh">' + cardEl(id, "big", true) + "<p>" + why(id) + "</p></div>"; }).join("") + '</div>' +
+    '<div class="manab"><b class="t">Antes de jugar: cómo funciona el maná</b>' + MANA_HTML + SKILL_HTML + "</div>";
   show("quizR");
 }
 $("quizRBox").addEventListener("click", function (e) {
@@ -592,11 +610,20 @@ function updateCoach() {
   var a = actionable(), idle = V.active === ctx.me && !lock && !pend && !sel && !a.plays && !a.units && !a.sums;
   eb.classList.toggle("nudge", idle);
 }
+var MANA_HTML = '<p><b>El maná es del Invocador, no de los guardianes.</b> Se llaman <b>cristales ✦</b>: empezás con 1, ganás 1 más por turno (hasta 10) y <b>se recargan todos al empezar tu turno</b>. Los que no usás se pierden.</p>' +
+  '<p>Los gastás en: <b>jugar cartas</b> (el número azul de la esquina de la carta), las <b>habilidades de tus guardianes</b> (el ✦ de cada botón), <b>cambiar una unidad de lugar</b> (1 ✦) y tus <b>habilidades de invocador</b>.</p>' +
+  '<p><b>Gratis:</b> el <b>Ataque</b> de cada unidad. La <b>definitiva</b> no cuesta cristales pero necesita carga: los puntos violetas de la carta se llenan de a uno por turno y, cuando están todos, la usás una vez por partida.</p>';
+var SKILL_HTML = '<p><b>Cómo se activa una habilidad:</b> 1) tocá una unidad tuya con <b>borde verde</b>; 2) en el panel de la derecha tocá el movimiento que quieras (si tiene ✦ y te alcanzan los cristales); 3) tocá el objetivo marcado: <b>rojo</b> = enemigo, <b>verde</b> = aliado.</p>' +
+  '<p>Cada unidad hace <b>una sola cosa por turno</b>: Ataque, una habilidad o la definitiva. Después de usar una habilidad tiene <b>enfriamiento</b> (tiene que esperar algunos turnos para repetirla). Las unidades recién desplegadas 💤 no actúan hasta el turno siguiente.</p>';
+var DECK_RULES_HTML = '<p><b>Reglas del mazo:</b> exactamente <b>30 cartas</b>; hasta <b>5 guardianes</b> (cada uno una sola vez); monstruos hasta <b>3 copias</b> si cuestan 3 o menos y <b>2</b> si cuestan más; hechizos, bonus, maldiciones y trampas hasta <b>2 copias</b>. Solo podés usar las copias que tenés.</p>' +
+  '<p><b>Tipos de carta:</b> <b>guardianes</b> (fuertes, con habilidades, pasiva y definitiva), <b>monstruos</b> (baratos, solo atacan), <b>hechizos</b> (daño y control), <b>bonus</b> (te empoderan), <b>maldiciones</b> (debilitan al rival) y <b>trampas</b> (se ponen boca abajo, máx. 2, y se disparan solas cuando el rival hace algo que coincide).</p>' +
+  '<p><b>Consejo:</b> mirá la <b>curva de costos</b> de la derecha. Un mazo con muchas cartas de costo 5 o más se traba al principio, porque en el turno 1 tenés 1 cristal. Lo normal es muchas cartas de 1 a 3 y pocas de 5 o más.</p>' + MANA_HTML;
 var TUT = [
   ["Tu objetivo", "<p>Cada jugador es un <b>Invocador 🔮</b> con puntos de vida (40, más tu rango). <b>Ganás bajando la vida del Invocador rival a 0.</b></p><p>Quienes le hacen daño son tus <b>guardianes y monstruos</b>: no pelean solos, vos los desplegás y les decís qué hacer.</p>"],
   ["El tablero", "<p>Cada lado tiene <b>2 filas de 3 casillas</b>: <b>frente</b> (la que mira al rival) y <b>fondo</b>.</p><p>Los ataques <b>cuerpo a cuerpo</b> salen del frente y golpean el frente rival (si hay un <b>Provocar</b>, hay que pegarle a él). Los <b>a distancia</b> salen de cualquier fila. A la 🔮 del rival solo le llegás si su <b>frente está vacío</b>.</p>"],
-  ["Cada unidad, un movimiento", "<p>En tu turno, <b>cada unidad actúa una vez</b> y elige un movimiento, como en Pokémon: <b>Ataque</b> (gratis, distinto en cada guardián), hasta 3 <b>habilidades</b> (cuestan cristales ✦) y una <b>definitiva</b> que se carga con los turnos.</p><p>Tocá una unidad tuya con <b>borde verde</b> y mirá el panel de la derecha. Cambiar de lugar cuesta 1 ✦.</p>"],
-  ["Cristales y cartas", "<p>Tenés <b>1 cristal más por turno</b> (hasta 10) para <b>jugar cartas</b> y usar habilidades. Las cartas con <b>borde verde</b> en tu mano se pueden jugar ahora.</p><p>Monstruos y guardianes ocupan una casilla; los <b>hechizos, bonus y maldiciones</b> se usan una vez y se van.</p>"],
+  ["El maná: los cristales ✦", MANA_HTML],
+  ["Cómo se activan las habilidades", SKILL_HTML],
+  ["Cartas: monstruos, guardianes y magia", "<p>Las cartas con <b>borde verde</b> en tu mano se pueden jugar ahora. Monstruos y guardianes ocupan una casilla; <b>hechizos, bonus y maldiciones</b> se usan una vez y se van.</p><p>Las <b>trampas 🪤</b> se ponen boca abajo (máx. 2) y se disparan solas cuando el rival hace algo que coincide: atacar, jugar un hechizo, desplegar una unidad… Las tuyas las ves; las del rival no.</p>"],
   ["Tu invocador y el mapa", "<p>Abajo tenés tus <b>2 habilidades de invocador</b> (Égida, Voz de Mando…): apoyan a tus guardianes sin gastar la acción de ninguna unidad.</p><p>Cada <b>mapa</b> da un terreno distinto a cada fila (se ve en el costado de cada fila). La barra dorada de arriba te va diciendo qué podés hacer. Cuando no quede nada, tocá <b>Terminar turno</b>.</p>"]
 ];
 var tutI = 0;
@@ -610,6 +637,95 @@ $("tutNext").onclick = function () { if (tutI < TUT.length - 1) { tutI++; render
 $("tutPrev").onclick = function () { if (tutI > 0) { tutI--; renderTut(); } };
 $("tutBtn").onclick = showTut;
 function maybeTut() { if (SAVE && !SAVE.seenTut && ctx && ctx.mode !== "online") setTimeout(showTut, 600); }
+
+function showInfo(title, html, ok) { $("infoT").textContent = title; $("infoB").innerHTML = html; $("infoOk").textContent = ok || "Entendido"; $("info").classList.add("on"); }
+$("infoOk").onclick = function () { $("info").classList.remove("on"); };
+$("bNew").onclick = function () {
+  if (SAVE.decks.length >= 8) return toast("Máximo 8 mazos: borrá alguno para crear otro");
+  SAVE.decks.push({ name: "Mazo " + (SAVE.decks.length + 1), cards: [] }); SAVE.sel = SAVE.decks.length - 1; persist();
+  buildBuilder(); toast("Mazo nuevo creado: ponele nombre y sumá 30 cartas"); var n = $("dName"); if (n) { n.focus(); n.select(); }
+};
+$("bHelp").onclick = function () { var r = $("bRules"); r.hidden = !r.hidden; if (!r.hidden) r.innerHTML = DECK_RULES_HTML; };
+
+/* ---------- ANIMACIÓN DE COMBATE ---------- */
+// La carta que actúa se levanta. Si ataca a otra unidad, se levantan las dos y chocan (a distancia: sale un proyectil y la otra se sacude).
+// Si ataca al Invocador, sale su cristal (la vida), la carta se lanza y le pega. Se reproduce sobre el tablero ANTERIOR, después se pinta el nuevo estado.
+function animatable(evs) { return !!(evs && evs.some(function (e) { return e.e === "use" || e.e === "sum"; })) && !!document.getElementById("game").classList.contains("on"); }
+function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+function tileOf(uid) { return document.querySelector('.tile[data-uid="' + uid + '"]'); }
+function ctr(el) { var r = el.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; }
+function spark(x, y, txt, size) {
+  var s = document.createElement("div"); s.textContent = txt; s.style.cssText = "position:fixed;z-index:90;pointer-events:none;font-size:" + (size || 4.4) + "rem;left:" + (x - 22) + "px;top:" + (y - 28) + "px;filter:drop-shadow(0 0 .6rem #ffd36a)";
+  document.body.appendChild(s); s.animate([{ transform: "scale(.3)", opacity: 0 }, { transform: "scale(1.5)", opacity: 1, offset: .35 }, { transform: "scale(1)", opacity: 0 }], { duration: 520, easing: "ease-out" }).onfinish = function () { s.remove(); }; return s;
+}
+function liftKF(dx, dy, hit) {
+  var up = "translateY(-1.3rem) scale(1.18)", mid = "translate(" + dx * 0.9 + "px," + (dy * 0.9 - 8) + "px) scale(1.2)", over = "translate(" + dx + "px," + dy + "px) scale(1.24) rotate(" + (hit ? 3 : 0) + "deg)";
+  return [{ transform: "none", offset: 0 }, { transform: up, offset: .22 }, { transform: up, offset: .34 }, { transform: mid, offset: .58 }, { transform: over, offset: .66 }, { transform: "translate(" + dx * 0.3 + "px," + dy * 0.3 + "px) scale(1.1)", offset: .82 }, { transform: "none", offset: 1 }];
+}
+function playAnim(evs) {
+  var u = evs.filter(function (e) { return e.e === "use" || e.e === "sum"; })[0], DUR = 900;
+  if (u.e === "sum") {   // habilidad del invocador: la unidad objetivo se levanta
+    var T0 = u.target !== null && u.target !== undefined ? tileOf(u.target) : null;
+    if (!T0) return Promise.resolve();
+    T0.style.zIndex = 40; var a0 = T0.animate([{ transform: "none" }, { transform: "translateY(-1.4rem) scale(1.2)", offset: .4 }, { transform: "none" }], { duration: 600, easing: "ease-in-out" });
+    var c0 = ctr(T0); spark(c0.x, c0.y - 20, "✨", 3.6); return wait(620).then(function () { T0.style.zIndex = ""; });
+  }
+  var A = tileOf(u.uid); if (!A) return Promise.resolve();
+  var tgt = u.target, mvRef = null; try { mvRef = CARDS[A.dataset.id].moves[u.mv]; } catch (e) {}
+  var ranged = !!(mvRef && mvRef.reach === "ranged"), ac = ctr(A);
+  A.style.zIndex = 50;
+  var done = function () { A.style.zIndex = ""; var t2 = tgt !== null && typeof tgt !== "string" ? tileOf(tgt) : null; if (t2) t2.style.zIndex = ""; };
+  // sin objetivo (área, apoyo propio, invocación): solo se levanta y brilla
+  if (tgt === null || tgt === undefined) {
+    A.animate([{ transform: "none", boxShadow: "none" }, { transform: "translateY(-1.5rem) scale(1.22)", boxShadow: "0 0 2rem #ffd36a", offset: .4 }, { transform: "translateY(-1.5rem) scale(1.22)", offset: .7 }, { transform: "none" }], { duration: DUR - 200, easing: "ease-in-out" });
+    return wait(DUR - 180).then(done);
+  }
+  // al Invocador: sale el cristal y la carta le pega
+  if (typeof tgt === "string") {
+    var F = document.querySelector('[data-face="' + tgt[1] + '"]'); if (!F) { done(); return Promise.resolve(); }
+    var fc = ctr(F), px = fc.x + (ac.x - fc.x) * 0.55, py = fc.y + (ac.y - fc.y) * 0.55;
+    var cr = document.createElement("div"); cr.textContent = "🔮"; cr.style.cssText = "position:fixed;z-index:60;pointer-events:none;font-size:6.5rem;left:" + (fc.x - 36) + "px;top:" + (fc.y - 44) + "px;filter:drop-shadow(0 0 1.2rem #b58cf0)";
+    document.body.appendChild(cr);
+    cr.animate([{ transform: "scale(.2)", opacity: 0 }, { transform: "translate(" + (px - fc.x) + "px," + (py - fc.y) + "px) scale(1)", opacity: 1, offset: .35 }, { transform: "translate(" + (px - fc.x) + "px," + (py - fc.y) + "px) scale(1)", opacity: 1, offset: .62 },
+      { transform: "translate(" + (px - fc.x) + "px," + (py - fc.y) + "px) scale(1.2) rotate(-9deg)", opacity: 1, offset: .7 }, { transform: "translate(" + (px - fc.x) + "px," + (py - fc.y) + "px) scale(.95) rotate(7deg)", opacity: 1, offset: .8 }, { transform: "translate(0,0) scale(.3)", opacity: 0, offset: 1 }], { duration: DUR + 150, easing: "ease-in-out", fill: "forwards" });
+    if (ranged) { A.animate(liftKF(0, 0, false).map(function (k) { return k; }), { duration: DUR, easing: "ease-in-out" }); wait(420).then(function () { var pr = spark(ac.x, ac.y, "✦", 2.6); pr.animate([{ transform: "translate(0,0) scale(1)", opacity: 1 }, { transform: "translate(" + (px - ac.x) + "px," + (py - ac.y) + "px) scale(1.4)", opacity: 1 }], { duration: 260, fill: "forwards" }); }); }
+    else A.animate(liftKF(px - ac.x, py - ac.y, true), { duration: DUR, easing: "ease-in-out" });
+    wait(DUR * 0.66).then(function () { spark(px, py, "💥"); sfx("hitHeavy_0"); });
+    return wait(DUR + 120).then(function () { cr.remove(); done(); });
+  }
+  var T = tileOf(tgt); if (!T) { done(); return Promise.resolve(); }
+  T.style.zIndex = 45;
+  var tc = ctr(T), dx = tc.x - ac.x, dy = tc.y - ac.y, ally = !!(mvRef && mvRef.tgt === "ally");
+  if (ally) {   // apoyo: se levantan las dos y brilla el objetivo
+    A.animate(liftKF(dx * 0.15, dy * 0.15, false), { duration: DUR - 150, easing: "ease-in-out" });
+    T.animate([{ transform: "none" }, { transform: "translateY(-1.3rem) scale(1.2)", offset: .5 }, { transform: "none" }], { duration: DUR - 150, easing: "ease-in-out" });
+    wait(400).then(function () { spark(tc.x, tc.y - 20, "✨", 3.6); });
+    return wait(DUR - 140).then(done);
+  }
+  if (ranged) {   // a distancia: la atacante se levanta, sale un proyectil y el blanco se levanta y se sacude
+    A.animate([{ transform: "none" }, { transform: "translateY(-1.3rem) scale(1.18)", offset: .3 }, { transform: "translateY(-1.3rem) scale(1.18)", offset: .6 }, { transform: "none" }], { duration: DUR, easing: "ease-in-out" });
+    T.animate([{ transform: "none", offset: 0 }, { transform: "translateY(-1rem) scale(1.12)", offset: .4 }, { transform: "translate(-.6rem,-1rem) scale(1.12)", offset: .55 }, { transform: "translate(.6rem,-1rem) scale(1.12)", offset: .65 }, { transform: "translate(-.4rem,-.6rem) scale(1.08)", offset: .75 }, { transform: "none", offset: 1 }], { duration: DUR, easing: "ease-in-out" });
+    wait(DUR * 0.3).then(function () { var pr = spark(ac.x, ac.y, "✦", 3.0); pr.animate([{ transform: "translate(0,0) scale(1)", opacity: 1 }, { transform: "translate(" + dx + "px," + dy + "px) scale(1.3)", opacity: 1 }], { duration: 300, fill: "forwards", easing: "ease-in" }); });
+    wait(DUR * 0.58).then(function () { spark(tc.x, tc.y, "💥"); sfx("hitFlesh_0"); });
+    return wait(DUR + 60).then(done);
+  }
+  // cuerpo a cuerpo: se levantan las dos cartas y chocan en el medio
+  A.animate(liftKF(dx * 0.42, dy * 0.42, true), { duration: DUR, easing: "ease-in-out" });
+  T.animate(liftKF(-dx * 0.42, -dy * 0.42, true), { duration: DUR, easing: "ease-in-out" });
+  wait(DUR * 0.62).then(function () { spark((ac.x + tc.x) / 2, (ac.y + tc.y) / 2, "💥", 5); sfx("hitHeavy_0"); });
+  return wait(DUR + 60).then(done);
+}
+
+function trapsHTML(P, mine) {
+  var h = '<div class="traps" title="Trampas: se ponen boca abajo y se disparan solas">';
+  for (var i = 0; i < 2; i++) {
+    var x = (P.traps || [])[i];
+    if (x && mine && x.id) h += '<div class="tslot set" data-id="' + x.id + '" title="' + esc(CARDS[x.id].text) + '">🪤 ' + esc(CARDS[x.id].name) + "</div>";
+    else if (x) h += '<div class="tslot back" title="Trampa rival: no sabés cuál es hasta que se dispare">🪤 ?</div>';
+    else h += '<div class="tslot">trampa libre</div>';
+  }
+  return h + "</div>";
+}
 
 var startLin = "ciudad";
 function buildStart() {
@@ -629,7 +745,7 @@ $("startGo").onclick = function () { newSave(startLin); SAVE.name = ""; show("ho
 var collTab = "guardian", collLin = "all";
 function buildColl() {
   $("goldC").textContent = "Oro: " + SAVE.gold; $("openPack").disabled = SAVE.gold < 100;
-  var tabs = [["guardian", "Guardianes"], ["bicho", "Monstruos"], ["hechizo", "Hechizos"], ["bonus", "Bonus"], ["maldicion", "Maldiciones"]];
+  var tabs = [["guardian", "Guardianes"], ["bicho", "Monstruos"], ["hechizo", "Hechizos"], ["bonus", "Bonus"], ["maldicion", "Maldiciones"], ["trampa", "Trampas"]];
   $("collTabs").innerHTML = tabs.map(function (t) { return '<button class="tab' + (collTab === t[0] ? " on" : "") + '" data-t="' + t[0] + '">' + t[1] + "</button>"; }).join("");
   $("collLin").innerHTML = '<button class="tab' + (collLin === "all" ? " on" : "") + '" data-l="all">Todos los linajes</button>' + Object.keys(LIN).map(function (k) { return '<button class="tab' + (collLin === k ? " on" : "") + '" data-l="' + k + '" style="border-left:.5rem solid ' + LIN[k].color + '">' + LIN[k].name + "</button>"; }).join("");
   var ids = allCardIds(), have = ids.filter(function (id) { return SAVE.owned[id] > 0; }).length;
@@ -645,7 +761,7 @@ function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
 $("openPack").onclick = function () {
   if (SAVE.gold < 100) return; SAVE.gold -= 100;
   var ids = allCardIds(), g = ids.filter(function (i) { return CARDS[i].rarity === "guardian"; }), asc = ids.filter(function (i) { return CARDS[i].rarity === "ascension"; }),
-    b = ids.filter(function (i) { return CARDS[i].kind === "bicho"; }), sp = ids.filter(function (i) { return CARDS[i].type === "spell"; }), got = [], hasG = false;
+    b = ids.filter(function (i) { return CARDS[i].kind === "bicho"; }), sp = ids.filter(function (i) { return CARDS[i].type === "spell" || CARDS[i].type === "trap"; }), got = [], hasG = false;
   for (var i = 0; i < 5; i++) {
     var r = Math.random(), id;
     if (r < .13 || (i === 4 && !hasG && SAVE.pity >= 2)) { id = Math.random() < .15 ? pick(asc) : pick(g); hasG = true; }
@@ -662,7 +778,7 @@ var bTab = "all", bLin = "all", bCurrent = null;
 function curDeck() { return SAVE.decks[SAVE.sel]; }
 function buildBuilder() {
   bCurrent = bCurrent || null;
-  var tabs = [["all", "Todas"], ["guardian", "Guardianes"], ["bicho", "Monstruos"], ["hechizo", "Hechizos"], ["bonus", "Bonus"], ["maldicion", "Maldiciones"]];
+  var tabs = [["all", "Todas"], ["guardian", "Guardianes"], ["bicho", "Monstruos"], ["hechizo", "Hechizos"], ["bonus", "Bonus"], ["maldicion", "Maldiciones"], ["trampa", "Trampas"]];
   $("bTabs").innerHTML = tabs.map(function (t) { return '<button class="tab' + (bTab === t[0] ? " on" : "") + '" data-t="' + t[0] + '">' + t[1] + "</button>"; }).join("");
   $("bLin").innerHTML = '<button class="tab' + (bLin === "all" ? " on" : "") + '" data-l="all">Todos</button>' + Object.keys(LIN).map(function (k) { return '<button class="tab' + (bLin === k ? " on" : "") + '" data-l="' + k + '" style="border-left:.5rem solid ' + LIN[k].color + '">' + LIN[k].name + "</button>"; }).join("");
   if ($("bCost").options.length < 2) { var o = ""; for (var i = 0; i <= 8; i++) o += '<option value="' + i + '">Costo ' + i + (i === 8 ? "+" : "") + "</option>"; $("bCost").innerHTML = '<option value="">Todos los costos</option>' + o; }
@@ -692,7 +808,7 @@ function renderDeck() {
   var gC = d.cards.filter(function (id) { return CARDS[id].kind === "guardian"; }).length, err = deckErrors(d.cards, true), curve = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   d.cards.forEach(function (id) { curve[Math.min(8, CARDS[id].cost)]++; });
   var mx = Math.max.apply(null, curve.concat([1]));
-  var tabs = SAVE.decks.map(function (x, i) { return '<button class="tab' + (i === SAVE.sel ? " on" : "") + '" data-deck="' + i + '">' + esc(x.name) + "</button>"; }).join("") + (SAVE.decks.length < 6 ? '<button class="tab" data-newdeck="1">+ Nuevo</button>' : "");
+  var tabs = SAVE.decks.map(function (x, i) { return '<button class="tab' + (i === SAVE.sel ? " on" : "") + '" data-deck="' + i + '">' + esc(x.name) + "</button>"; }).join("") + (SAVE.decks.length < 8 ? '<button class="tab" data-newdeck="1">+ Nuevo</button>' : "");
   $("deckP").innerHTML = '<div class="tabs">' + tabs + '</div><input id="dName" value="' + esc(d.name) + '" maxlength="24" aria-label="Nombre del mazo">' +
     '<div class="row" style="justify-content:space-between"><b>Cartas ' + d.cards.length + '/30</b><b style="color:var(--gold2)">Guardianes ' + gC + "/5</b></div>" +
     '<div class="curve">' + curve.map(function (n) { return '<div style="height:' + Math.round(100 * n / mx) + '%"><span>' + (n || "") + "</span></div>"; }).join("") + '</div><div class="curve-l">' + curve.map(function (_, i) { return "<span>" + (i === 8 ? "8+" : i) + "</span>"; }).join("") + "</div>" +
@@ -802,7 +918,7 @@ async function botTurn() {
   while (S && !S.over && S.active !== ctx.me) {
     var a = AI.choose(S, 1.0), r = E.apply(S, a);
     onState(E.view(S, ctx.me), [], r.events, 0);
-    await sleep(a.t === "end" ? 200 : 800);
+    await sleep(a.t === "end" ? 200 : a.t === "use" ? 1250 : 800);
   }
   lock = false;
   if (S && !S.over) onState(E.view(S, ctx.me), E.legalActions(S), [], 0);
@@ -817,7 +933,14 @@ function submit(a) {
 }
 
 /* ---------- estado → pantalla ---------- */
+var animBusy = 0, animChain = Promise.resolve();
 function onState(view, legal, events, dl) {
+  var anim = animatable(events);
+  if (!animBusy && !anim) return applyState(view, legal, events, dl);       // sin animación: se pinta en el acto
+  animBusy++;
+  animChain = animChain.then(function () { return playAnim(events); }).catch(function () {}).then(function () { applyState(view, legal, events, dl); animBusy--; });
+}
+function applyState(view, legal, events, dl) {
   V = view; LEGAL = legal || []; lastEv = events || []; deadline = dl || 0;
   if (sel && !E.find(V, sel)) sel = null;
   pushLog(lastEv); render(); lastEv.forEach(fx);
@@ -842,6 +965,9 @@ function pushLog(evs) {
     else if (e.e === "face") t = "Invocador " + (e.p === ctx.me ? "tuyo" : "rival") + " −" + e.n;
     else if (e.e === "sum") t = (e.p === ctx.me ? "Tú" : "Rival") + " (invocador): " + e.name;
     else if (e.e === "passive") t = unitName(e.uid) + ": pasiva " + e.name;
+    else if (e.e === "trapSet") t = (e.p === ctx.me ? "Tú" : "Rival") + " coloca una trampa boca abajo";
+    else if (e.e === "trap") t = "¡TRAMPA! " + e.name + " (" + (e.p === ctx.me ? "tuya" : "rival") + ")";
+    else if (e.e === "cancel") t = unitName(e.uid) + ": acción anulada";
     else if (e.e === "moved" && e.from !== undefined) t = unitName(e.uid) + " cambia de lugar";
     if (t) logLines.push(t);
   });
@@ -893,11 +1019,11 @@ function render() {
   var foeTgt = pend && pend.mode === "unit" && pend.targets.indexOf("f" + foe) >= 0, meTgt = pend && pend.mode === "unit" && pend.targets.indexOf("f" + me) >= 0;
   var oc = O.handCount !== undefined ? O.handCount : O.hand.length, od = O.deckCount !== undefined ? O.deckCount : O.deck.length, md = M.deckCount !== undefined ? M.deckCount : M.deck.length;
   var selFoeFace = false;
-  $("oppBar").innerHTML = '<div class="face' + (foeTgt ? " tgt" : "") + '" data-face="' + foe + '" title="Vida del Invocador rival: bajala a 0 para ganar">🔮 <span class="hp">' + O.hp + '</span><small>/' + O.maxHp + '</small></div><b>' + esc(O.name) + ' <span class="mini">· Invocador</span></b><div class="crys">' + crystals(O) + '</div><div class="oppstrip">' + Array(Math.min(oc, 8) + 1).join("<i></i>") + '</div><span class="mini">mazo ' + od + '</span><span class="chip">' + m.name + '</span>' + skButtons(O, false, false) + '<div class="syn">' + synChips(foe) + "</div>";
+  $("oppBar").innerHTML = '<div class="face' + (foeTgt ? " tgt" : "") + '" data-face="' + foe + '" title="Vida del Invocador rival: bajala a 0 para ganar">🔮 <span class="hp">' + O.hp + '</span><small>/' + O.maxHp + '</small></div><b>' + esc(O.name) + ' <span class="mini">· Invocador</span></b><div class="crys">' + crystals(O) + '</div><div class="oppstrip">' + Array(Math.min(oc, 8) + 1).join("<i></i>") + '</div><span class="mini">mazo ' + od + '</span><span class="chip">' + m.name + '</span>' + skButtons(O, false, false) + trapsHTML(O, false) + '<div class="syn">' + synChips(foe) + "</div>";
   [["rOB", foe, 1, false], ["rOF", foe, 0, false], ["rMF", me, 0, true], ["rMB", me, 1, true]].forEach(function (r) { var o = rowHTML(r[1], r[2], r[3]); $(r[0]).className = o.cls; $(r[0]).innerHTML = o.html; });
   var turnTxt = V.active === me ? (lock ? "…" : "TU TURNO") : "Turno rival";
   $("mid").innerHTML = '<span class="fieldc">' + esc(m.desc) + '</span><span id="timer" class="mini"></span><b>' + turnTxt + '</b><button class="btn sm" id="endBtn" ' + (myTurn ? "" : "disabled") + '>Terminar turno</button><button class="btn sec sm" id="resign">Rendirse</button>';
-  $("meBar").innerHTML = '<div class="face' + (meTgt ? " tgtally" : "") + '" data-face="' + me + '" title="Tu vida de Invocador">🔮 <span class="hp">' + M.hp + '</span><small>/' + M.maxHp + '</small></div><b>' + esc(M.name) + ' <span class="mini">· Invocador</span></b><div class="crys">' + crystals(M) + '</div><span class="mini">mazo ' + md + '</span>' + skButtons(M, true, myTurn) + '<div class="syn">' + synChips(me) + "</div>";
+  $("meBar").innerHTML = '<div class="face' + (meTgt ? " tgtally" : "") + '" data-face="' + me + '" title="Tu vida de Invocador">🔮 <span class="hp">' + M.hp + '</span><small>/' + M.maxHp + '</small></div><b>' + esc(M.name) + ' <span class="mini">· Invocador</span></b><div class="crys">' + crystals(M) + '</div><span class="mini">mazo ' + md + '</span>' + skButtons(M, true, myTurn) + trapsHTML(M, true) + '<div class="syn">' + synChips(me) + "</div>";
   $("hand").innerHTML = M.hand.map(function (c) {
     var playable = myTurn && LEGAL.some(function (x) { return x.t === "play" && x.uid === c.uid; });
     return cardEl(c.id, (playable ? "go" : "no") + (pend && pend.hand === c.uid ? " pend" : "")).replace('data-id="', 'data-huid="' + c.uid + '" data-id="');
@@ -931,6 +1057,9 @@ function fx(e) {
   if (e.e === "heal") flo(host(e.uid), "+" + e.n, "#7fe08a");
   if (e.e === "shield") { sfx("glass_0"); flo(host(e.uid), "🛡", "#bfe8ff"); }
   if (e.e === "face" || e.e === "healface") { flo(document.querySelector('[data-face="' + e.p + '"]'), (e.e === "face" ? "−" : "+") + e.n, e.e === "face" ? "#ff6a5a" : "#7fe08a"); if (e.e === "face") sfx("hitHeavy_0"); }
+  if (e.e === "trap") { banner("¡Trampa! " + e.name); sfx("arcane_0"); }
+  if (e.e === "trapSet") sfx("swing_0");
+  if (e.e === "cancel") flo(host(e.uid), "✖ anulado", "#ff9d8d");
   if (e.e === "die") sfx("creatureDie_0");
   if (e.e === "freeze") sfx("glass_0");
   if (e.e === "play") sfx(CARDS[e.id].type === "unit" ? "swing_0" : "arcane_0");
@@ -947,7 +1076,7 @@ function onMoveButton(mv) {
   startPending({ mode: "unit", targets: opts.map(function (x) { return x.target; }), build: function (tg) { return { t: "use", uid: sel, mv: mv, target: tg }; } });
 }
 document.addEventListener("click", function (e) {
-  if (!ctx || !V || V.over || !$("game").classList.contains("on")) return;
+  if (!ctx || !V || V.over || !$("game").classList.contains("on") || animBusy) return;
   var me = ctx.me, foe = 1 - me, T = e.target;
   if (T.id === "endBtn") { if (V.active === me && !lock) submit({ t: "end" }); return; }
   if (T.id === "resign") { if (ctx.mode === "online") ws.send(JSON.stringify({ t: "resign" })); else { S.players[me].hp = 0; if (!ctx.paid) { ctx.paid = 1; SAVE.losses++; SAVE.gold += 30; persist(); } endGame("Derrota", "Te rendiste."); } return; }
@@ -1074,7 +1203,7 @@ function advPlayNode() {
     return showReward("Un guardián pide ayuda", N.text, guardianOptions(A.ch), function (id) { if (id) giveCard(id, true); advancePast(); });
   }
   if (N.t === "cache") {
-    var sp = allCardIds().filter(function (id) { return CARDS[id].type === "spell" && advDeckCount(id) < 2; });
+    var sp = allCardIds().filter(function (id) { return (CARDS[id].type === "spell" || CARDS[id].type === "trap") && advDeckCount(id) < 2; });
     return showReward("Cofre abandonado", N.text, pickN(sp, 3), function (id) { if (id) giveCard(id, true); advancePast(); });
   }
 }

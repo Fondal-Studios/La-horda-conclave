@@ -17,7 +17,7 @@ var D = require("../data.js"), srv = require("../server/duel-server.js"), fails 
       if (m.t === "coopstart") st.start = m;
       if (m.t === "over") { st.over = m; }
       if (m.t === "state") {
-        st.states++; var foe = m.view.players[1]; if (foe.hand.some(function (c) { return c !== null; }) || foe.deck.length) st.leaks++;
+        st.states++; var foe = m.view.players[1]; if (foe.hand.some(function (c) { return c !== null; }) || foe.deck.length || (foe.traps || []).some(function (t) { return t.id; })) st.leaks++;
         if (m.legal.length) { st.legalSeen++; if (host) st.ws.send(JSON.stringify({ t: "act", action: rnd(m.legal) })); }
       }
     });

@@ -28,6 +28,7 @@
       if (B.hp <= 12) sc += (13 - B.hp) * 3.5;
       sc += boardVal(s, me) - boardVal(s, 1 - me);
       sc += (A.hand.length - B.hand.length) * 1.1;
+      sc += (A.traps.length - B.traps.length) * 3.2;                   // una trampa colocada vale más que la carta en mano
       return sc;
     }
     function choose(s, noise) {

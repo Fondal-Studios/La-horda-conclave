@@ -167,3 +167,17 @@ node tools/online-test.js      # prueba de protocolo online completa
   Resultado: instrucción en el 100 % de los puntos de decisión (77), 0 incoherencias entre lo que dice la barra y lo que se ve, 0 callejones sin salida, "Terminar turno" siempre disponible, el tutorial aparece la primera vez y se cierra.
   **Esto no reemplaza una prueba con personas**: mide coherencia y operabilidad, no si alguien lo entiende a la primera. Lo que se agregó por la revisión: barra de ayuda contextual, tutorial de 5 pasos (botón "? Cómo se juega"),
   botón "Terminar turno" que parpadea cuando no queda nada por hacer, etiquetas "Invocador" y vida actual/máxima, y los paneles movidos para no tapar la ayuda.
+
+---
+
+# v0.5 — animaciones de combate, trampas, más cartas con efectos, ayuda de maná
+* **Animación de combate**: la carta que actúa se levanta. Si ataca a otra unidad cuerpo a cuerpo, **se levantan las dos y chocan** en el medio (💥); si es a distancia, sale un proyectil y la otra se levanta y se sacude.
+  Si ataca al Invocador, **sale su cristal 🔮 (la vida)** y la carta se lanza y le pega. Apoyos y habilidades sin objetivo: la unidad se levanta y brilla. Se reproduce sobre el tablero anterior y después se pinta el nuevo (los clics se ignoran ~1 s).
+* **Trampas** (6, tipo de carta nuevo): se colocan boca abajo (máx. 2), son secretas para el rival (el servidor ni siquiera le manda cuál es) y se disparan solas:
+  Trampa de Espinas (ataque a una unidad), Muro de Escarcha y Barrera Sagrada (ataque al Invocador; anulan el ataque), Espejo Arcano (anula un hechizo/maldición), Emboscada (al desplegar una unidad), Red de Cazador (al usar una habilidad).
+* **9 cartas nuevas con efectos**: Inspiración, Segunda Oportunidad, Robo de Vida, Fuego Directo, Invierno, Marea Curativa, Manada, Muro de Piedra, Pacto de Sangre. Los 6 mazos iniciales incluyen trampas y cartas nuevas.
+* **Constructor**: botón grande **"＋ Crear mazo nuevo"**, panel de reglas del mazo, hasta 8 mazos, pestaña de Trampas y una explicación la primera vez que se entra.
+* **Maná explicado**: el maná (cristales ✦) es **del Invocador, no de los guardianes**; qué se paga con cristales, qué es gratis (Ataque y definitiva con carga) y **cómo se activa una habilidad** (unidad con borde verde → movimiento en el panel → objetivo). Está en el tutorial (6 pasos), en las reglas, en el resultado del cuestionario y en el primer ingreso al constructor.
+* Verificado: balance 1.800 partidas (todas terminan, trampas colocadas y disparadas), pruebas de pasivas, 1v1 y cooperativo (sin fuga de trampas rivales), prueba de claridad (0 incoherencias, 0 callejones; descubrió que los clics durante una animación se ignoraban y se ajustó la prueba),
+  y capturas de las animaciones (`tools/ui-anim.js`).
+* **No probado**: sensación real de las animaciones en celular/equipos lentos; balance con personas (las trampas dependen de que el rival juegue "tonto"; el bot las usa por valoración simple).

@@ -274,6 +274,24 @@
   S("silencio", "Silencio", "maldicion", 2, "enemyUnit", [{ op: "silence", to: "target" }, { op: "debuff", atk: 1, to: "target" }]);
   S("cadenas", "Cadenas", "maldicion", 2, "enemyUnit", [{ op: "freeze", n: 2, to: "target" }]);
   S("marchitar", "Marchitar", "maldicion", 4, "enemyUnit", [{ op: "debuff", atk: 3, hp: 3, to: "target" }]);
+  S("inspiracion", "Inspiración", "bonus", 2, "none", [{ op: "draw", n: 2 }]);
+  S("segunda", "Segunda Oportunidad", "bonus", 2, "none", [{ op: "draw", n: 1 }, { op: "crystal", n: 1 }]);
+  S("robovida", "Robo de Vida", "hechizo", 3, "enemyUnit", [{ op: "dmg", n: 3, to: "target" }, { op: "heal", n: 3, to: "allyFace" }]);
+  S("fuego", "Fuego Directo", "hechizo", 3, "none", [{ op: "dmg", n: 4, to: "enemyFace" }]);
+  S("invierno", "Invierno", "hechizo", 5, "none", [{ op: "dmg", n: 1, to: "enemyAll" }, { op: "freeze", n: 1, to: "enemyAll" }]);
+  S("marea", "Marea Curativa", "bonus", 3, "none", [{ op: "heal", n: 3, to: "allyAll" }]);
+  S("manada", "Manada", "bonus", 3, "none", [{ op: "summon", id: "token_lobo", n: 2 }]);
+  S("muro_piedra", "Muro de Piedra", "bonus", 2, "none", [{ op: "summon", id: "token_muro", n: 1 }]);
+  S("pacto", "Pacto de Sangre", "bonus", 1, "allyGuardian", [{ op: "buff", atk: 3, hp: -2, to: "target" }]);
+  // TRAMPAS: boca abajo (máx. 2); se disparan solas. "esa unidad" = la que activó la trampa.
+  var TRIG_TXT_T = { ataque: "Cuando una unidad rival ataca a una de tus unidades", ataqueFace: "Cuando una unidad rival ataca a tu Invocador", hechizo: "Cuando el rival juega un hechizo o una maldición", despliegue: "Cuando el rival despliega una unidad", habilidad: "Cuando una unidad rival usa una habilidad" };
+  function T(id, name, cost, trig, cancel, ops) { CARDS[id] = { id: id, type: "trap", cat: "trampa", name: name, cost: cost, trig: trig, cancel: !!cancel, ops: ops, rarity: "trampa", tier: "Trampa", text: TRIG_TXT_T[trig] + ": " + (cancel ? "anula la acción" + (ops.length ? ". " : "") : "") + describe(ops).replace(/ el objetivo/g, " esa unidad").replace(/ al objetivo/g, " a esa unidad").replace(/ a esa unidad$/, " a esa unidad") }; }
+  T("espinas", "Trampa de Espinas", 2, "ataque", false, [{ op: "dmg", n: 3, to: "target" }]);
+  T("muro_hielo", "Muro de Escarcha", 2, "ataqueFace", true, [{ op: "freeze", n: 1, to: "target" }]);
+  T("barrera", "Barrera Sagrada", 2, "ataqueFace", true, [{ op: "heal", n: 3, to: "allyFace" }]);
+  T("espejo", "Espejo Arcano", 3, "hechizo", true, []);
+  T("emboscada", "Emboscada", 3, "despliegue", false, [{ op: "dmg", n: 3, to: "target" }]);
+  T("red", "Red de Cazador", 2, "habilidad", false, [{ op: "freeze", n: 1, to: "target" }, { op: "dmg", n: 2, to: "target" }]);
 
   for (var id in CARDS) { var c = CARDS[id]; if (!c.text) c.text = ""; }
   // texto automático
@@ -325,22 +343,22 @@
   var DECKS = {
     ciudad: dk([["guerrero"],["soporte"],["tanque"],["myla"],["vesper"]],
       [["cm_saqueador",2],["cm_perro",2],["cm_planidera",2],["cm_raptor",2],["cm_acechante",2],["cm_sectario",2],["cm_campanero"],["cm_espectro"]],
-      [["rayo",2],["debilitar",2],["furia"],["corazon"],["piedra",2],["banquete"],["veneno"],["bendicion"]]),
+      [["rayo",2],["debilitar",2],["furia"],["corazon"],["piedra"],["emboscada"],["veneno"],["bendicion"],["espinas"]]),
     forja: dk([["eslabon"],["brakk"],["brasa"],["zahra"],["bront"]],
       [["cristal_servo",3],["engendro",3],["cristal_volador",3],["mn_devoraluz",3],["golem_cristal",2]],
-      [["egida",2],["corazon"],["marchitar"],["podredumbre"],["silencio"],["cadenas"],["llamarada"],["piedra"],["bendicion"],["rayo"]]),
+      [["egida",2],["corazon"],["marchitar"],["podredumbre"],["silencio"],["cadenas"],["llamarada"],["muro_piedra"],["barrera"],["rayo"]]),
     bosque: dk([["cazadora"],["maura"],["tibor"],["morwen"],["khepri"]],
       [["duende_bosque",3],["bestia_bosque",3],["cu_sith",3],["dama_bosque",2],["ent",2]],
-      [["bendicion",2],["banquete",2],["rayo"],["corazon"],["egida"],["piedra",2],["veneno"],["debilitar"],["furia"]]),
+      [["bendicion",2],["banquete",2],["rayo"],["corazon"],["egida"],["piedra"],["marea"],["veneno"],["debilitar"],["manada"]]),
     laberinto: dk([["musashi"],["ilkan"],["nahir"],["sira"],["axiom"]],
       [["escorpion_gigante",3],["golem_piedra",3],["medusa",3],["druida_arena",2],["esfinge",2]],
-      [["cadenas",2],["silencio"],["escarcha"],["veneno"],["rayo"],["debilitar"],["marchitar"],["sello"],["corazon"],["egida"],["banquete"]]),
+      [["cadenas",2],["silencio"],["escarcha"],["veneno"],["robovida"],["debilitar"],["marchitar"],["sello"],["corazon"],["egida"],["espejo"]]),
     marea: dk([["mago"],["baltra"],["aelith"],["velmira"],["solciju"]],
       [["lobo_artico",3],["hada_escarcha",2],["tiburon_joven",2],["golem_hielo",2],["dragoncito_hielo",2],["angel_hielo",2],["dragon_hielo"]],
-      [["escarcha",2],["cadenas"],["podredumbre"],["veneno"],["rayo"],["llamarada"],["corazon"],["debilitar"],["bendicion"],["piedra"]]),
+      [["escarcha",2],["cadenas"],["podredumbre"],["veneno"],["rayo"],["llamarada"],["corazon"],["debilitar"],["muro_hielo"],["segunda"]]),
     infernal: dk([["nigromante"],["segador"],["morveth"],["libertador"],["renko"]],
       [["esqueleto",3],["zombie",3],["esqueleto_h",2],["demonio_menor",2],["demonio_mago",2],["golem",2]],
-      [["piedra",2],["cadenas"],["rayo"],["veneno"],["egida"],["sello"],["furia"],["debilitar"],["banquete"],["corazon"]])
+      [["piedra",2],["cadenas"],["rayo"],["veneno"],["egida"],["fuego"],["red"],["debilitar"],["inspiracion"],["corazon"]])
   };
   // Mazo "Caos": 5 guardianes al azar de cualquier linaje (cubre a los 41) + mitad del mazo de un linaje.
   function chaosDeck(rng) {

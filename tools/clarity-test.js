@@ -27,6 +27,7 @@ const OUT = process.argv[2] || '.';
     for (let w = 0; w < 80; w++) { const my = await ev(() => !!ctx && !!V && V.active === ctx.me && !lock); if (my || await count('#over.on')) break; m.turnosRival += w === 0 ? 1 : 0; if (!(await coach())) m.sinInstruccion++; await p.waitForTimeout(250); }
     if (await count('#over.on')) break;
     for (let step = 0; step < 14; step++) {
+      await p.waitForFunction(() => !animBusy, null, { timeout: 5000 }).catch(() => {});   // las animaciones de combate bloquean los clics a propósito
       m.decisiones++;
       const ct = await coach(); if (!ct) { m.sinInstruccion++; issues.push('turno ' + turn + ': sin texto de ayuda'); }
       if (!(await count('#endBtn:not([disabled])'))) { m.callejones++; issues.push('turno ' + turn + ': Terminar turno deshabilitado en mi turno'); }
