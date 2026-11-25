@@ -87,6 +87,9 @@ def analyze_guardian(path):
         vline = max(vline, float((np.abs(g16[:, x] - g16[:, x - 3]) > 22).mean()))
     q = (rgb[::2, ::2] >> 4).astype(np.uint32)
     colors = len(np.unique(q[:, :, 0] * 256 + q[:, :, 1] * 16 + q[:, :, 2]))
+    # la nitidez se mide a la escala del canon (guardianes 300x340): la varianza del laplaciano baja sola al subir la resolucion
+    if w > 320:
+        gray = np.array(Image.fromarray(gray.astype(np.uint8)).resize((300, round(300 * h / w)), Image.LANCZOS), dtype=np.float32)
     return {"kind": "guardian", "canvas": [w, h], "colors": int(colors), "sat": round(s, 3), "val": round(v, 3), "sharp": round(laplacian_var(gray), 1),
             "vline": round(vline, 2), "pix": 0.0, "has_bg": 1.0}
 

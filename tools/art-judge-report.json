@@ -6,7 +6,7 @@
   "sharp": 2444.9853658536585
  },
  "guardians": 41,
- "monsters": 65,
+ "monsters": 87,
  "grades_guardians": {
   "A": 41,
   "B": 0,
@@ -14,14 +14,14 @@
   "D": 0
  },
  "grades_monsters": {
-  "A": 35,
-  "B": 17,
-  "C": 13,
-  "D": 0
+  "A": 47,
+  "B": 20,
+  "C": 19,
+  "D": 1
  },
- "pixelated_monsters": 47,
- "smooth_monsters": 8,
- "tinted_monsters": 12,
+ "pixelated_monsters": 62,
+ "smooth_monsters": 9,
+ "tinted_monsters": 33,
  "mean_gap": 1.38,
  "gap_limit": 1.5,
  "over_gap": [
@@ -34,7 +34,9 @@
   "angel_hielo",
   "rompehielos",
   "reina_escarcha",
-  "ingeniero"
+  "ingeniero",
+  "horno_cristal",
+  "reina_micelial"
  ],
  "rows": [
   {
@@ -169,7 +171,7 @@
   },
   {
    "id": "dariel",
-   "name": "D√°riel",
+   "name": "D·riel",
    "kind": "guardian",
    "token": false,
    "boss": false,
@@ -351,7 +353,7 @@
   },
   {
    "id": "farolero",
-   "name": "Tob√≠as",
+   "name": "TobÌas",
    "kind": "guardian",
    "token": false,
    "boss": false,
@@ -1053,7 +1055,7 @@
   },
   {
    "id": "libertador",
-   "name": "San Mart√≠n",
+   "name": "San MartÌn",
    "kind": "guardian",
    "token": false,
    "boss": false,
@@ -1549,7 +1551,7 @@
   },
   {
    "id": "golem_cristal",
-   "name": "G√≥lem de Cristal",
+   "name": "GÛlem de Cristal",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -1659,7 +1661,7 @@
   },
   {
    "id": "cu_sith",
-   "name": "C√π-S√¨th",
+   "name": "C˘-SÏth",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -1706,7 +1708,7 @@
    "grade": "C",
    "why": [
     "sprite nativo diminuto (18 px de ancho) ampliado x8",
-    "paleta lejos del canon de los guardianes (brillo/saturaci√≥n)"
+    "paleta lejos del canon de los guardianes (brillo/saturaciÛn)"
    ],
    "gap": 1.59,
    "metrics": {
@@ -1774,7 +1776,7 @@
   },
   {
    "id": "escorpion_gigante",
-   "name": "Escorpi√≥n Gigante",
+   "name": "EscorpiÛn Gigante",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -1810,7 +1812,7 @@
   },
   {
    "id": "golem_piedra",
-   "name": "G√≥lem de Piedra",
+   "name": "GÛlem de Piedra",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -1892,7 +1894,7 @@
    "score": 90,
    "grade": "A",
    "why": [
-    "paleta lejos del canon de los guardianes (brillo/saturaci√≥n)"
+    "paleta lejos del canon de los guardianes (brillo/saturaciÛn)"
    ],
    "gap": 1.21,
    "metrics": {
@@ -1960,7 +1962,7 @@
   },
   {
    "id": "lobo_artico",
-   "name": "Lobo √Årtico",
+   "name": "Lobo ¡rtico",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -2032,7 +2034,7 @@
   },
   {
    "id": "tiburon_joven",
-   "name": "Tibur√≥n Joven",
+   "name": "TiburÛn Joven",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -2070,7 +2072,7 @@
   },
   {
    "id": "golem_hielo",
-   "name": "G√≥lem de Hielo",
+   "name": "GÛlem de Hielo",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -2078,7 +2080,7 @@
    "score": 90,
    "grade": "A",
    "why": [
-    "paleta lejos del canon de los guardianes (brillo/saturaci√≥n)"
+    "paleta lejos del canon de los guardianes (brillo/saturaciÛn)"
    ],
    "gap": 1.55,
    "metrics": {
@@ -2117,7 +2119,7 @@
    "grade": "C",
    "why": [
     "sprite nativo diminuto (18 px de ancho) ampliado x8",
-    "paleta lejos del canon de los guardianes (brillo/saturaci√≥n)"
+    "paleta lejos del canon de los guardianes (brillo/saturaciÛn)"
    ],
    "gap": 1.5,
    "metrics": {
@@ -2147,7 +2149,7 @@
   },
   {
    "id": "angel_hielo",
-   "name": "√Ångel de Hielo",
+   "name": "¡ngel de Hielo",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -2155,7 +2157,7 @@
    "score": 90,
    "grade": "A",
    "why": [
-    "paleta lejos del canon de los guardianes (brillo/saturaci√≥n)"
+    "paleta lejos del canon de los guardianes (brillo/saturaciÛn)"
    ],
    "gap": 1.55,
    "metrics": {
@@ -2185,7 +2187,7 @@
   },
   {
    "id": "tiburon_blanco",
-   "name": "Tibur√≥n Blanco",
+   "name": "TiburÛn Blanco",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -2193,7 +2195,7 @@
    "score": 90,
    "grade": "A",
    "why": [
-    "paleta lejos del canon de los guardianes (brillo/saturaci√≥n)"
+    "paleta lejos del canon de los guardianes (brillo/saturaciÛn)"
    ],
    "gap": 1.46,
    "metrics": {
@@ -2261,7 +2263,7 @@
   },
   {
    "id": "medusa_electrica",
-   "name": "Medusa El√©ctrica",
+   "name": "Medusa ElÈctrica",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -2270,7 +2272,7 @@
    "grade": "C",
    "why": [
     "sprite nativo diminuto (34 px de ancho) ampliado x5",
-    "paleta lejos del canon de los guardianes (brillo/saturaci√≥n)"
+    "paleta lejos del canon de los guardianes (brillo/saturaciÛn)"
    ],
    "gap": 1.49,
    "metrics": {
@@ -2522,7 +2524,7 @@
   },
   {
    "id": "golem",
-   "name": "G√≥lem",
+   "name": "GÛlem",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -2567,7 +2569,7 @@
    "grade": "B",
    "why": [
     "sprite nativo diminuto (37 px de ancho) ampliado x3",
-    "(invocaci√≥n)"
+    "(invocaciÛn)"
    ],
    "gap": 1.44,
    "metrics": {
@@ -2605,7 +2607,7 @@
    "score": 100,
    "grade": "A",
    "why": [
-    "(invocaci√≥n)"
+    "(invocaciÛn)"
    ],
    "gap": 1.06,
    "metrics": {
@@ -2643,7 +2645,7 @@
    "score": 100,
    "grade": "A",
    "why": [
-    "(invocaci√≥n)"
+    "(invocaciÛn)"
    ],
    "gap": 1.14,
    "metrics": {
@@ -2681,7 +2683,7 @@
    "score": 100,
    "grade": "A",
    "why": [
-    "(invocaci√≥n)"
+    "(invocaciÛn)"
    ],
    "gap": 1.49,
    "metrics": {
@@ -2720,7 +2722,7 @@
    "grade": "C",
    "why": [
     "reescalado con suavizado (borroso)",
-    "(invocaci√≥n)"
+    "(invocaciÛn)"
    ],
    "gap": 1.1,
    "metrics": {
@@ -2758,7 +2760,7 @@
    "score": 100,
    "grade": "A",
    "why": [
-    "(invocaci√≥n)"
+    "(invocaciÛn)"
    ],
    "gap": 1.47,
    "metrics": {
@@ -2788,7 +2790,7 @@
   },
   {
    "id": "boss_mago",
-   "name": "El Mago G√©lido",
+   "name": "El Mago GÈlido",
    "kind": "bicho",
    "token": true,
    "boss": true,
@@ -2797,7 +2799,7 @@
    "grade": "B",
    "why": [
     "sprite nativo diminuto (30 px de ancho) ampliado x6",
-    "(invocaci√≥n)"
+    "(invocaciÛn)"
    ],
    "gap": 1.45,
    "metrics": {
@@ -2835,7 +2837,7 @@
    "score": 100,
    "grade": "A",
    "why": [
-    "(invocaci√≥n)"
+    "(invocaciÛn)"
    ],
    "gap": 1.43,
    "metrics": {
@@ -2873,7 +2875,7 @@
    "score": 100,
    "grade": "A",
    "why": [
-    "(invocaci√≥n)"
+    "(invocaciÛn)"
    ],
    "gap": 1.49,
    "metrics": {
@@ -2911,7 +2913,7 @@
    "score": 100,
    "grade": "A",
    "why": [
-    "(invocaci√≥n)"
+    "(invocaciÛn)"
    ],
    "gap": 1.42,
    "metrics": {
@@ -2941,7 +2943,7 @@
   },
   {
    "id": "token_golem",
-   "name": "G√≥lem de Carne",
+   "name": "GÛlem de Carne",
    "kind": "bicho",
    "token": true,
    "boss": false,
@@ -2950,7 +2952,7 @@
    "grade": "B",
    "why": [
     "sprite nativo diminuto (37 px de ancho) ampliado x3",
-    "(invocaci√≥n)"
+    "(invocaciÛn)"
    ],
    "gap": 1.44,
    "metrics": {
@@ -2979,6 +2981,45 @@
    }
   },
   {
+   "id": "token_hueso",
+   "name": "Esqueleto Fr·gil",
+   "kind": "bicho",
+   "token": true,
+   "boss": false,
+   "art": "assets/b/esqueleto.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)",
+    "(invocaciÛn)"
+   ],
+   "gap": 1.07,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     117,
+     162
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.63,
+    "aspect": 0.72,
+    "colors": 49,
+    "sat": 0.322,
+    "val": 0.422,
+    "sharp": 1411.8,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 0.0
+   }
+  },
+  {
    "id": "lobo_alfa",
    "name": "Lobo Alfa",
    "kind": "bicho",
@@ -2989,7 +3030,7 @@
    "grade": "C",
    "why": [
     "sprite nativo diminuto (18 px de ancho) ampliado x7",
-    "variante te√±ida de otro sprite (arte reutilizado)"
+    "variante teÒida de otro sprite (arte reutilizado)"
    ],
    "gap": 1.49,
    "metrics": {
@@ -3019,7 +3060,7 @@
   },
   {
    "id": "raiz_madre",
-   "name": "Ra√≠z Madre",
+   "name": "RaÌz Madre",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -3055,7 +3096,7 @@
   },
   {
    "id": "imp",
-   "name": "Imp Pir√≥mano",
+   "name": "Imp PirÛmano",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -3064,7 +3105,7 @@
    "grade": "C",
    "why": [
     "reescalado con suavizado (borroso)",
-    "variante te√±ida de otro sprite (arte reutilizado)"
+    "variante teÒida de otro sprite (arte reutilizado)"
    ],
    "gap": 1.18,
    "metrics": {
@@ -3139,7 +3180,7 @@
    "grade": "C",
    "why": [
     "reescalado con suavizado (borroso)",
-    "variante te√±ida de otro sprite (arte reutilizado)"
+    "variante teÒida de otro sprite (arte reutilizado)"
    ],
    "gap": 1.18,
    "metrics": {
@@ -3177,7 +3218,7 @@
    "score": 90,
    "grade": "A",
    "why": [
-    "variante te√±ida de otro sprite (arte reutilizado)"
+    "variante teÒida de otro sprite (arte reutilizado)"
    ],
    "gap": 1.42,
    "metrics": {
@@ -3215,7 +3256,7 @@
    "score": 90,
    "grade": "A",
    "why": [
-    "variante te√±ida de otro sprite (arte reutilizado)"
+    "variante teÒida de otro sprite (arte reutilizado)"
    ],
    "gap": 1.42,
    "metrics": {
@@ -3253,8 +3294,8 @@
    "score": 80,
    "grade": "B",
    "why": [
-    "variante te√±ida de otro sprite (arte reutilizado)",
-    "paleta lejos del canon de los guardianes (brillo/saturaci√≥n)"
+    "variante teÒida de otro sprite (arte reutilizado)",
+    "paleta lejos del canon de los guardianes (brillo/saturaciÛn)"
    ],
    "gap": 1.55,
    "metrics": {
@@ -3292,8 +3333,8 @@
    "score": 80,
    "grade": "B",
    "why": [
-    "variante te√±ida de otro sprite (arte reutilizado)",
-    "paleta lejos del canon de los guardianes (brillo/saturaci√≥n)"
+    "variante teÒida de otro sprite (arte reutilizado)",
+    "paleta lejos del canon de los guardianes (brillo/saturaciÛn)"
    ],
    "gap": 1.55,
    "metrics": {
@@ -3331,7 +3372,7 @@
    "score": 90,
    "grade": "A",
    "why": [
-    "variante te√±ida de otro sprite (arte reutilizado)"
+    "variante teÒida de otro sprite (arte reutilizado)"
    ],
    "gap": 1.47,
    "metrics": {
@@ -3361,7 +3402,7 @@
   },
   {
    "id": "lider_turba",
-   "name": "L√≠der de la Turba",
+   "name": "LÌder de la Turba",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -3370,7 +3411,7 @@
    "grade": "C",
    "why": [
     "sprite nativo diminuto (32 px de ancho) ampliado x3",
-    "variante te√±ida de otro sprite (arte reutilizado)"
+    "variante teÒida de otro sprite (arte reutilizado)"
    ],
    "gap": 1.5,
    "metrics": {
@@ -3409,7 +3450,7 @@
    "grade": "B",
    "why": [
     "el sujeto ocupa solo 38% del alto de la carta",
-    "variante te√±ida de otro sprite (arte reutilizado)"
+    "variante teÒida de otro sprite (arte reutilizado)"
    ],
    "gap": 1.51,
    "metrics": {
@@ -3447,7 +3488,7 @@
    "score": 90,
    "grade": "A",
    "why": [
-    "variante te√±ida de otro sprite (arte reutilizado)"
+    "variante teÒida de otro sprite (arte reutilizado)"
    ],
    "gap": 1.49,
    "metrics": {
@@ -3477,7 +3518,7 @@
   },
   {
    "id": "cartografo",
-   "name": "Cart√≥grafo de Trampas",
+   "name": "CartÛgrafo de Trampas",
    "kind": "bicho",
    "token": false,
    "boss": false,
@@ -3485,8 +3526,8 @@
    "score": 80,
    "grade": "B",
    "why": [
-    "variante te√±ida de otro sprite (arte reutilizado)",
-    "paleta lejos del canon de los guardianes (brillo/saturaci√≥n)"
+    "variante teÒida de otro sprite (arte reutilizado)",
+    "paleta lejos del canon de los guardianes (brillo/saturaciÛn)"
    ],
    "gap": 1.21,
    "metrics": {
@@ -3547,6 +3588,816 @@
     "pixelated": true,
     "smooth_upscale": false,
     "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "pregonero",
+   "name": "Pregonero",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_campanero.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.14,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     103,
+     162
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.63,
+    "aspect": 0.64,
+    "colors": 48,
+    "sat": 0.624,
+    "val": 0.315,
+    "sharp": 616.1,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "barricadista",
+   "name": "Barricadista",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_raptor.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.47,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     208,
+     204
+    ],
+    "k": 4,
+    "native_w": 52.0,
+    "native_h": 51.0,
+    "fill": 0.8,
+    "aspect": 1.02,
+    "colors": 23,
+    "sat": 0.388,
+    "val": 0.333,
+    "sharp": 1496.5,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "capitana_guardia",
+   "name": "Capitana de la Guardia",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_espectro.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "sprite nativo diminuto (33 px de ancho) ampliado x3",
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.48,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     99,
+     186
+    ],
+    "k": 3,
+    "native_w": 33.0,
+    "native_h": 62.0,
+    "fill": 0.73,
+    "aspect": 0.53,
+    "colors": 15,
+    "sat": 0.596,
+    "val": 0.442,
+    "sharp": 2430.4,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "cristal_fragmentado",
+   "name": "Cristal Fragmentado",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cristal_volador.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.08,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     115,
+     135
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.53,
+    "aspect": 0.85,
+    "colors": 49,
+    "sat": 0.549,
+    "val": 0.627,
+    "sharp": 2393.5,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "horno_cristal",
+   "name": "Horno de Cristal",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/engendro.png",
+   "score": 75,
+   "grade": "B",
+   "why": [
+    "el sujeto ocupa solo 38% del alto de la carta",
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.51,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     170,
+     98
+    ],
+    "k": 2,
+    "native_w": 85.0,
+    "native_h": 49.0,
+    "fill": 0.38,
+    "aspect": 1.73,
+    "colors": 22,
+    "sat": 0.494,
+    "val": 0.459,
+    "sharp": 4264.4,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "coloso_cuarzo",
+   "name": "Coloso de Cuarzo",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/golem_cristal.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.49,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     166,
+     188
+    ],
+    "k": 2,
+    "native_w": 83.0,
+    "native_h": 94.0,
+    "fill": 0.73,
+    "aspect": 0.88,
+    "colors": 1756,
+    "sat": 0.55,
+    "val": 0.378,
+    "sharp": 4900.5,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "lobezno",
+   "name": "Lobezno",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/lobo_artico.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.49,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     116,
+     172
+    ],
+    "k": 2,
+    "native_w": 58.0,
+    "native_h": 86.0,
+    "fill": 0.67,
+    "aspect": 0.67,
+    "colors": 656,
+    "sat": 0.381,
+    "val": 0.568,
+    "sharp": 4869.0,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "jabali_musgoso",
+   "name": "JabalÌ Musgoso",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/bestia_bosque.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.44,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     189,
+     114
+    ],
+    "k": 3,
+    "native_w": 63.0,
+    "native_h": 38.0,
+    "fill": 0.45,
+    "aspect": 1.66,
+    "colors": 250,
+    "sat": 0.207,
+    "val": 0.326,
+    "sharp": 1817.9,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "druida_hongos",
+   "name": "Druida de los Hongos",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/druida_arena.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)",
+    "paleta lejos del canon de los guardianes (brillo/saturaciÛn)"
+   ],
+   "gap": 1.21,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     112,
+     170
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.66,
+    "aspect": 0.66,
+    "colors": 49,
+    "sat": 0.79,
+    "val": 0.679,
+    "sharp": 873.1,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "trampero",
+   "name": "Trampero",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/duende_bosque.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "sprite nativo diminuto (31 px de ancho) ampliado x5",
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.43,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     155,
+     215
+    ],
+    "k": 5,
+    "native_w": 31.0,
+    "native_h": 43.0,
+    "fill": 0.84,
+    "aspect": 0.72,
+    "colors": 492,
+    "sat": 0.366,
+    "val": 0.389,
+    "sharp": 1591.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "minotauro_joven",
+   "name": "Minotauro Joven",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/minotauro.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.47,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     231,
+     213
+    ],
+    "k": 3,
+    "native_w": 77.0,
+    "native_h": 71.0,
+    "fill": 0.83,
+    "aspect": 1.08,
+    "colors": 398,
+    "sat": 0.343,
+    "val": 0.259,
+    "sharp": 902.6,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "espiritu_glacial",
+   "name": "EspÌritu Glacial",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/hada_escarcha.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.09,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     95,
+     145
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.57,
+    "aspect": 0.66,
+    "colors": 49,
+    "sat": 0.454,
+    "val": 0.543,
+    "sharp": 3640.1,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "anguila_escarcha",
+   "name": "Anguila de Escarcha",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/anguila_electrica.png",
+   "score": 35,
+   "grade": "D",
+   "why": [
+    "reescalado con suavizado (borroso)",
+    "el sujeto ocupa solo 23% del alto de la carta",
+    "muy apaisado (4.0:1) para un marco vertical",
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.13,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     240,
+     60
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.23,
+    "aspect": 4.0,
+    "colors": 401,
+    "sat": 0.575,
+    "val": 0.414,
+    "sharp": 483.5,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": true,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "sirena_abisal",
+   "name": "Sirena Abisal",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/sirena_abisal.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (35 px de ancho) ampliado x5"
+   ],
+   "gap": 1.46,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     175,
+     240
+    ],
+    "k": 5,
+    "native_w": 35.0,
+    "native_h": 48.0,
+    "fill": 0.94,
+    "aspect": 0.73,
+    "colors": 542,
+    "sat": 0.691,
+    "val": 0.445,
+    "sharp": 1540.9,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "calavera_ardiente",
+   "name": "Calavera Ardiente",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/esqueleto.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.07,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     117,
+     162
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.63,
+    "aspect": 0.72,
+    "colors": 49,
+    "sat": 0.322,
+    "val": 0.422,
+    "sharp": 1411.8,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "aprendiz_nigromante",
+   "name": "Aprendiz de Nigromante",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/hechicero.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.48,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     156,
+     224
+    ],
+    "k": 2,
+    "native_w": 78.0,
+    "native_h": 112.0,
+    "fill": 0.88,
+    "aspect": 0.7,
+    "colors": 1311,
+    "sat": 0.524,
+    "val": 0.274,
+    "sharp": 4153.6,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "caballero_hueso",
+   "name": "Caballero de Hueso",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/jinete_sin_cabeza.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.49,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     208,
+     196
+    ],
+    "k": 4,
+    "native_w": 52.0,
+    "native_h": 49.0,
+    "fill": 0.77,
+    "aspect": 1.06,
+    "colors": 184,
+    "sat": 0.185,
+    "val": 0.299,
+    "sharp": 971.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "hongo_saltarin",
+   "name": "Hongo SaltarÌn",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/duende_bosque.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "sprite nativo diminuto (31 px de ancho) ampliado x5",
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.43,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     155,
+     215
+    ],
+    "k": 5,
+    "native_w": 31.0,
+    "native_h": 43.0,
+    "fill": 0.84,
+    "aspect": 0.72,
+    "colors": 492,
+    "sat": 0.366,
+    "val": 0.389,
+    "sharp": 1591.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "esporero",
+   "name": "Esporero",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/enjambre_hadas.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "sprite nativo diminuto (25 px de ancho) ampliado x8",
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.46,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     200,
+     216
+    ],
+    "k": 8,
+    "native_w": 25.0,
+    "native_h": 27.0,
+    "fill": 0.84,
+    "aspect": 0.93,
+    "colors": 268,
+    "sat": 0.287,
+    "val": 0.541,
+    "sharp": 1355.3,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "micelio_vivo",
+   "name": "Micelio Vivo",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/ent.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "sprite nativo diminuto (20 px de ancho) ampliado x6",
+    "variante teÒida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.5,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     120,
+     216
+    ],
+    "k": 6,
+    "native_w": 20.0,
+    "native_h": 36.0,
+    "fill": 0.84,
+    "aspect": 0.56,
+    "colors": 94,
+    "sat": 0.47,
+    "val": 0.257,
+    "sharp": 618.1,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "reina_micelial",
+   "name": "Reina Micelial",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/dama_bosque.png",
+   "score": 60,
+   "grade": "C",
+   "why": [
+    "sprite nativo diminuto (18 px de ancho) ampliado x8",
+    "variante teÒida de otro sprite (arte reutilizado)",
+    "paleta lejos del canon de los guardianes (brillo/saturaciÛn)"
+   ],
+   "gap": 1.59,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     144,
+     232
+    ],
+    "k": 8,
+    "native_w": 18.0,
+    "native_h": 29.0,
+    "fill": 0.91,
+    "aspect": 0.62,
+    "colors": 37,
+    "sat": 0.164,
+    "val": 0.149,
+    "sharp": 152.2,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
     "pix": 1.0
    }
   }

@@ -19,7 +19,7 @@ from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 URL = os.environ.get("SD_URL", "http://127.0.0.1:7861")
-W, H = 528, 600
+W, H = 512, 576
 ESCENA = {
     "ciudad": "streets and walls of a cursed medieval city, old lanterns, dark brick",
     "forja": "mine tunnels with glowing blue crystals, mine carts and lanterns",
@@ -158,9 +158,12 @@ def main():
             init = con_sprite(base, c["art"], c["boss"]) if es_unidad and c["art"] else base
             pr = (POS if es_unidad else POS_MAGIA).format(d=desc, e=ESCENA[lin])
             t0 = time.time()
-            try: dibujar(init, pr, fz, seed).save(dst)
-            except Exception as e:
-                print("x", cid, k, e, flush=True); levantar(); continue
+            ok = False
+            for intento in range(40):  # sd-server responde 500 al instante si esta dibujando para otro (Fondal RPG): esperar y reintentar
+                try: dibujar(init, pr, fz, seed).save(dst); ok = True; break
+                except Exception as e:
+                    print("x", cid, k, e, "(reintento %d)" % intento, flush=True); levantar(); time.sleep(min(8 + 2 * intento, 30))
+            if not ok: continue
             print("✔ %s_%d %.0fs" % (cid, k, time.time() - t0), flush=True)
     hoja(out, ids, n, nombre); print("hoja:", os.path.join(out, "_hoja_%s.png" % nombre))
 
