@@ -1,0 +1,3586 @@
+{
+ "guardian_centroid": {
+  "sat": 0.43424390243902444,
+  "val": 0.33929268292682924,
+  "colors": 360.780487804878,
+  "sharp": 2444.9853658536585
+ },
+ "guardians": 41,
+ "monsters": 65,
+ "grades_guardians": {
+  "A": 41,
+  "B": 0,
+  "C": 0,
+  "D": 0
+ },
+ "grades_monsters": {
+  "A": 35,
+  "B": 17,
+  "C": 13,
+  "D": 0
+ },
+ "pixelated_monsters": 47,
+ "smooth_monsters": 8,
+ "tinted_monsters": 12,
+ "mean_gap": 1.38,
+ "gap_limit": 1.5,
+ "over_gap": [
+  "cm_planidera",
+  "cm_acechante",
+  "engendro",
+  "dama_bosque",
+  "escorpion_gigante",
+  "golem_hielo",
+  "angel_hielo",
+  "rompehielos",
+  "reina_escarcha",
+  "ingeniero"
+ ],
+ "rows": [
+  {
+   "id": "tanque",
+   "name": "Aldric",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/tanque.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 362,
+    "sat": 0.429,
+    "val": 0.345,
+    "sharp": 2553.9,
+    "vline": 0.26,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "guerrero",
+   "name": "Kael",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/guerrero.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 287,
+    "sat": 0.469,
+    "val": 0.307,
+    "sharp": 2168.4,
+    "vline": 0.23,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "soporte",
+   "name": "Elyra",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/soporte.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 429,
+    "sat": 0.463,
+    "val": 0.386,
+    "sharp": 2273.7,
+    "vline": 0.29,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "ynara",
+   "name": "Ynara",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/ynara.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 323,
+    "sat": 0.434,
+    "val": 0.414,
+    "sharp": 2111.3,
+    "vline": 0.21,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "myla",
+   "name": "Myla",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/myla.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 365,
+    "sat": 0.438,
+    "val": 0.422,
+    "sharp": 1954.6,
+    "vline": 0.22,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "dariel",
+   "name": "Dáriel",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/dariel.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 291,
+    "sat": 0.489,
+    "val": 0.33,
+    "sharp": 2386.6,
+    "vline": 0.31,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "vesper",
+   "name": "Vesper",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/vesper.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 287,
+    "sat": 0.418,
+    "val": 0.312,
+    "sharp": 2289.2,
+    "vline": 0.18,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "aurelia",
+   "name": "Aurelia",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/aurelia.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 305,
+    "sat": 0.487,
+    "val": 0.443,
+    "sharp": 2989.6,
+    "vline": 0.36,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "brasa",
+   "name": "Brasa",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/brasa.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 357,
+    "sat": 0.507,
+    "val": 0.342,
+    "sharp": 2364.5,
+    "vline": 0.3,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "zahra",
+   "name": "Zahra",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/zahra.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 292,
+    "sat": 0.472,
+    "val": 0.315,
+    "sharp": 1748.3,
+    "vline": 0.19,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "eslabon",
+   "name": "Garren",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/eslabon.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 229,
+    "sat": 0.408,
+    "val": 0.314,
+    "sharp": 2262.0,
+    "vline": 0.28,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "brakk",
+   "name": "Brakk",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/brakk.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 239,
+    "sat": 0.446,
+    "val": 0.352,
+    "sharp": 2540.2,
+    "vline": 0.28,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "farolero",
+   "name": "Tobías",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/farolero.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 354,
+    "sat": 0.415,
+    "val": 0.31,
+    "sharp": 2197.9,
+    "vline": 0.27,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "orsa",
+   "name": "Orsa",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/orsa.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 322,
+    "sat": 0.526,
+    "val": 0.336,
+    "sharp": 2310.7,
+    "vline": 0.21,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "bront",
+   "name": "Bront",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/bront.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 421,
+    "sat": 0.37,
+    "val": 0.324,
+    "sharp": 2463.9,
+    "vline": 0.3,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "cazadora",
+   "name": "Sylva",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/cazadora.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 289,
+    "sat": 0.468,
+    "val": 0.315,
+    "sharp": 2556.6,
+    "vline": 0.33,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "maura",
+   "name": "Maura",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/maura.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 267,
+    "sat": 0.501,
+    "val": 0.302,
+    "sharp": 1989.8,
+    "vline": 0.42,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "morwen",
+   "name": "Morwen",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/morwen.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 396,
+    "sat": 0.489,
+    "val": 0.332,
+    "sharp": 2253.6,
+    "vline": 0.2,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "tibor",
+   "name": "Tibor",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/tibor.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 266,
+    "sat": 0.463,
+    "val": 0.357,
+    "sharp": 2286.3,
+    "vline": 0.19,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "khepri",
+   "name": "Khepri",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/khepri.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 601,
+    "sat": 0.426,
+    "val": 0.355,
+    "sharp": 3193.5,
+    "vline": 0.25,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "oriel",
+   "name": "Oriel",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/oriel.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 395,
+    "sat": 0.449,
+    "val": 0.354,
+    "sharp": 2843.7,
+    "vline": 0.45,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "musashi",
+   "name": "Musashi",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/musashi.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 280,
+    "sat": 0.366,
+    "val": 0.316,
+    "sharp": 2250.5,
+    "vline": 0.24,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "ilkan",
+   "name": "Ilkan",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/ilkan.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 426,
+    "sat": 0.432,
+    "val": 0.34,
+    "sharp": 1951.2,
+    "vline": 0.18,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "nahir",
+   "name": "Nahir",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/nahir.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 442,
+    "sat": 0.359,
+    "val": 0.308,
+    "sharp": 2455.7,
+    "vline": 0.28,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "sira",
+   "name": "Sira",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/sira.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 350,
+    "sat": 0.337,
+    "val": 0.359,
+    "sharp": 2219.0,
+    "vline": 0.14,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "iria",
+   "name": "Iria",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/iria.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 326,
+    "sat": 0.338,
+    "val": 0.342,
+    "sharp": 2796.7,
+    "vline": 0.31,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "axiom",
+   "name": "Axiom",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/axiom.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 534,
+    "sat": 0.362,
+    "val": 0.357,
+    "sharp": 2744.7,
+    "vline": 0.36,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "profeta",
+   "name": "Ismara",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/profeta.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 428,
+    "sat": 0.402,
+    "val": 0.359,
+    "sharp": 3102.7,
+    "vline": 0.33,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "mago",
+   "name": "Thalen",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/mago.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 488,
+    "sat": 0.425,
+    "val": 0.311,
+    "sharp": 2374.5,
+    "vline": 0.31,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "baltra",
+   "name": "Baltra",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/baltra.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 285,
+    "sat": 0.452,
+    "val": 0.314,
+    "sharp": 2143.9,
+    "vline": 0.23,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "aelith",
+   "name": "Aelith",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/aelith.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 346,
+    "sat": 0.42,
+    "val": 0.353,
+    "sharp": 2535.0,
+    "vline": 0.3,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "solciju",
+   "name": "Solciju",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/solciju.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 370,
+    "sat": 0.469,
+    "val": 0.298,
+    "sharp": 2722.3,
+    "vline": 0.29,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "veyra",
+   "name": "Veyra",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/veyra.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 341,
+    "sat": 0.496,
+    "val": 0.321,
+    "sharp": 1966.4,
+    "vline": 0.22,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "velmira",
+   "name": "Velmira",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/velmira.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 458,
+    "sat": 0.465,
+    "val": 0.358,
+    "sharp": 2450.9,
+    "vline": 0.39,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "vhal",
+   "name": "Vhal",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/vhal.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 457,
+    "sat": 0.372,
+    "val": 0.309,
+    "sharp": 2971.0,
+    "vline": 0.27,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "nigromante",
+   "name": "Ilvar",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/nigromante.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 399,
+    "sat": 0.368,
+    "val": 0.295,
+    "sharp": 2946.7,
+    "vline": 0.39,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "segador",
+   "name": "Segador",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/segador.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 341,
+    "sat": 0.487,
+    "val": 0.309,
+    "sharp": 2314.6,
+    "vline": 0.24,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "renko",
+   "name": "Renko",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/renko.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 211,
+    "sat": 0.394,
+    "val": 0.297,
+    "sharp": 1920.8,
+    "vline": 0.29,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "morveth",
+   "name": "Morveth",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/morveth.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 433,
+    "sat": 0.511,
+    "val": 0.351,
+    "sharp": 3275.9,
+    "vline": 0.3,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "libertador",
+   "name": "San Martín",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/libertador.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 318,
+    "sat": 0.444,
+    "val": 0.34,
+    "sharp": 2266.8,
+    "vline": 0.22,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "saelis",
+   "name": "Saelis",
+   "kind": "guardian",
+   "token": false,
+   "boss": false,
+   "art": "assets/g/saelis.webp",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "queda la línea divisoria de la ficha del Códice en el borde derecho"
+   ],
+   "gap": 0.0,
+   "metrics": {
+    "kind": "guardian",
+    "canvas": [
+     300,
+     340
+    ],
+    "colors": 482,
+    "sat": 0.338,
+    "val": 0.407,
+    "sharp": 3096.8,
+    "vline": 0.41,
+    "pix": 0.0,
+    "has_bg": 1.0
+   }
+  },
+  {
+   "id": "cm_saqueador",
+   "name": "Saqueador",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_saqueador.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.47,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     126,
+     201
+    ],
+    "k": 3,
+    "native_w": 42.0,
+    "native_h": 67.0,
+    "fill": 0.79,
+    "aspect": 0.63,
+    "colors": 31,
+    "sat": 0.36,
+    "val": 0.291,
+    "sharp": 1366.3,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "cm_perro",
+   "name": "Perro de Cloaca",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_perro.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "reescalado con suavizado (borroso)"
+   ],
+   "gap": 1.14,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     240,
+     120
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.47,
+    "aspect": 2.0,
+    "colors": 894,
+    "sat": 0.586,
+    "val": 0.343,
+    "sharp": 361.7,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "cm_planidera",
+   "name": "Planidera",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_planidera.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (33 px de ancho) ampliado x3"
+   ],
+   "gap": 1.54,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     99,
+     210
+    ],
+    "k": 3,
+    "native_w": 33.0,
+    "native_h": 70.0,
+    "fill": 0.82,
+    "aspect": 0.47,
+    "colors": 18,
+    "sat": 0.592,
+    "val": 0.215,
+    "sharp": 676.4,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "cm_raptor",
+   "name": "Raptor",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_raptor.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.47,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     208,
+     204
+    ],
+    "k": 4,
+    "native_w": 52.0,
+    "native_h": 51.0,
+    "fill": 0.8,
+    "aspect": 1.02,
+    "colors": 23,
+    "sat": 0.388,
+    "val": 0.333,
+    "sharp": 1496.5,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "cm_acechante",
+   "name": "Acechante",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_acechante.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.55,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     240,
+     218
+    ],
+    "k": 2,
+    "native_w": 120.0,
+    "native_h": 109.0,
+    "fill": 0.85,
+    "aspect": 1.1,
+    "colors": 419,
+    "sat": 0.652,
+    "val": 0.263,
+    "sharp": 43.9,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "cm_sectario",
+   "name": "Sectario",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_sectario.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (32 px de ancho) ampliado x3"
+   ],
+   "gap": 1.5,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     96,
+     198
+    ],
+    "k": 3,
+    "native_w": 32.0,
+    "native_h": 66.0,
+    "fill": 0.77,
+    "aspect": 0.48,
+    "colors": 21,
+    "sat": 0.596,
+    "val": 0.336,
+    "sharp": 1113.4,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "cm_campanero",
+   "name": "Campanero",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_campanero.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.14,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     103,
+     162
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.63,
+    "aspect": 0.64,
+    "colors": 48,
+    "sat": 0.624,
+    "val": 0.315,
+    "sharp": 616.1,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "cm_espectro",
+   "name": "Espectro",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_espectro.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (33 px de ancho) ampliado x3"
+   ],
+   "gap": 1.48,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     99,
+     186
+    ],
+    "k": 3,
+    "native_w": 33.0,
+    "native_h": 62.0,
+    "fill": 0.73,
+    "aspect": 0.53,
+    "colors": 15,
+    "sat": 0.596,
+    "val": 0.442,
+    "sharp": 2430.4,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "cristal_servo",
+   "name": "Servo de Cristal",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cristal_servo.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.06,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     98,
+     144
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.56,
+    "aspect": 0.68,
+    "colors": 49,
+    "sat": 0.462,
+    "val": 0.411,
+    "sharp": 3492.7,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "engendro",
+   "name": "Engendro",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/engendro.png",
+   "score": 85,
+   "grade": "B",
+   "why": [
+    "el sujeto ocupa solo 38% del alto de la carta"
+   ],
+   "gap": 1.51,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     170,
+     98
+    ],
+    "k": 2,
+    "native_w": 85.0,
+    "native_h": 49.0,
+    "fill": 0.38,
+    "aspect": 1.73,
+    "colors": 22,
+    "sat": 0.494,
+    "val": 0.459,
+    "sharp": 4264.4,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "cristal_volador",
+   "name": "Cristal Volador",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cristal_volador.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.08,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     115,
+     135
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.53,
+    "aspect": 0.85,
+    "colors": 49,
+    "sat": 0.549,
+    "val": 0.627,
+    "sharp": 2393.5,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "mn_devoraluz",
+   "name": "Devoraluz",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/mn_devoraluz.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "reescalado con suavizado (borroso)"
+   ],
+   "gap": 1.1,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     181,
+     240
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.94,
+    "aspect": 0.75,
+    "colors": 1766,
+    "sat": 0.582,
+    "val": 0.379,
+    "sharp": 920.8,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "golem_cristal",
+   "name": "Gólem de Cristal",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/golem_cristal.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.49,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     166,
+     188
+    ],
+    "k": 2,
+    "native_w": 83.0,
+    "native_h": 94.0,
+    "fill": 0.73,
+    "aspect": 0.88,
+    "colors": 1756,
+    "sat": 0.55,
+    "val": 0.378,
+    "sharp": 4900.5,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "duende_bosque",
+   "name": "Duende del Bosque",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/duende_bosque.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (31 px de ancho) ampliado x5"
+   ],
+   "gap": 1.43,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     155,
+     215
+    ],
+    "k": 5,
+    "native_w": 31.0,
+    "native_h": 43.0,
+    "fill": 0.84,
+    "aspect": 0.72,
+    "colors": 492,
+    "sat": 0.366,
+    "val": 0.389,
+    "sharp": 1591.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "bestia_bosque",
+   "name": "Bestia del Bosque",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/bestia_bosque.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.44,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     189,
+     114
+    ],
+    "k": 3,
+    "native_w": 63.0,
+    "native_h": 38.0,
+    "fill": 0.45,
+    "aspect": 1.66,
+    "colors": 250,
+    "sat": 0.207,
+    "val": 0.326,
+    "sharp": 1817.9,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "cu_sith",
+   "name": "Cù-Sìth",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cu_sith.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (18 px de ancho) ampliado x7"
+   ],
+   "gap": 1.49,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     126,
+     217
+    ],
+    "k": 7,
+    "native_w": 18.0,
+    "native_h": 31.0,
+    "fill": 0.85,
+    "aspect": 0.58,
+    "colors": 148,
+    "sat": 0.405,
+    "val": 0.382,
+    "sharp": 657.3,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "dama_bosque",
+   "name": "Dama del Bosque",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/dama_bosque.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "sprite nativo diminuto (18 px de ancho) ampliado x8",
+    "paleta lejos del canon de los guardianes (brillo/saturación)"
+   ],
+   "gap": 1.59,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     144,
+     232
+    ],
+    "k": 8,
+    "native_w": 18.0,
+    "native_h": 29.0,
+    "fill": 0.91,
+    "aspect": 0.62,
+    "colors": 37,
+    "sat": 0.164,
+    "val": 0.149,
+    "sharp": 152.2,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "ent",
+   "name": "Ent",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/ent.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (20 px de ancho) ampliado x6"
+   ],
+   "gap": 1.5,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     120,
+     216
+    ],
+    "k": 6,
+    "native_w": 20.0,
+    "native_h": 36.0,
+    "fill": 0.84,
+    "aspect": 0.56,
+    "colors": 94,
+    "sat": 0.47,
+    "val": 0.257,
+    "sharp": 618.1,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "escorpion_gigante",
+   "name": "Escorpión Gigante",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/escorpion_gigante.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.53,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     200,
+     194
+    ],
+    "k": 2,
+    "native_w": 100.0,
+    "native_h": 97.0,
+    "fill": 0.76,
+    "aspect": 1.03,
+    "colors": 49,
+    "sat": 0.54,
+    "val": 0.278,
+    "sharp": 351.0,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "golem_piedra",
+   "name": "Gólem de Piedra",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/golem_piedra.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (37 px de ancho) ampliado x3"
+   ],
+   "gap": 1.44,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     111,
+     183
+    ],
+    "k": 3,
+    "native_w": 37.0,
+    "native_h": 61.0,
+    "fill": 0.71,
+    "aspect": 0.61,
+    "colors": 534,
+    "sat": 0.411,
+    "val": 0.292,
+    "sharp": 3592.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "medusa",
+   "name": "Medusa",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/medusa.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.14,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     107,
+     170
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.66,
+    "aspect": 0.63,
+    "colors": 47,
+    "sat": 0.659,
+    "val": 0.388,
+    "sharp": 732.2,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "druida_arena",
+   "name": "Druida de Arena",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/druida_arena.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "paleta lejos del canon de los guardianes (brillo/saturación)"
+   ],
+   "gap": 1.21,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     112,
+     170
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.66,
+    "aspect": 0.66,
+    "colors": 49,
+    "sat": 0.79,
+    "val": 0.679,
+    "sharp": 873.1,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "esfinge",
+   "name": "Esfinge",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/esfinge.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "reescalado con suavizado (borroso)"
+   ],
+   "gap": 1.14,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     240,
+     165
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.64,
+    "aspect": 1.45,
+    "colors": 2314,
+    "sat": 0.666,
+    "val": 0.503,
+    "sharp": 773.0,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "lobo_artico",
+   "name": "Lobo Ártico",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/lobo_artico.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.49,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     116,
+     172
+    ],
+    "k": 2,
+    "native_w": 58.0,
+    "native_h": 86.0,
+    "fill": 0.67,
+    "aspect": 0.67,
+    "colors": 656,
+    "sat": 0.381,
+    "val": 0.568,
+    "sharp": 4869.0,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "hada_escarcha",
+   "name": "Hada de Escarcha",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/hada_escarcha.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.09,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     95,
+     145
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.57,
+    "aspect": 0.66,
+    "colors": 49,
+    "sat": 0.454,
+    "val": 0.543,
+    "sharp": 3640.1,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "tiburon_joven",
+   "name": "Tiburón Joven",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/tiburon_joven.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "ampliado x5 (pixeles muy grandes frente a los guardianes)"
+   ],
+   "gap": 1.46,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     210,
+     165
+    ],
+    "k": 5,
+    "native_w": 42.0,
+    "native_h": 33.0,
+    "fill": 0.64,
+    "aspect": 1.27,
+    "colors": 379,
+    "sat": 0.564,
+    "val": 0.522,
+    "sharp": 1388.5,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "golem_hielo",
+   "name": "Gólem de Hielo",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/golem_hielo.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "paleta lejos del canon de los guardianes (brillo/saturación)"
+   ],
+   "gap": 1.55,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     150,
+     168
+    ],
+    "k": 2,
+    "native_w": 75.0,
+    "native_h": 84.0,
+    "fill": 0.66,
+    "aspect": 0.89,
+    "colors": 663,
+    "sat": 0.44,
+    "val": 0.841,
+    "sharp": 5732.6,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "dragoncito_hielo",
+   "name": "Dragoncito de Hielo",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/dragoncito_hielo.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "sprite nativo diminuto (18 px de ancho) ampliado x8",
+    "paleta lejos del canon de los guardianes (brillo/saturación)"
+   ],
+   "gap": 1.5,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     144,
+     224
+    ],
+    "k": 8,
+    "native_w": 18.0,
+    "native_h": 28.0,
+    "fill": 0.88,
+    "aspect": 0.64,
+    "colors": 214,
+    "sat": 0.494,
+    "val": 0.804,
+    "sharp": 1824.5,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "angel_hielo",
+   "name": "Ángel de Hielo",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/angel_hielo.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "paleta lejos del canon de los guardianes (brillo/saturación)"
+   ],
+   "gap": 1.55,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     196,
+     186
+    ],
+    "k": 2,
+    "native_w": 98.0,
+    "native_h": 93.0,
+    "fill": 0.73,
+    "aspect": 1.05,
+    "colors": 568,
+    "sat": 0.379,
+    "val": 0.832,
+    "sharp": 5661.2,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "tiburon_blanco",
+   "name": "Tiburón Blanco",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/tiburon_blanco.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "paleta lejos del canon de los guardianes (brillo/saturación)"
+   ],
+   "gap": 1.46,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     170,
+     134
+    ],
+    "k": 2,
+    "native_w": 85.0,
+    "native_h": 67.0,
+    "fill": 0.52,
+    "aspect": 1.27,
+    "colors": 658,
+    "sat": 0.704,
+    "val": 0.546,
+    "sharp": 2329.9,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "dragon_hielo",
+   "name": "Tundraverx",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/dragon_hielo.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (37 px de ancho) ampliado x6"
+   ],
+   "gap": 1.47,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     222,
+     210
+    ],
+    "k": 6,
+    "native_w": 37.0,
+    "native_h": 35.0,
+    "fill": 0.82,
+    "aspect": 1.06,
+    "colors": 318,
+    "sat": 0.533,
+    "val": 0.672,
+    "sharp": 1786.3,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "medusa_electrica",
+   "name": "Medusa Eléctrica",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/medusa_electrica.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "sprite nativo diminuto (34 px de ancho) ampliado x5",
+    "paleta lejos del canon de los guardianes (brillo/saturación)"
+   ],
+   "gap": 1.49,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     170,
+     235
+    ],
+    "k": 5,
+    "native_w": 34.0,
+    "native_h": 47.0,
+    "fill": 0.92,
+    "aspect": 0.72,
+    "colors": 759,
+    "sat": 0.692,
+    "val": 0.64,
+    "sharp": 1629.1,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "cangrejo_acorazado",
+   "name": "Cangrejo Acorazado",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cangrejo_acorazado.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.47,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     196,
+     136
+    ],
+    "k": 4,
+    "native_w": 49.0,
+    "native_h": 34.0,
+    "fill": 0.53,
+    "aspect": 1.44,
+    "colors": 395,
+    "sat": 0.696,
+    "val": 0.491,
+    "sharp": 1317.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "esqueleto",
+   "name": "Esqueleto",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/esqueleto.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.07,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     117,
+     162
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.63,
+    "aspect": 0.72,
+    "colors": 49,
+    "sat": 0.322,
+    "val": 0.422,
+    "sharp": 1411.8,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "zombie",
+   "name": "Zombi",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/zombie.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (32 px de ancho) ampliado x5"
+   ],
+   "gap": 1.45,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     160,
+     240
+    ],
+    "k": 5,
+    "native_w": 32.0,
+    "native_h": 48.0,
+    "fill": 0.94,
+    "aspect": 0.67,
+    "colors": 380,
+    "sat": 0.435,
+    "val": 0.341,
+    "sharp": 1236.2,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "esqueleto_h",
+   "name": "Esqueleto Cornudo",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/esqueleto_h.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.42,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     176,
+     200
+    ],
+    "k": 4,
+    "native_w": 44.0,
+    "native_h": 50.0,
+    "fill": 0.78,
+    "aspect": 0.88,
+    "colors": 393,
+    "sat": 0.418,
+    "val": 0.348,
+    "sharp": 2166.6,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "demonio_menor",
+   "name": "Demonio Menor",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/demonio_menor.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "reescalado con suavizado (borroso)"
+   ],
+   "gap": 1.18,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     199,
+     240
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.94,
+    "aspect": 0.83,
+    "colors": 481,
+    "sat": 0.622,
+    "val": 0.409,
+    "sharp": 86.2,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "demonio_mago",
+   "name": "Demonio Hechicero",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/demonio_mago.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "reescalado con suavizado (borroso)"
+   ],
+   "gap": 1.17,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     200,
+     240
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.94,
+    "aspect": 0.83,
+    "colors": 973,
+    "sat": 0.539,
+    "val": 0.274,
+    "sharp": 155.3,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "golem",
+   "name": "Gólem",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/golem.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.48,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     160,
+     216
+    ],
+    "k": 4,
+    "native_w": 40.0,
+    "native_h": 54.0,
+    "fill": 0.84,
+    "aspect": 0.74,
+    "colors": 729,
+    "sat": 0.774,
+    "val": 0.4,
+    "sharp": 1509.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "token_muro",
+   "name": "Muro",
+   "kind": "bicho",
+   "token": true,
+   "boss": false,
+   "art": "assets/b/golem_piedra.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (37 px de ancho) ampliado x3",
+    "(invocación)"
+   ],
+   "gap": 1.44,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     111,
+     183
+    ],
+    "k": 3,
+    "native_w": 37.0,
+    "native_h": 61.0,
+    "fill": 0.71,
+    "aspect": 0.61,
+    "colors": 534,
+    "sat": 0.411,
+    "val": 0.292,
+    "sharp": 3592.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "token_torreta",
+   "name": "Torreta",
+   "kind": "bicho",
+   "token": true,
+   "boss": false,
+   "art": "assets/b/cristal_servo.png",
+   "score": 100,
+   "grade": "A",
+   "why": [
+    "(invocación)"
+   ],
+   "gap": 1.06,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     98,
+     144
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.56,
+    "aspect": 0.68,
+    "colors": 49,
+    "sat": 0.462,
+    "val": 0.411,
+    "sharp": 3492.7,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "boss_campanero",
+   "name": "El Gran Campanero",
+   "kind": "bicho",
+   "token": true,
+   "boss": true,
+   "art": "assets/b/cm_campanero.png",
+   "score": 100,
+   "grade": "A",
+   "why": [
+    "(invocación)"
+   ],
+   "gap": 1.14,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     103,
+     162
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.63,
+    "aspect": 0.64,
+    "colors": 48,
+    "sat": 0.624,
+    "val": 0.315,
+    "sharp": 616.1,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "boss_jinete",
+   "name": "Jinete Sin Cabeza",
+   "kind": "bicho",
+   "token": true,
+   "boss": true,
+   "art": "assets/b/jinete_sin_cabeza.png",
+   "score": 100,
+   "grade": "A",
+   "why": [
+    "(invocación)"
+   ],
+   "gap": 1.49,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     208,
+     196
+    ],
+    "k": 4,
+    "native_w": 52.0,
+    "native_h": 49.0,
+    "fill": 0.77,
+    "aspect": 1.06,
+    "colors": 184,
+    "sat": 0.185,
+    "val": 0.299,
+    "sharp": 971.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "boss_devoraluz",
+   "name": "Devoraluz Ancestral",
+   "kind": "bicho",
+   "token": true,
+   "boss": true,
+   "art": "assets/b/mn_devoraluz.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "reescalado con suavizado (borroso)",
+    "(invocación)"
+   ],
+   "gap": 1.1,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     181,
+     240
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.94,
+    "aspect": 0.75,
+    "colors": 1766,
+    "sat": 0.582,
+    "val": 0.379,
+    "sharp": 920.8,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "boss_minotauro",
+   "name": "Minotauro",
+   "kind": "bicho",
+   "token": true,
+   "boss": true,
+   "art": "assets/b/minotauro.png",
+   "score": 100,
+   "grade": "A",
+   "why": [
+    "(invocación)"
+   ],
+   "gap": 1.47,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     231,
+     213
+    ],
+    "k": 3,
+    "native_w": 77.0,
+    "native_h": 71.0,
+    "fill": 0.83,
+    "aspect": 1.08,
+    "colors": 398,
+    "sat": 0.343,
+    "val": 0.259,
+    "sharp": 902.6,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "boss_mago",
+   "name": "El Mago Gélido",
+   "kind": "bicho",
+   "token": true,
+   "boss": true,
+   "art": "assets/b/mago_hielo_cristal.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (30 px de ancho) ampliado x6",
+    "(invocación)"
+   ],
+   "gap": 1.45,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     180,
+     216
+    ],
+    "k": 6,
+    "native_w": 30.0,
+    "native_h": 36.0,
+    "fill": 0.84,
+    "aspect": 0.83,
+    "colors": 246,
+    "sat": 0.345,
+    "val": 0.478,
+    "sharp": 1366.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "boss_demonio",
+   "name": "Demonio Mayor",
+   "kind": "bicho",
+   "token": true,
+   "boss": true,
+   "art": "assets/b/demonio_mayor.png",
+   "score": 100,
+   "grade": "A",
+   "why": [
+    "(invocación)"
+   ],
+   "gap": 1.43,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     170,
+     154
+    ],
+    "k": 2,
+    "native_w": 85.0,
+    "native_h": 77.0,
+    "fill": 0.6,
+    "aspect": 1.1,
+    "colors": 546,
+    "sat": 0.432,
+    "val": 0.328,
+    "sharp": 1685.9,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "token_lobo",
+   "name": "Lobo Espectral",
+   "kind": "bicho",
+   "token": true,
+   "boss": false,
+   "art": "assets/b/lobo_artico.png",
+   "score": 100,
+   "grade": "A",
+   "why": [
+    "(invocación)"
+   ],
+   "gap": 1.49,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     116,
+     172
+    ],
+    "k": 2,
+    "native_w": 58.0,
+    "native_h": 86.0,
+    "fill": 0.67,
+    "aspect": 0.67,
+    "colors": 656,
+    "sat": 0.381,
+    "val": 0.568,
+    "sharp": 4869.0,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "token_granadero",
+   "name": "Granadero Espectral",
+   "kind": "bicho",
+   "token": true,
+   "boss": false,
+   "art": "assets/b/esqueleto_h.png",
+   "score": 100,
+   "grade": "A",
+   "why": [
+    "(invocación)"
+   ],
+   "gap": 1.42,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     176,
+     200
+    ],
+    "k": 4,
+    "native_w": 44.0,
+    "native_h": 50.0,
+    "fill": 0.78,
+    "aspect": 0.88,
+    "colors": 393,
+    "sat": 0.418,
+    "val": 0.348,
+    "sharp": 2166.6,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "token_golem",
+   "name": "Gólem de Carne",
+   "kind": "bicho",
+   "token": true,
+   "boss": false,
+   "art": "assets/b/golem_piedra.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "sprite nativo diminuto (37 px de ancho) ampliado x3",
+    "(invocación)"
+   ],
+   "gap": 1.44,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     111,
+     183
+    ],
+    "k": 3,
+    "native_w": 37.0,
+    "native_h": 61.0,
+    "fill": 0.71,
+    "aspect": 0.61,
+    "colors": 534,
+    "sat": 0.411,
+    "val": 0.292,
+    "sharp": 3592.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "lobo_alfa",
+   "name": "Lobo Alfa",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cu_sith.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "sprite nativo diminuto (18 px de ancho) ampliado x7",
+    "variante teñida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.49,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     126,
+     217
+    ],
+    "k": 7,
+    "native_w": 18.0,
+    "native_h": 31.0,
+    "fill": 0.85,
+    "aspect": 0.58,
+    "colors": 148,
+    "sat": 0.405,
+    "val": 0.382,
+    "sharp": 657.3,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "raiz_madre",
+   "name": "Raíz Madre",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/guardian_ancestral.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.42,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     174,
+     190
+    ],
+    "k": 2,
+    "native_w": 87.0,
+    "native_h": 95.0,
+    "fill": 0.74,
+    "aspect": 0.92,
+    "colors": 827,
+    "sat": 0.349,
+    "val": 0.254,
+    "sharp": 2481.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "imp",
+   "name": "Imp Pirómano",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/demonio_menor.png",
+   "score": 60,
+   "grade": "C",
+   "why": [
+    "reescalado con suavizado (borroso)",
+    "variante teñida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.18,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     199,
+     240
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.94,
+    "aspect": 0.83,
+    "colors": 481,
+    "sat": 0.622,
+    "val": 0.409,
+    "sharp": 86.2,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": true,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "piromante",
+   "name": "Piromante",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/hechicero.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.48,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     156,
+     224
+    ],
+    "k": 2,
+    "native_w": 78.0,
+    "native_h": 112.0,
+    "fill": 0.88,
+    "aspect": 0.7,
+    "colors": 1311,
+    "sat": 0.524,
+    "val": 0.274,
+    "sharp": 4153.6,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "demonio_ceniza",
+   "name": "Demonio de Ceniza",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/demonio_menor.png",
+   "score": 60,
+   "grade": "C",
+   "why": [
+    "reescalado con suavizado (borroso)",
+    "variante teñida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.18,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     199,
+     240
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.94,
+    "aspect": 0.83,
+    "colors": 481,
+    "sat": 0.622,
+    "val": 0.409,
+    "sharp": 86.2,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": true,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "capataz",
+   "name": "Capataz de Huesos",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/esqueleto_h.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teñida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.42,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     176,
+     200
+    ],
+    "k": 4,
+    "native_w": 44.0,
+    "native_h": 50.0,
+    "fill": 0.78,
+    "aspect": 0.88,
+    "colors": 393,
+    "sat": 0.418,
+    "val": 0.348,
+    "sharp": 2166.6,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "rey_esqueleto",
+   "name": "Rey Esqueleto",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/esqueleto_h.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teñida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.42,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     176,
+     200
+    ],
+    "k": 4,
+    "native_w": 44.0,
+    "native_h": 50.0,
+    "fill": 0.78,
+    "aspect": 0.88,
+    "colors": 393,
+    "sat": 0.418,
+    "val": 0.348,
+    "sharp": 2166.6,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "rompehielos",
+   "name": "Rompehielos",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/golem_hielo.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "variante teñida de otro sprite (arte reutilizado)",
+    "paleta lejos del canon de los guardianes (brillo/saturación)"
+   ],
+   "gap": 1.55,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     150,
+     168
+    ],
+    "k": 2,
+    "native_w": 75.0,
+    "native_h": 84.0,
+    "fill": 0.66,
+    "aspect": 0.89,
+    "colors": 663,
+    "sat": 0.44,
+    "val": 0.841,
+    "sharp": 5732.6,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "reina_escarcha",
+   "name": "Reina de Escarcha",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/angel_hielo.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "variante teñida de otro sprite (arte reutilizado)",
+    "paleta lejos del canon de los guardianes (brillo/saturación)"
+   ],
+   "gap": 1.55,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     196,
+     186
+    ],
+    "k": 2,
+    "native_w": 98.0,
+    "native_h": 93.0,
+    "fill": 0.73,
+    "aspect": 1.05,
+    "colors": 568,
+    "sat": 0.379,
+    "val": 0.832,
+    "sharp": 5661.2,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "agitador",
+   "name": "Agitador",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_saqueador.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teñida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.47,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     126,
+     201
+    ],
+    "k": 3,
+    "native_w": 42.0,
+    "native_h": 67.0,
+    "fill": 0.79,
+    "aspect": 0.63,
+    "colors": 31,
+    "sat": 0.36,
+    "val": 0.291,
+    "sharp": 1366.3,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "lider_turba",
+   "name": "Líder de la Turba",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/cm_sectario.png",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "sprite nativo diminuto (32 px de ancho) ampliado x3",
+    "variante teñida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.5,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     96,
+     198
+    ],
+    "k": 3,
+    "native_w": 32.0,
+    "native_h": 66.0,
+    "fill": 0.77,
+    "aspect": 0.48,
+    "colors": 21,
+    "sat": 0.596,
+    "val": 0.336,
+    "sharp": 1113.4,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "ingeniero",
+   "name": "Ingeniero de Minas",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/engendro.png",
+   "score": 75,
+   "grade": "B",
+   "why": [
+    "el sujeto ocupa solo 38% del alto de la carta",
+    "variante teñida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.51,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     170,
+     98
+    ],
+    "k": 2,
+    "native_w": 85.0,
+    "native_h": 49.0,
+    "fill": 0.38,
+    "aspect": 1.73,
+    "colors": 22,
+    "sat": 0.494,
+    "val": 0.459,
+    "sharp": 4264.4,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "cristal_resonante",
+   "name": "Cristal Resonante",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/golem_cristal.png",
+   "score": 90,
+   "grade": "A",
+   "why": [
+    "variante teñida de otro sprite (arte reutilizado)"
+   ],
+   "gap": 1.49,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     166,
+     188
+    ],
+    "k": 2,
+    "native_w": 83.0,
+    "native_h": 94.0,
+    "fill": 0.73,
+    "aspect": 0.88,
+    "colors": 1756,
+    "sat": 0.55,
+    "val": 0.378,
+    "sharp": 4900.5,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "cartografo",
+   "name": "Cartógrafo de Trampas",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/druida_arena.png",
+   "score": 80,
+   "grade": "B",
+   "why": [
+    "variante teñida de otro sprite (arte reutilizado)",
+    "paleta lejos del canon de los guardianes (brillo/saturación)"
+   ],
+   "gap": 1.21,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     112,
+     170
+    ],
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 0.66,
+    "aspect": 0.66,
+    "colors": 49,
+    "sat": 0.79,
+    "val": 0.679,
+    "sharp": 873.1,
+    "pixelated": false,
+    "smooth_upscale": false,
+    "tinted": true,
+    "pix": 0.0
+   }
+  },
+  {
+   "id": "guardia_laberinto",
+   "name": "Guardia del Laberinto",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/b/guardian_laberinto.png",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.42,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     256,
+     256
+    ],
+    "bbox": [
+     220,
+     212
+    ],
+    "k": 4,
+    "native_w": 55.0,
+    "native_h": 53.0,
+    "fill": 0.83,
+    "aspect": 1.04,
+    "colors": 762,
+    "sat": 0.394,
+    "val": 0.341,
+    "sharp": 2285.6,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  }
+ ]
+}

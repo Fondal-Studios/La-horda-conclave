@@ -36,7 +36,7 @@ ai.js             bot voraz (rival del navegador y jugador de pruebas)
 server/           duel-server.js: 1v1 autoritativo + cooperativo (Node + ws)
 assets/           ilustraciones de guardianes (g/), monstruos y jefes (b/), arenas (a/), efectos de sonido (sfx/)
 tools/            pruebas y generadores (ver abajo)
-docs/             DISENO.md (auditoría y diseño) · HABILIDADES.md (original vs. duelo)
+docs/             DISENO.md (auditoría y diseño) · HABILIDADES.md (original vs. duelo) · ANALISIS_Y_MONETIZACION.md · ART_JUDGE_REPORT.md
 ```
 
 ## Pruebas (Node ≥ 18)
@@ -49,6 +49,7 @@ node tools/online-test.js        # 1v1 online completo + sin fugas de informaci�
 node tools/coop-test.js          # aventura acompañada
 # pruebas de interfaz (necesitan Playwright + Chromium): tools/ui-test.js, ui-adv.js, ui-quiz.js, clarity-test.js
 ```
+`python3 tools/art-judge.py` (juez de arte: mide el arte de cada carta y la brecha de estilo guardián↔monstruo; `--gate` falla hoy a propósito), `node tools/economy-sim.js` y `node tools/power-scan.js` (economía y poder por guardián).
 `clarity-test.js` es un jugador novato automático que usa solo lo que muestra la pantalla; **no reemplaza una prueba con personas**.
 
 ## Regenerar datos
