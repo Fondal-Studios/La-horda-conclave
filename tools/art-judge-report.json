@@ -14,24 +14,31 @@
   "D": 0
  },
  "grades_monsters": {
-  "A": 30,
-  "B": 11,
-  "C": 45,
-  "D": 1
+  "A": 16,
+  "B": 0,
+  "C": 71,
+  "D": 0
  },
- "pixelated_monsters": 40,
- "smooth_monsters": 38,
- "tinted_monsters": 33,
- "mean_gap": 1.29,
+ "pixelated_monsters": 15,
+ "smooth_monsters": 71,
+ "tinted_monsters": 1,
+ "mean_gap": 1.2,
  "gap_limit": 1.5,
  "over_gap": [
   "cm_campanero",
   "escorpion_gigante",
+  "esqueleto_h",
+  "demonio_mago",
+  "boss_campanero",
+  "boss_minotauro",
+  "token_golem",
+  "demonio_ceniza",
   "rompehielos",
-  "reina_escarcha",
+  "agitador",
+  "lider_turba",
   "ingeniero",
-  "horno_cristal",
-  "reina_micelial"
+  "cartografo",
+  "anguila_escarcha"
  ],
  "rows": [
   {
@@ -1750,36 +1757,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/ent.png",
-   "score": 80,
-   "grade": "B",
+   "art": "assets/ilus/ent.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "sprite nativo diminuto (20 px de ancho) ampliado x6"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.5,
+   "gap": 1.13,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     120,
-     216
+     600,
+     680
     ],
-    "k": 6,
-    "native_w": 20.0,
-    "native_h": 36.0,
-    "fill": 0.84,
-    "aspect": 0.56,
-    "colors": 94,
-    "sat": 0.47,
-    "val": 0.257,
-    "sharp": 618.1,
-    "pixelated": true,
-    "smooth_upscale": false,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 631,
+    "sat": 0.258,
+    "val": 0.25,
+    "sharp": 489.5,
+    "pixelated": false,
+    "smooth_upscale": true,
     "tinted": false,
-    "pix": 1.0
+    "pix": 0.0
    }
   },
   {
@@ -1788,30 +1795,30 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/escorpion_gigante.png",
+   "art": "assets/ilus/escorpion_gigante.webp",
    "score": 100,
    "grade": "A",
    "why": [],
-   "gap": 1.53,
+   "gap": 1.54,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     200,
-     194
+     600,
+     680
     ],
     "k": 2,
-    "native_w": 100.0,
-    "native_h": 97.0,
-    "fill": 0.76,
-    "aspect": 1.03,
-    "colors": 49,
-    "sat": 0.54,
-    "val": 0.278,
-    "sharp": 351.0,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 4359,
+    "sat": 0.464,
+    "val": 0.39,
+    "sharp": 349.2,
     "pixelated": true,
     "smooth_upscale": false,
     "tinted": false,
@@ -2432,30 +2439,30 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/esqueleto_h.png",
+   "art": "assets/ilus/esqueleto_h.webp",
    "score": 100,
    "grade": "A",
    "why": [],
-   "gap": 1.42,
+   "gap": 1.53,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     176,
-     200
+     600,
+     680
     ],
-    "k": 4,
-    "native_w": 44.0,
-    "native_h": 50.0,
-    "fill": 0.78,
+    "k": 2,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
     "aspect": 0.88,
-    "colors": 393,
-    "sat": 0.418,
-    "val": 0.348,
-    "sharp": 2166.6,
+    "colors": 2000,
+    "sat": 0.578,
+    "val": 0.301,
+    "sharp": 362.4,
     "pixelated": true,
     "smooth_upscale": false,
     "tinted": false,
@@ -2506,7 +2513,43 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/demonio_mago.png",
+   "art": "assets/ilus/demonio_mago.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.54,
+   "metrics": {
+    "kind": "monstruo",
+    "canvas": [
+     600,
+     680
+    ],
+    "bbox": [
+     600,
+     680
+    ],
+    "k": 2,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 3862,
+    "sat": 0.575,
+    "val": 0.311,
+    "sharp": 352.6,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
+   }
+  },
+  {
+   "id": "golem",
+   "name": "Gólem",
+   "kind": "bicho",
+   "token": false,
+   "boss": false,
+   "art": "assets/ilus/golem.webp",
    "score": 70,
    "grade": "C",
    "why": [
@@ -2516,62 +2559,26 @@
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     200,
-     240
+     600,
+     680
     ],
     "k": 1,
     "native_w": null,
     "native_h": null,
-    "fill": 0.94,
-    "aspect": 0.83,
-    "colors": 973,
-    "sat": 0.539,
-    "val": 0.274,
-    "sharp": 155.3,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 3475,
+    "sat": 0.642,
+    "val": 0.335,
+    "sharp": 424.8,
     "pixelated": false,
     "smooth_upscale": true,
     "tinted": false,
     "pix": 0.0
-   }
-  },
-  {
-   "id": "golem",
-   "name": "Gólem",
-   "kind": "bicho",
-   "token": false,
-   "boss": false,
-   "art": "assets/b/golem.png",
-   "score": 100,
-   "grade": "A",
-   "why": [],
-   "gap": 1.48,
-   "metrics": {
-    "kind": "monstruo",
-    "canvas": [
-     256,
-     256
-    ],
-    "bbox": [
-     160,
-     216
-    ],
-    "k": 4,
-    "native_w": 40.0,
-    "native_h": 54.0,
-    "fill": 0.84,
-    "aspect": 0.74,
-    "colors": 729,
-    "sat": 0.774,
-    "val": 0.4,
-    "sharp": 1509.8,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": false,
-    "pix": 1.0
    }
   },
   {
@@ -2580,37 +2587,37 @@
    "kind": "bicho",
    "token": true,
    "boss": false,
-   "art": "assets/b/golem_piedra.png",
-   "score": 80,
-   "grade": "B",
+   "art": "assets/ilus/token_muro.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "sprite nativo diminuto (37 px de ancho) ampliado x3",
+    "reescalado con suavizado (borroso)",
     "(invocación)"
    ],
-   "gap": 1.44,
+   "gap": 1.14,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     111,
-     183
+     600,
+     680
     ],
-    "k": 3,
-    "native_w": 37.0,
-    "native_h": 61.0,
-    "fill": 0.71,
-    "aspect": 0.61,
-    "colors": 534,
-    "sat": 0.411,
-    "val": 0.292,
-    "sharp": 3592.8,
-    "pixelated": true,
-    "smooth_upscale": false,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2253,
+    "sat": 0.252,
+    "val": 0.332,
+    "sharp": 636.1,
+    "pixelated": false,
+    "smooth_upscale": true,
     "tinted": false,
-    "pix": 1.0
+    "pix": 0.0
    }
   },
   {
@@ -2619,34 +2626,35 @@
    "kind": "bicho",
    "token": true,
    "boss": false,
-   "art": "assets/b/cristal_servo.png",
-   "score": 100,
-   "grade": "A",
+   "art": "assets/ilus/token_torreta.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
+    "reescalado con suavizado (borroso)",
     "(invocación)"
    ],
-   "gap": 1.06,
+   "gap": 1.14,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     98,
-     144
+     600,
+     680
     ],
     "k": 1,
     "native_w": null,
     "native_h": null,
-    "fill": 0.56,
-    "aspect": 0.68,
-    "colors": 49,
-    "sat": 0.462,
-    "val": 0.411,
-    "sharp": 3492.7,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 3160,
+    "sat": 0.41,
+    "val": 0.359,
+    "sharp": 601.4,
     "pixelated": false,
-    "smooth_upscale": false,
+    "smooth_upscale": true,
     "tinted": false,
     "pix": 0.0
    }
@@ -2657,36 +2665,36 @@
    "kind": "bicho",
    "token": true,
    "boss": true,
-   "art": "assets/b/cm_campanero.png",
+   "art": "assets/ilus/boss_campanero.webp",
    "score": 100,
    "grade": "A",
    "why": [
     "(invocación)"
    ],
-   "gap": 1.14,
+   "gap": 1.51,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     103,
-     162
+     600,
+     680
     ],
-    "k": 1,
-    "native_w": null,
-    "native_h": null,
-    "fill": 0.63,
-    "aspect": 0.64,
-    "colors": 48,
-    "sat": 0.624,
-    "val": 0.315,
-    "sharp": 616.1,
-    "pixelated": false,
+    "k": 2,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2006,
+    "sat": 0.399,
+    "val": 0.274,
+    "sharp": 512.3,
+    "pixelated": true,
     "smooth_upscale": false,
     "tinted": false,
-    "pix": 0.0
+    "pix": 1.0
    }
   },
   {
@@ -2695,36 +2703,37 @@
    "kind": "bicho",
    "token": true,
    "boss": true,
-   "art": "assets/b/jinete_sin_cabeza.png",
-   "score": 100,
-   "grade": "A",
+   "art": "assets/ilus/boss_jinete.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
+    "reescalado con suavizado (borroso)",
     "(invocación)"
    ],
-   "gap": 1.49,
+   "gap": 1.11,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     208,
-     196
+     600,
+     680
     ],
-    "k": 4,
-    "native_w": 52.0,
-    "native_h": 49.0,
-    "fill": 0.77,
-    "aspect": 1.06,
-    "colors": 184,
-    "sat": 0.185,
-    "val": 0.299,
-    "sharp": 971.8,
-    "pixelated": true,
-    "smooth_upscale": false,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2649,
+    "sat": 0.561,
+    "val": 0.32,
+    "sharp": 848.9,
+    "pixelated": false,
+    "smooth_upscale": true,
     "tinted": false,
-    "pix": 1.0
+    "pix": 0.0
    }
   },
   {
@@ -2733,33 +2742,33 @@
    "kind": "bicho",
    "token": true,
    "boss": true,
-   "art": "assets/b/mn_devoraluz.png",
+   "art": "assets/ilus/boss_devoraluz.webp",
    "score": 70,
    "grade": "C",
    "why": [
     "reescalado con suavizado (borroso)",
     "(invocación)"
    ],
-   "gap": 1.1,
+   "gap": 1.14,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     181,
-     240
+     600,
+     680
     ],
     "k": 1,
     "native_w": null,
     "native_h": null,
-    "fill": 0.94,
-    "aspect": 0.75,
-    "colors": 1766,
-    "sat": 0.582,
-    "val": 0.379,
-    "sharp": 920.8,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 3328,
+    "sat": 0.431,
+    "val": 0.279,
+    "sharp": 541.0,
     "pixelated": false,
     "smooth_upscale": true,
     "tinted": false,
@@ -2772,32 +2781,32 @@
    "kind": "bicho",
    "token": true,
    "boss": true,
-   "art": "assets/b/minotauro.png",
+   "art": "assets/ilus/boss_minotauro.webp",
    "score": 100,
    "grade": "A",
    "why": [
     "(invocación)"
    ],
-   "gap": 1.47,
+   "gap": 1.51,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     231,
-     213
+     600,
+     680
     ],
-    "k": 3,
-    "native_w": 77.0,
-    "native_h": 71.0,
-    "fill": 0.83,
-    "aspect": 1.08,
-    "colors": 398,
-    "sat": 0.343,
-    "val": 0.259,
-    "sharp": 902.6,
+    "k": 2,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 1603,
+    "sat": 0.549,
+    "val": 0.334,
+    "sharp": 461.8,
     "pixelated": true,
     "smooth_upscale": false,
     "tinted": false,
@@ -2810,37 +2819,37 @@
    "kind": "bicho",
    "token": true,
    "boss": true,
-   "art": "assets/b/mago_hielo_cristal.png",
-   "score": 80,
-   "grade": "B",
+   "art": "assets/ilus/boss_mago.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "sprite nativo diminuto (30 px de ancho) ampliado x6",
+    "reescalado con suavizado (borroso)",
     "(invocación)"
    ],
-   "gap": 1.45,
+   "gap": 1.16,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     180,
-     216
+     600,
+     680
     ],
-    "k": 6,
-    "native_w": 30.0,
-    "native_h": 36.0,
-    "fill": 0.84,
-    "aspect": 0.83,
-    "colors": 246,
-    "sat": 0.345,
-    "val": 0.478,
-    "sharp": 1366.8,
-    "pixelated": true,
-    "smooth_upscale": false,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2089,
+    "sat": 0.351,
+    "val": 0.422,
+    "sharp": 331.8,
+    "pixelated": false,
+    "smooth_upscale": true,
     "tinted": false,
-    "pix": 1.0
+    "pix": 0.0
    }
   },
   {
@@ -2849,36 +2858,37 @@
    "kind": "bicho",
    "token": true,
    "boss": true,
-   "art": "assets/b/demonio_mayor.png",
-   "score": 100,
-   "grade": "A",
+   "art": "assets/ilus/boss_demonio.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
+    "reescalado con suavizado (borroso)",
     "(invocación)"
    ],
-   "gap": 1.43,
+   "gap": 1.13,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     170,
-     154
+     600,
+     680
     ],
-    "k": 2,
-    "native_w": 85.0,
-    "native_h": 77.0,
-    "fill": 0.6,
-    "aspect": 1.1,
-    "colors": 546,
-    "sat": 0.432,
-    "val": 0.328,
-    "sharp": 1685.9,
-    "pixelated": true,
-    "smooth_upscale": false,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2976,
+    "sat": 0.614,
+    "val": 0.311,
+    "sharp": 812.9,
+    "pixelated": false,
+    "smooth_upscale": true,
     "tinted": false,
-    "pix": 1.0
+    "pix": 0.0
    }
   },
   {
@@ -2887,36 +2897,37 @@
    "kind": "bicho",
    "token": true,
    "boss": false,
-   "art": "assets/b/lobo_artico.png",
-   "score": 100,
-   "grade": "A",
+   "art": "assets/ilus/token_lobo.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
+    "reescalado con suavizado (borroso)",
     "(invocación)"
    ],
-   "gap": 1.49,
+   "gap": 1.16,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     116,
-     172
+     600,
+     680
     ],
-    "k": 2,
-    "native_w": 58.0,
-    "native_h": 86.0,
-    "fill": 0.67,
-    "aspect": 0.67,
-    "colors": 656,
-    "sat": 0.381,
-    "val": 0.568,
-    "sharp": 4869.0,
-    "pixelated": true,
-    "smooth_upscale": false,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2847,
+    "sat": 0.408,
+    "val": 0.432,
+    "sharp": 380.3,
+    "pixelated": false,
+    "smooth_upscale": true,
     "tinted": false,
-    "pix": 1.0
+    "pix": 0.0
    }
   },
   {
@@ -2925,36 +2936,37 @@
    "kind": "bicho",
    "token": true,
    "boss": false,
-   "art": "assets/b/esqueleto_h.png",
-   "score": 100,
-   "grade": "A",
+   "art": "assets/ilus/token_granadero.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
+    "reescalado con suavizado (borroso)",
     "(invocación)"
    ],
-   "gap": 1.42,
+   "gap": 1.14,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     176,
-     200
+     600,
+     680
     ],
-    "k": 4,
-    "native_w": 44.0,
-    "native_h": 50.0,
-    "fill": 0.78,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
     "aspect": 0.88,
-    "colors": 393,
-    "sat": 0.418,
-    "val": 0.348,
-    "sharp": 2166.6,
-    "pixelated": true,
-    "smooth_upscale": false,
+    "colors": 3948,
+    "sat": 0.522,
+    "val": 0.317,
+    "sharp": 605.7,
+    "pixelated": false,
+    "smooth_upscale": true,
     "tinted": false,
-    "pix": 1.0
+    "pix": 0.0
    }
   },
   {
@@ -2963,33 +2975,32 @@
    "kind": "bicho",
    "token": true,
    "boss": false,
-   "art": "assets/b/golem_piedra.png",
-   "score": 80,
-   "grade": "B",
+   "art": "assets/ilus/token_golem.webp",
+   "score": 100,
+   "grade": "A",
    "why": [
-    "sprite nativo diminuto (37 px de ancho) ampliado x3",
     "(invocación)"
    ],
-   "gap": 1.44,
+   "gap": 1.52,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     111,
-     183
+     600,
+     680
     ],
-    "k": 3,
-    "native_w": 37.0,
-    "native_h": 61.0,
-    "fill": 0.71,
-    "aspect": 0.61,
-    "colors": 534,
-    "sat": 0.411,
-    "val": 0.292,
-    "sharp": 3592.8,
+    "k": 2,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 1693,
+    "sat": 0.416,
+    "val": 0.328,
+    "sharp": 355.5,
     "pixelated": true,
     "smooth_upscale": false,
     "tinted": false,
@@ -3041,37 +3052,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/cu_sith.png",
+   "art": "assets/ilus/lobo_alfa.webp",
    "score": 70,
    "grade": "C",
    "why": [
-    "sprite nativo diminuto (18 px de ancho) ampliado x7",
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.49,
+   "gap": 1.15,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     126,
-     217
+     600,
+     680
     ],
-    "k": 7,
-    "native_w": 18.0,
-    "native_h": 31.0,
-    "fill": 0.85,
-    "aspect": 0.58,
-    "colors": 148,
-    "sat": 0.405,
-    "val": 0.382,
-    "sharp": 657.3,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2099,
+    "sat": 0.359,
+    "val": 0.282,
+    "sharp": 424.3,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -3080,34 +3090,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/guardian_ancestral.png",
-   "score": 100,
-   "grade": "A",
-   "why": [],
-   "gap": 1.42,
+   "art": "assets/ilus/raiz_madre.webp",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "reescalado con suavizado (borroso)"
+   ],
+   "gap": 1.09,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     174,
-     190
+     600,
+     680
     ],
-    "k": 2,
-    "native_w": 87.0,
-    "native_h": 95.0,
-    "fill": 0.74,
-    "aspect": 0.92,
-    "colors": 827,
-    "sat": 0.349,
-    "val": 0.254,
-    "sharp": 2481.8,
-    "pixelated": true,
-    "smooth_upscale": false,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 3186,
+    "sat": 0.42,
+    "val": 0.261,
+    "sharp": 1170.5,
+    "pixelated": false,
+    "smooth_upscale": true,
     "tinted": false,
-    "pix": 1.0
+    "pix": 0.0
    }
   },
   {
@@ -3116,36 +3128,35 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/demonio_menor.png",
-   "score": 60,
+   "art": "assets/ilus/imp.webp",
+   "score": 70,
    "grade": "C",
    "why": [
-    "reescalado con suavizado (borroso)",
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.18,
+   "gap": 1.17,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     199,
-     240
+     600,
+     680
     ],
     "k": 1,
     "native_w": null,
     "native_h": null,
-    "fill": 0.94,
-    "aspect": 0.83,
-    "colors": 481,
-    "sat": 0.622,
-    "val": 0.409,
-    "sharp": 86.2,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 3785,
+    "sat": 0.669,
+    "val": 0.332,
+    "sharp": 531.8,
     "pixelated": false,
     "smooth_upscale": true,
-    "tinted": true,
+    "tinted": false,
     "pix": 0.0
    }
   },
@@ -3155,34 +3166,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/hechicero.png",
-   "score": 100,
-   "grade": "A",
-   "why": [],
-   "gap": 1.48,
+   "art": "assets/ilus/piromante.webp",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "reescalado con suavizado (borroso)"
+   ],
+   "gap": 1.14,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     156,
-     224
+     600,
+     680
     ],
-    "k": 2,
-    "native_w": 78.0,
-    "native_h": 112.0,
-    "fill": 0.88,
-    "aspect": 0.7,
-    "colors": 1311,
-    "sat": 0.524,
-    "val": 0.274,
-    "sharp": 4153.6,
-    "pixelated": true,
-    "smooth_upscale": false,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 3387,
+    "sat": 0.593,
+    "val": 0.296,
+    "sharp": 676.3,
+    "pixelated": false,
+    "smooth_upscale": true,
     "tinted": false,
-    "pix": 1.0
+    "pix": 0.0
    }
   },
   {
@@ -3191,37 +3204,34 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/demonio_menor.png",
-   "score": 60,
-   "grade": "C",
-   "why": [
-    "reescalado con suavizado (borroso)",
-    "variante teñida de otro sprite (arte reutilizado)"
-   ],
-   "gap": 1.18,
+   "art": "assets/ilus/demonio_ceniza.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.55,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     199,
-     240
+     600,
+     680
     ],
-    "k": 1,
-    "native_w": null,
-    "native_h": null,
-    "fill": 0.94,
-    "aspect": 0.83,
-    "colors": 481,
-    "sat": 0.622,
-    "val": 0.409,
-    "sharp": 86.2,
-    "pixelated": false,
-    "smooth_upscale": true,
-    "tinted": true,
-    "pix": 0.0
+    "k": 2,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 3390,
+    "sat": 0.604,
+    "val": 0.336,
+    "sharp": 298.0,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
    }
   },
   {
@@ -3230,36 +3240,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/esqueleto_h.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/capataz.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.42,
+   "gap": 1.13,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     176,
-     200
+     600,
+     680
     ],
-    "k": 4,
-    "native_w": 44.0,
-    "native_h": 50.0,
-    "fill": 0.78,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
     "aspect": 0.88,
-    "colors": 393,
-    "sat": 0.418,
-    "val": 0.348,
-    "sharp": 2166.6,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "colors": 3070,
+    "sat": 0.546,
+    "val": 0.309,
+    "sharp": 727.1,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -3268,36 +3278,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/esqueleto_h.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/rey_esqueleto.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.42,
+   "gap": 1.09,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     176,
-     200
+     600,
+     680
     ],
-    "k": 4,
-    "native_w": 44.0,
-    "native_h": 50.0,
-    "fill": 0.78,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
     "aspect": 0.88,
-    "colors": 393,
-    "sat": 0.418,
-    "val": 0.348,
-    "sharp": 2166.6,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "colors": 3017,
+    "sat": 0.562,
+    "val": 0.3,
+    "sharp": 1227.0,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -3306,36 +3316,33 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/golem_hielo.png",
-   "score": 80,
-   "grade": "B",
-   "why": [
-    "variante teñida de otro sprite (arte reutilizado)",
-    "paleta lejos del canon de los guardianes (brillo/saturación)"
-   ],
-   "gap": 1.55,
+   "art": "assets/ilus/rompehielos.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.54,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     150,
-     168
+     600,
+     680
     ],
     "k": 2,
-    "native_w": 75.0,
-    "native_h": 84.0,
-    "fill": 0.66,
-    "aspect": 0.89,
-    "colors": 663,
-    "sat": 0.44,
-    "val": 0.841,
-    "sharp": 5732.6,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2540,
+    "sat": 0.311,
+    "val": 0.5,
+    "sharp": 376.8,
     "pixelated": true,
     "smooth_upscale": false,
-    "tinted": true,
+    "tinted": false,
     "pix": 1.0
    }
   },
@@ -3345,37 +3352,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/angel_hielo.png",
-   "score": 80,
-   "grade": "B",
+   "art": "assets/ilus/reina_escarcha.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)",
-    "paleta lejos del canon de los guardianes (brillo/saturación)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.55,
+   "gap": 1.1,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     196,
-     186
+     600,
+     680
     ],
-    "k": 2,
-    "native_w": 98.0,
-    "native_h": 93.0,
-    "fill": 0.73,
-    "aspect": 1.05,
-    "colors": 568,
-    "sat": 0.379,
-    "val": 0.832,
-    "sharp": 5661.2,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2269,
+    "sat": 0.277,
+    "val": 0.511,
+    "sharp": 1174.9,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -3384,35 +3390,33 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/cm_saqueador.png",
-   "score": 90,
+   "art": "assets/ilus/agitador.webp",
+   "score": 100,
    "grade": "A",
-   "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
-   ],
-   "gap": 1.47,
+   "why": [],
+   "gap": 1.52,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     126,
-     201
+     600,
+     680
     ],
-    "k": 3,
-    "native_w": 42.0,
-    "native_h": 67.0,
-    "fill": 0.79,
-    "aspect": 0.63,
-    "colors": 31,
-    "sat": 0.36,
-    "val": 0.291,
-    "sharp": 1366.3,
+    "k": 2,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2981,
+    "sat": 0.44,
+    "val": 0.3,
+    "sharp": 479.5,
     "pixelated": true,
     "smooth_upscale": false,
-    "tinted": true,
+    "tinted": false,
     "pix": 1.0
    }
   },
@@ -3422,36 +3426,33 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/cm_sectario.png",
-   "score": 70,
-   "grade": "C",
-   "why": [
-    "sprite nativo diminuto (32 px de ancho) ampliado x3",
-    "variante teñida de otro sprite (arte reutilizado)"
-   ],
-   "gap": 1.5,
+   "art": "assets/ilus/lider_turba.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.51,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     96,
-     198
+     600,
+     680
     ],
-    "k": 3,
-    "native_w": 32.0,
-    "native_h": 66.0,
-    "fill": 0.77,
-    "aspect": 0.48,
-    "colors": 21,
-    "sat": 0.596,
-    "val": 0.336,
-    "sharp": 1113.4,
+    "k": 2,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2277,
+    "sat": 0.481,
+    "val": 0.327,
+    "sharp": 562.1,
     "pixelated": true,
     "smooth_upscale": false,
-    "tinted": true,
+    "tinted": false,
     "pix": 1.0
    }
   },
@@ -3461,36 +3462,33 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/engendro.png",
-   "score": 75,
-   "grade": "B",
-   "why": [
-    "el sujeto ocupa solo 38% del alto de la carta",
-    "variante teñida de otro sprite (arte reutilizado)"
-   ],
-   "gap": 1.51,
+   "art": "assets/ilus/ingeniero.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.53,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     170,
-     98
+     600,
+     680
     ],
     "k": 2,
-    "native_w": 85.0,
-    "native_h": 49.0,
-    "fill": 0.38,
-    "aspect": 1.73,
-    "colors": 22,
-    "sat": 0.494,
-    "val": 0.459,
-    "sharp": 4264.4,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2744,
+    "sat": 0.322,
+    "val": 0.305,
+    "sharp": 445.2,
     "pixelated": true,
     "smooth_upscale": false,
-    "tinted": true,
+    "tinted": false,
     "pix": 1.0
    }
   },
@@ -3500,36 +3498,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/golem_cristal.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/cristal_resonante.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.49,
+   "gap": 1.15,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     166,
-     188
+     600,
+     680
     ],
-    "k": 2,
-    "native_w": 83.0,
-    "native_h": 94.0,
-    "fill": 0.73,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
     "aspect": 0.88,
-    "colors": 1756,
-    "sat": 0.55,
-    "val": 0.378,
-    "sharp": 4900.5,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "colors": 3581,
+    "sat": 0.425,
+    "val": 0.354,
+    "sharp": 526.3,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -3538,37 +3536,34 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/druida_arena.png",
-   "score": 80,
-   "grade": "B",
-   "why": [
-    "variante teñida de otro sprite (arte reutilizado)",
-    "paleta lejos del canon de los guardianes (brillo/saturación)"
-   ],
-   "gap": 1.21,
+   "art": "assets/ilus/cartografo.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.55,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     112,
-     170
+     600,
+     680
     ],
-    "k": 1,
-    "native_w": null,
-    "native_h": null,
-    "fill": 0.66,
-    "aspect": 0.66,
-    "colors": 49,
-    "sat": 0.79,
-    "val": 0.679,
-    "sharp": 873.1,
-    "pixelated": false,
+    "k": 2,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2960,
+    "sat": 0.611,
+    "val": 0.518,
+    "sharp": 405.9,
+    "pixelated": true,
     "smooth_upscale": false,
-    "tinted": true,
-    "pix": 0.0
+    "tinted": false,
+    "pix": 1.0
    }
   },
   {
@@ -3577,34 +3572,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/guardian_laberinto.png",
-   "score": 100,
-   "grade": "A",
-   "why": [],
-   "gap": 1.42,
+   "art": "assets/ilus/guardia_laberinto.webp",
+   "score": 70,
+   "grade": "C",
+   "why": [
+    "reescalado con suavizado (borroso)"
+   ],
+   "gap": 1.11,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     220,
-     212
+     600,
+     680
     ],
-    "k": 4,
-    "native_w": 55.0,
-    "native_h": 53.0,
-    "fill": 0.83,
-    "aspect": 1.04,
-    "colors": 762,
-    "sat": 0.394,
-    "val": 0.341,
-    "sharp": 2285.6,
-    "pixelated": true,
-    "smooth_upscale": false,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 3580,
+    "sat": 0.432,
+    "val": 0.368,
+    "sharp": 894.7,
+    "pixelated": false,
+    "smooth_upscale": true,
     "tinted": false,
-    "pix": 1.0
+    "pix": 0.0
    }
   },
   {
@@ -3613,36 +3610,34 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/cm_campanero.png",
-   "score": 90,
+   "art": "assets/ilus/pregonero.webp",
+   "score": 100,
    "grade": "A",
-   "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
-   ],
-   "gap": 1.14,
+   "why": [],
+   "gap": 1.5,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     103,
-     162
+     600,
+     680
     ],
-    "k": 1,
-    "native_w": null,
-    "native_h": null,
-    "fill": 0.63,
-    "aspect": 0.64,
-    "colors": 48,
-    "sat": 0.624,
-    "val": 0.315,
-    "sharp": 616.1,
-    "pixelated": false,
+    "k": 2,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 1927,
+    "sat": 0.447,
+    "val": 0.304,
+    "sharp": 674.1,
+    "pixelated": true,
     "smooth_upscale": false,
-    "tinted": true,
-    "pix": 0.0
+    "tinted": false,
+    "pix": 1.0
    }
   },
   {
@@ -3651,36 +3646,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/cm_raptor.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/barricadista.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.47,
+   "gap": 1.11,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     208,
-     204
+     600,
+     680
     ],
-    "k": 4,
-    "native_w": 52.0,
-    "native_h": 51.0,
-    "fill": 0.8,
-    "aspect": 1.02,
-    "colors": 23,
-    "sat": 0.388,
-    "val": 0.333,
-    "sharp": 1496.5,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 1624,
+    "sat": 0.545,
+    "val": 0.308,
+    "sharp": 689.6,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -3689,37 +3684,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/cm_espectro.png",
+   "art": "assets/ilus/capitana_guardia.webp",
    "score": 70,
    "grade": "C",
    "why": [
-    "sprite nativo diminuto (33 px de ancho) ampliado x3",
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.48,
+   "gap": 1.13,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     99,
-     186
+     600,
+     680
     ],
-    "k": 3,
-    "native_w": 33.0,
-    "native_h": 62.0,
-    "fill": 0.73,
-    "aspect": 0.53,
-    "colors": 15,
-    "sat": 0.596,
-    "val": 0.442,
-    "sharp": 2430.4,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2749,
+    "sat": 0.412,
+    "val": 0.313,
+    "sharp": 610.4,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -3728,35 +3722,35 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/cristal_volador.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/cristal_fragmentado.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.08,
+   "gap": 1.14,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     115,
-     135
+     600,
+     680
     ],
     "k": 1,
     "native_w": null,
     "native_h": null,
-    "fill": 0.53,
-    "aspect": 0.85,
-    "colors": 49,
-    "sat": 0.549,
-    "val": 0.627,
-    "sharp": 2393.5,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 7324,
+    "sat": 0.461,
+    "val": 0.38,
+    "sharp": 827.3,
     "pixelated": false,
-    "smooth_upscale": false,
-    "tinted": true,
+    "smooth_upscale": true,
+    "tinted": false,
     "pix": 0.0
    }
   },
@@ -3766,37 +3760,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/engendro.png",
-   "score": 75,
-   "grade": "B",
+   "art": "assets/ilus/horno_cristal.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "el sujeto ocupa solo 38% del alto de la carta",
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.51,
+   "gap": 1.11,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     170,
-     98
+     600,
+     680
     ],
-    "k": 2,
-    "native_w": 85.0,
-    "native_h": 49.0,
-    "fill": 0.38,
-    "aspect": 1.73,
-    "colors": 22,
-    "sat": 0.494,
-    "val": 0.459,
-    "sharp": 4264.4,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 4652,
+    "sat": 0.408,
+    "val": 0.304,
+    "sharp": 964.0,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -3805,36 +3798,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/golem_cristal.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/coloso_cuarzo.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.49,
+   "gap": 1.14,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     166,
-     188
+     600,
+     680
     ],
-    "k": 2,
-    "native_w": 83.0,
-    "native_h": 94.0,
-    "fill": 0.73,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
     "aspect": 0.88,
-    "colors": 1756,
-    "sat": 0.55,
-    "val": 0.378,
-    "sharp": 4900.5,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "colors": 3708,
+    "sat": 0.395,
+    "val": 0.322,
+    "sharp": 566.4,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -3843,36 +3836,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/lobo_artico.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/lobezno.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.49,
+   "gap": 1.16,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     116,
-     172
+     600,
+     680
     ],
-    "k": 2,
-    "native_w": 58.0,
-    "native_h": 86.0,
-    "fill": 0.67,
-    "aspect": 0.67,
-    "colors": 656,
-    "sat": 0.381,
-    "val": 0.568,
-    "sharp": 4869.0,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 3097,
+    "sat": 0.387,
+    "val": 0.328,
+    "sharp": 342.3,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -3881,36 +3874,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/bestia_bosque.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/jabali_musgoso.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.44,
+   "gap": 1.11,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     189,
-     114
+     600,
+     680
     ],
-    "k": 3,
-    "native_w": 63.0,
-    "native_h": 38.0,
-    "fill": 0.45,
-    "aspect": 1.66,
-    "colors": 250,
-    "sat": 0.207,
-    "val": 0.326,
-    "sharp": 1817.9,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 1096,
+    "sat": 0.318,
+    "val": 0.269,
+    "sharp": 669.1,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -3919,36 +3912,35 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/druida_arena.png",
-   "score": 80,
-   "grade": "B",
+   "art": "assets/ilus/druida_hongos.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)",
-    "paleta lejos del canon de los guardianes (brillo/saturación)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.21,
+   "gap": 1.16,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     112,
-     170
+     600,
+     680
     ],
     "k": 1,
     "native_w": null,
     "native_h": null,
-    "fill": 0.66,
-    "aspect": 0.66,
-    "colors": 49,
-    "sat": 0.79,
-    "val": 0.679,
-    "sharp": 873.1,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 4917,
+    "sat": 0.428,
+    "val": 0.356,
+    "sharp": 480.2,
     "pixelated": false,
-    "smooth_upscale": false,
-    "tinted": true,
+    "smooth_upscale": true,
+    "tinted": false,
     "pix": 0.0
    }
   },
@@ -3958,37 +3950,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/duende_bosque.png",
+   "art": "assets/ilus/trampero.webp",
    "score": 70,
    "grade": "C",
    "why": [
-    "sprite nativo diminuto (31 px de ancho) ampliado x5",
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.43,
+   "gap": 1.16,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     155,
-     215
+     600,
+     680
     ],
-    "k": 5,
-    "native_w": 31.0,
-    "native_h": 43.0,
-    "fill": 0.84,
-    "aspect": 0.72,
-    "colors": 492,
-    "sat": 0.366,
-    "val": 0.389,
-    "sharp": 1591.8,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 1598,
+    "sat": 0.63,
+    "val": 0.393,
+    "sharp": 364.5,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -3997,36 +3988,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/minotauro.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/minotauro_joven.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.47,
+   "gap": 1.14,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     231,
-     213
+     600,
+     680
     ],
-    "k": 3,
-    "native_w": 77.0,
-    "native_h": 71.0,
-    "fill": 0.83,
-    "aspect": 1.08,
-    "colors": 398,
-    "sat": 0.343,
-    "val": 0.259,
-    "sharp": 902.6,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 1317,
+    "sat": 0.687,
+    "val": 0.358,
+    "sharp": 577.8,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -4035,35 +4026,35 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/hada_escarcha.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/espiritu_glacial.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.09,
+   "gap": 1.1,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     95,
-     145
+     600,
+     680
     ],
     "k": 1,
     "native_w": null,
     "native_h": null,
-    "fill": 0.57,
-    "aspect": 0.66,
-    "colors": 49,
-    "sat": 0.454,
-    "val": 0.543,
-    "sharp": 3640.1,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2670,
+    "sat": 0.425,
+    "val": 0.473,
+    "sharp": 1004.8,
     "pixelated": false,
-    "smooth_upscale": false,
-    "tinted": true,
+    "smooth_upscale": true,
+    "tinted": false,
     "pix": 0.0
    }
   },
@@ -4073,39 +4064,34 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/anguila_electrica.png",
-   "score": 35,
-   "grade": "D",
-   "why": [
-    "reescalado con suavizado (borroso)",
-    "el sujeto ocupa solo 23% del alto de la carta",
-    "muy apaisado (4.0:1) para un marco vertical",
-    "variante teñida de otro sprite (arte reutilizado)"
-   ],
-   "gap": 1.13,
+   "art": "assets/ilus/anguila_escarcha.webp",
+   "score": 100,
+   "grade": "A",
+   "why": [],
+   "gap": 1.54,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     240,
-     60
+     600,
+     680
     ],
-    "k": 1,
-    "native_w": null,
-    "native_h": null,
-    "fill": 0.23,
-    "aspect": 4.0,
-    "colors": 401,
-    "sat": 0.575,
-    "val": 0.414,
-    "sharp": 483.5,
-    "pixelated": false,
-    "smooth_upscale": true,
-    "tinted": true,
-    "pix": 0.0
+    "k": 2,
+    "native_w": 300.0,
+    "native_h": 340.0,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2792,
+    "sat": 0.378,
+    "val": 0.449,
+    "sharp": 312.8,
+    "pixelated": true,
+    "smooth_upscale": false,
+    "tinted": false,
+    "pix": 1.0
    }
   },
   {
@@ -4114,36 +4100,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/sirena_abisal.png",
-   "score": 80,
-   "grade": "B",
+   "art": "assets/ilus/sirena_abisal.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "sprite nativo diminuto (35 px de ancho) ampliado x5"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.46,
+   "gap": 1.12,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     175,
-     240
+     600,
+     680
     ],
-    "k": 5,
-    "native_w": 35.0,
-    "native_h": 48.0,
-    "fill": 0.94,
-    "aspect": 0.73,
-    "colors": 542,
-    "sat": 0.691,
-    "val": 0.445,
-    "sharp": 1540.9,
-    "pixelated": true,
-    "smooth_upscale": false,
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2471,
+    "sat": 0.499,
+    "val": 0.398,
+    "sharp": 679.0,
+    "pixelated": false,
+    "smooth_upscale": true,
     "tinted": false,
-    "pix": 1.0
+    "pix": 0.0
    }
   },
   {
@@ -4152,35 +4138,35 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/esqueleto.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/calavera_ardiente.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.07,
+   "gap": 1.14,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     117,
-     162
+     600,
+     680
     ],
     "k": 1,
     "native_w": null,
     "native_h": null,
-    "fill": 0.63,
-    "aspect": 0.72,
-    "colors": 49,
-    "sat": 0.322,
-    "val": 0.422,
-    "sharp": 1411.8,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 3265,
+    "sat": 0.588,
+    "val": 0.353,
+    "sharp": 633.7,
     "pixelated": false,
-    "smooth_upscale": false,
-    "tinted": true,
+    "smooth_upscale": true,
+    "tinted": false,
     "pix": 0.0
    }
   },
@@ -4190,36 +4176,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/hechicero.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/aprendiz_nigromante.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.48,
+   "gap": 1.1,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     156,
-     224
+     600,
+     680
     ],
-    "k": 2,
-    "native_w": 78.0,
-    "native_h": 112.0,
-    "fill": 0.88,
-    "aspect": 0.7,
-    "colors": 1311,
-    "sat": 0.524,
-    "val": 0.274,
-    "sharp": 4153.6,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2387,
+    "sat": 0.45,
+    "val": 0.267,
+    "sharp": 955.5,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -4228,36 +4214,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/jinete_sin_cabeza.png",
-   "score": 90,
-   "grade": "A",
+   "art": "assets/ilus/caballero_hueso.webp",
+   "score": 70,
+   "grade": "C",
    "why": [
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.49,
+   "gap": 1.13,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     208,
-     196
+     600,
+     680
     ],
-    "k": 4,
-    "native_w": 52.0,
-    "native_h": 49.0,
-    "fill": 0.77,
-    "aspect": 1.06,
-    "colors": 184,
-    "sat": 0.185,
-    "val": 0.299,
-    "sharp": 971.8,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2102,
+    "sat": 0.541,
+    "val": 0.298,
+    "sharp": 616.8,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -4266,37 +4252,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/duende_bosque.png",
+   "art": "assets/ilus/hongo_saltarin.webp",
    "score": 70,
    "grade": "C",
    "why": [
-    "sprite nativo diminuto (31 px de ancho) ampliado x5",
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.43,
+   "gap": 1.18,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     155,
-     215
+     600,
+     680
     ],
-    "k": 5,
-    "native_w": 31.0,
-    "native_h": 43.0,
-    "fill": 0.84,
-    "aspect": 0.72,
-    "colors": 492,
-    "sat": 0.366,
-    "val": 0.389,
-    "sharp": 1591.8,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 6130,
+    "sat": 0.413,
+    "val": 0.345,
+    "sharp": 351.5,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -4305,37 +4290,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/enjambre_hadas.png",
+   "art": "assets/ilus/esporero.webp",
    "score": 70,
    "grade": "C",
    "why": [
-    "sprite nativo diminuto (25 px de ancho) ampliado x8",
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.46,
+   "gap": 1.16,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     200,
-     216
+     600,
+     680
     ],
-    "k": 8,
-    "native_w": 25.0,
-    "native_h": 27.0,
-    "fill": 0.84,
-    "aspect": 0.93,
-    "colors": 268,
-    "sat": 0.287,
-    "val": 0.541,
-    "sharp": 1355.3,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 4492,
+    "sat": 0.378,
+    "val": 0.35,
+    "sharp": 502.5,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -4344,37 +4328,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/ent.png",
+   "art": "assets/ilus/micelio_vivo.webp",
    "score": 70,
    "grade": "C",
    "why": [
-    "sprite nativo diminuto (20 px de ancho) ampliado x6",
-    "variante teñida de otro sprite (arte reutilizado)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.5,
+   "gap": 1.1,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     120,
-     216
+     600,
+     680
     ],
-    "k": 6,
-    "native_w": 20.0,
-    "native_h": 36.0,
-    "fill": 0.84,
-    "aspect": 0.56,
-    "colors": 94,
-    "sat": 0.47,
-    "val": 0.257,
-    "sharp": 618.1,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 2708,
+    "sat": 0.454,
+    "val": 0.299,
+    "sharp": 957.7,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   },
   {
@@ -4383,38 +4366,36 @@
    "kind": "bicho",
    "token": false,
    "boss": false,
-   "art": "assets/b/dama_bosque.png",
-   "score": 60,
+   "art": "assets/ilus/reina_micelial.webp",
+   "score": 70,
    "grade": "C",
    "why": [
-    "sprite nativo diminuto (18 px de ancho) ampliado x8",
-    "variante teñida de otro sprite (arte reutilizado)",
-    "paleta lejos del canon de los guardianes (brillo/saturación)"
+    "reescalado con suavizado (borroso)"
    ],
-   "gap": 1.59,
+   "gap": 1.17,
    "metrics": {
     "kind": "monstruo",
     "canvas": [
-     256,
-     256
+     600,
+     680
     ],
     "bbox": [
-     144,
-     232
+     600,
+     680
     ],
-    "k": 8,
-    "native_w": 18.0,
-    "native_h": 29.0,
-    "fill": 0.91,
-    "aspect": 0.62,
-    "colors": 37,
-    "sat": 0.164,
-    "val": 0.149,
-    "sharp": 152.2,
-    "pixelated": true,
-    "smooth_upscale": false,
-    "tinted": true,
-    "pix": 1.0
+    "k": 1,
+    "native_w": null,
+    "native_h": null,
+    "fill": 1.0,
+    "aspect": 0.88,
+    "colors": 3135,
+    "sat": 0.449,
+    "val": 0.282,
+    "sharp": 318.1,
+    "pixelated": false,
+    "smooth_upscale": true,
+    "tinted": false,
+    "pix": 0.0
    }
   }
  ]
