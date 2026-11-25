@@ -44,22 +44,6 @@ Generado por `python3 tools/art-judge.py`. Mide el arte implementado en las cart
 
 | Carta | Nota | Motivos |
 |---|---|---|
-| Dáriel | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Aurelia | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Brasa | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Bront | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Sylva | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Maura | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Oriel | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Iria | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Axiom | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Ismara | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Thalen | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Aelith | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Velmira | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Ilvar | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Morveth | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
-| Saelis | A 90 | queda la línea divisoria de la ficha del Códice en el borde derecho |
 
 ## Los 12 monstruos más alejados del estilo de los guardianes
 

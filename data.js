@@ -497,6 +497,10 @@
     hielo:     { id: "hielo",     name: "Arena Gélida",     arena: "hielo",     home: "marea",     front: { t: "frost", n: 1 }, back: null, cdPlus: 1, desc: "Novas gélidas: todos los enfriamientos duran 1 turno más y la primera fila hace 1 de daño menos." }
   };
 
+  // arte aprobado por tools/art-intake.py (reemplaza al sprite original y al filtro de color)
+  var AO = root.HORDA_ART || (typeof require !== "undefined" ? require("./art-overrides.js") : {});
+  Object.keys(AO).forEach(function (id) { if (CARDS[id]) { CARDS[id].art = AO[id].art; CARDS[id].artFx = ""; if (AO[id].illus) CARDS[id].illus = true; } });
+
   root.HORDA_DATA = { COMBOS: COMBOS, SUMMONER: SUMMONER, SUMMONER_IDS: SUMMONER_IDS, validLoadout: validLoadout, summonerBonus: summonerBonus, describePassive: describePassive, CHAPTERS: CHAPTERS, NODES: NODES, advStarter: advStarter, enemyDeck: enemyDeck, encounter: encounter, describeMove: describeMove, MAPS: MAPS, TERRAIN_TXT: TERRAIN_TXT,  CARDS: CARDS, LINAJES: LINAJES, DECKS: DECKS, KW_NAME: KW_NAME, KW_PTS: KW_PTS, points: points,
     guardianPoints: guardianPoints, chaosDeck: chaosDeck, validateDeck: validateDeck, describe: describe };
   if (typeof module !== "undefined") module.exports = root.HORDA_DATA;

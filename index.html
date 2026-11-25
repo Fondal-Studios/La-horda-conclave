@@ -366,6 +366,7 @@ h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
 <div id="over"><div><h1 id="overT"></h1><p class="sub" id="overS" style="margin:1rem auto"></p><button class="btn" id="overB">Volver</button></div></div>
 
 <script src="movesets.js"></script>
+<script src="art-overrides.js"></script>
 <script src="passives.js"></script>
 <script src="data.js"></script>
 <script src="engine.js"></script>
@@ -431,7 +432,7 @@ function comboLines(id) {
   return out;
 }
 function cardEl(id, extra, full) {
-  var c = CARDS[id], p = D.points(c), cls = "card " + (c.kind === "bicho" ? "bicho " : "") + c.rarity + (extra ? " " + extra : "");
+  var c = CARDS[id], p = D.points(c), cls = "card " + (c.kind === "bicho" && !c.illus ? "bicho " : "") + c.rarity + (extra ? " " + extra : "");
   var art = c.type === "unit" ? '<div class="art" style="background-image:url(' + c.art + ')' + (c.artFx ? ";filter:" + c.artFx : "") + '"></div>'
     : '<div class="art" style="background:radial-gradient(circle at 50% 40%,' + ({ hechizo: "#2c5b8a", bonus: "#2f6b3a", maldicion: "#5a2f7e", trampa: "#7a4a1c" })[c.cat] + ',#14110f)"><div class="ico">' + (EMOJI[id] || "✦") + "</div></div>";
   var st = c.type === "unit" ? '<div class="st"><span class="a">⚔' + c.atk + '</span><span class="h">♥' + c.hp + "</span></div>" : '<div class="st"></div>';
@@ -812,7 +813,7 @@ function renderPool() {
     var emo = c.type === "unit" ? "" : '<span style="position:absolute;inset:0;display:grid;place-items:center;font-size:2.4rem">' + (EMOJI[id] || "✦") + "</span>";
     var partnerOf = combosWith(id);
     var line = c.type === "unit" ? "⚔" + c.atk + " ♥" + c.hp + " · " + (c.kind === "guardian" ? ROLE_N[c.role] : c.tier) : c.tier;
-    return '<div class="prow ' + (c.kind === "bicho" ? "bicho " : "") + c.rarity + (own ? "" : " no") + (own && full ? " full" : "") + '" data-add="' + id + '" data-id="' + id + '"><div class="th" style="' + art + '"><span class="cs">' + c.cost + "</span>" + emo + '</div><div class="nn"><b>' + (partnerOf ? "⚡ " : "") + esc(c.name) + "</b><small>" + line + '</small></div><span class="ct">' + inD + "/" + lim + "</span></div>";
+    return '<div class="prow ' + (c.kind === "bicho" && !c.illus ? "bicho " : "") + c.rarity + (own ? "" : " no") + (own && full ? " full" : "") + '" data-add="' + id + '" data-id="' + id + '"><div class="th" style="' + art + '"><span class="cs">' + c.cost + "</span>" + emo + '</div><div class="nn"><b>' + (partnerOf ? "⚡ " : "") + esc(c.name) + "</b><small>" + line + '</small></div><span class="ct">' + inD + "/" + lim + "</span></div>";
   }).join("") || '<p class="mini">Ninguna carta con ese filtro.</p>';
 }
 function comboPanel(deck) {
@@ -1012,7 +1013,7 @@ function synChips(p) {
 }
 function isTarget(x) { return pend && pend.mode === "unit" && pend.targets.indexOf(x) >= 0; }
 function tileEl(u, mine) {
-  var c = CARDS[u.id], a = E.atkOf(V, u), h = E.hpOf(V, u), mh = E.maxHpOf(V, u), cls = "tile " + (c.kind === "bicho" ? "bicho " : "") + c.rarity;
+  var c = CARDS[u.id], a = E.atkOf(V, u), h = E.hpOf(V, u), mh = E.maxHpOf(V, u), cls = "tile " + (c.kind === "bicho" && !c.illus ? "bicho " : "") + c.rarity;
   if (u.kw.taunt) cls += " taunt"; if (u.frozen || u.iced) cls += " frozen"; if (u.kw.shield) cls += " shield";
   if (isTarget(u.uid)) cls += mine ? " tgtally" : " tgt";
   if (mine && sel === u.uid) cls += " sel";

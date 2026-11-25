@@ -174,11 +174,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/dariel.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -228,11 +226,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/aurelia.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -256,11 +252,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/brasa.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -414,11 +408,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/bront.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -442,11 +434,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/cazadora.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -470,11 +460,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/maura.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -576,11 +564,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/oriel.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -708,11 +694,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/iria.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -736,11 +720,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/axiom.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -764,11 +746,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/profeta.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -792,11 +772,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/mago.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -846,11 +824,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/aelith.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -926,11 +902,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/velmira.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -980,11 +954,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/nigromante.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -1060,11 +1032,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/morveth.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",
@@ -1114,11 +1084,9 @@
    "token": false,
    "boss": false,
    "art": "assets/g/saelis.webp",
-   "score": 90,
+   "score": 100,
    "grade": "A",
-   "why": [
-    "queda la línea divisoria de la ficha del Códice en el borde derecho"
-   ],
+   "why": [],
    "gap": 0.0,
    "metrics": {
     "kind": "guardian",

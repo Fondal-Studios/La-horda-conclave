@@ -1,6 +1,6 @@
 # La Horda: Cónclave
 
-Duelo de cartas por turnos 1 contra 1, hecho con el arte y los datos de **La Horda** (Fondal Studios). Boceto jugable **v0.6**.
+Duelo de cartas por turnos 1 contra 1, hecho con el arte y los datos de **La Horda** (Fondal Studios). Boceto jugable **v0.6** (más análisis de monetización y flujo de arte). **Para seguir trabajando en otra sesión: leer `docs/HANDOFF.md` y `CLAUDE.md`.**
 
 ## Qué es
 - Sos un **Invocador** con puntos de vida; tus **guardianes** y **monstruos** son quienes le hacen daño al Invocador rival.
@@ -32,9 +32,10 @@ engine.js         motor determinista sin DOM (mismo archivo en navegador y servi
 data.js           cartas, mapas, aventura, habilidades del invocador
 movesets.js       movimientos de los guardianes (GENERADO por tools/build-moves.js)
 passives.js       pasivas, ataques básicos y estadísticas (GENERADO por tools/build-passives.js)
+art-overrides.js  arte aprobado que reemplaza a los sprites (GENERADO por tools/art-intake.py)
 ai.js             bot voraz (rival del navegador y jugador de pruebas)
 server/           duel-server.js: 1v1 autoritativo + cooperativo (Node + ws)
-assets/           ilustraciones de guardianes (g/), monstruos y jefes (b/), arenas (a/), efectos de sonido (sfx/)
+assets/           ilustraciones de guardianes (g/), monstruos y jefes (b/), arenas (a/), sonido (sfx/); art-incoming/ (arte por revisar), ilus/ (arte nuevo aprobado), art-archive/
 tools/            pruebas y generadores (ver abajo)
 docs/             DISENO.md (auditoría y diseño) · HABILIDADES.md (original vs. duelo) · ANALISIS_Y_MONETIZACION.md · ART_JUDGE_REPORT.md
 ```
@@ -67,6 +68,13 @@ node tools/make-skills-doc.js    # docs/HABILIDADES.md
 - El balance se midió con un bot simple, no con personas. Roles/linajes de varios guardianes y 7 pasivas son propuestas (ver `docs/`).
 - Los textos de historia y del cuestionario son provisionales. Las cartas de magia usan íconos emoji como arte provisional.
 - No se probó en celular ni con latencia real.
+
+## Arte nuevo
+Los guardianes son ilustraciones pintadas y los monstruos son sprites de pixel art: hay que unificarlos. Brief y lista de producción en `docs/ART_BRIEF.md`; el arte entra con `python3 tools/art-intake.py --judge` y `--approve` (el juez califica, **una persona aprueba**). Informe actual: `docs/ART_JUDGE_REPORT.md`.
+
+## Decisiones pendientes (del dueño)
+1. Política de sobres: todo sobre aleatorio es una caja sorpresa y La Horda dice "sin cajas sorpresa" (hoy el prototipo abre sobres con oro como placeholder). Opciones en `docs/ANALISIS_Y_MONETIZACION.md` §5.2.
+2. Economía más lenta + polvo de cartas (§5.3). 3. Complemento de La Horda o producto aparte (§3). 4. Orden de producción del arte.
 
 ## Créditos y procedencia
 Ilustraciones, sprites y datos de guardianes/monstruos: repositorio **La Horda** de Fondal Studios. Efectos de sonido: CC0 (OpenGameArt), ver créditos en el repo original.

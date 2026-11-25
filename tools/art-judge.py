@@ -12,7 +12,7 @@ Mide el arte que YA está implementado en cada carta (guardianes y monstruos) y 
 Uso:
   python3 tools/art-judge.py                      # informe en docs/ART_JUDGE_REPORT.md y tools/art-judge-report.json
   python3 tools/art-judge.py --gate               # falla (exit 1) si algún guardián es D, o hay monstruos borrosos / brecha de estilo > umbral
-  python3 tools/art-judge.py --image ruta.png --kind monstruo|guardian   # juzga UNA imagen candidata (p. ej. generada con Runway)
+  python3 tools/art-judge.py --image ruta.png --kind ilustracion|monstruo|guardian   # juzga UNA imagen candidata (p. ej. generada con Runway)
 
 El juez automático NO reemplaza la mirada humana: ordena y descarta lo evidente; la aprobación final de arte sigue siendo de una persona.
 """
@@ -115,10 +115,44 @@ def grade_monster(m, card, gcent):
 
 def grade_guardian(g):
     score, why = 100, []
-    if g["vline"] >= 0.30:
-        score -= 10; why.append("queda la línea divisoria de la ficha del Códice en el borde derecho")
+    # (la "línea de la ficha" se descartó como criterio: detectaba bastones y armas verticales, es decir, falsos positivos)
     if g["canvas"][0] < 300:
         score -= 10; why.append("resolución baja")
+    return max(score, 0), why
+
+def analyze_illustration(path):
+    """Ilustración candidata con escenario (el formato canon: como la de los guardianes)."""
+    img = Image.open(path)
+    a = np.array(img.convert("RGBA"))
+    rgb = a[:, :, :3]
+    h, w = rgb.shape[:2]
+    opaque = float((a[:, :, 3] > 250).mean())
+    border = np.concatenate([rgb[:12].reshape(-1, 3), rgb[-12:].reshape(-1, 3), rgb[:, :12].reshape(-1, 3), rgb[:, -12:].reshape(-1, 3)])
+    has_bg = bool(border.std(axis=0).mean() > 8)
+    k = block_size(a)
+    base = analyze_guardian(path)
+    base.update({"kind": "ilustracion", "aspect": round(w / h, 2), "opaque": round(opaque, 3), "has_bg": has_bg, "k": int(k), "pixelated": k > 1})
+    return base
+
+def grade_illustration(f, gcent):
+    score, why = 100, []
+    w, h = f["canvas"]
+    if w < 300 or h < 340:
+        score -= 25; why.append("resolución baja (%dx%d; mínimo 300x340, ideal 600x680)" % (w, h))
+    if not (0.80 <= f["aspect"] <= 0.95):
+        score -= 15; why.append("proporción %.2f (la carta usa ~0.88, como los guardianes)" % f["aspect"])
+    if f["opaque"] < 0.98:
+        score -= 25; why.append("tiene transparencia: el canon es una ilustración con escenario de fondo")
+    if not f["has_bg"]:
+        score -= 20; why.append("sin escenario: falta el fondo de ruinas/paisaje del canon")
+    if f["pixelated"]:
+        score -= 30; why.append("se ve como pixel art ampliado (el canon es pintado)")
+    if abs(f["val"] - gcent["val"]) + abs(f["sat"] - gcent["sat"]) > 0.35:
+        score -= 15; why.append("paleta lejos del canon (brillo/saturación)")
+    if f["sharp"] < 0.35 * gcent["sharp"]:
+        score -= 15; why.append("borrosa frente a las ilustraciones de los guardianes")
+    if f["colors"] < 0.5 * gcent["colors"]:
+        score -= 10; why.append("paleta pobre (pocos colores)")
     return max(score, 0), why
 
 def letter(s):
@@ -132,8 +166,10 @@ def main():
         p = sys.argv[sys.argv.index("--image") + 1]
         kind = sys.argv[sys.argv.index("--kind") + 1] if "--kind" in sys.argv else "monstruo"
         gs = [json.load(open(os.path.join(ROOT, "tools/art-judge-report.json")))] if os.path.exists(os.path.join(ROOT, "tools/art-judge-report.json")) else []
-        gcent = gs[0]["guardian_centroid"] if gs else {"sat": 0.35, "val": 0.4}
-        if kind == "guardian":
+        gcent = gs[0]["guardian_centroid"] if gs else {"sat": 0.35, "val": 0.4, "colors": 700, "sharp": 600}
+        if kind == "ilustracion":
+            f = analyze_illustration(p); sc, why = grade_illustration(f, gcent)
+        elif kind == "guardian":
             f = analyze_guardian(p); sc, why = grade_guardian(f)
         else:
             f = analyze_monster(p); sc, why = grade_monster(f, {}, gcent)

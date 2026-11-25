@@ -6,7 +6,7 @@ Estado analizado: boceto v0.6 (rama `claude/dreamy-meitner-ui51qq`). Todo lo med
 1. **Hay un juego con identidad propia**: duelo de cartas donde importan la posición (2 filas), el movimiento elegido por unidad (estilo Pokémon, con las habilidades reales de los 41 guardianes), el Invocador (vida, rango, 2 habilidades de apoyo), las trampas y los combos por arquetipo. Eso lo separa de un clon de Hearthstone.
 2. **El mayor riesgo visible es el arte**: los guardianes son ilustraciones pintadas con escenario y los monstruos son sprites de pixel art de 18–37 px ampliados hasta ×8. El juez de arte lo cuantifica (§4). Hoy una carta de guardián enfrentada a un monstruo "no pega", como dijiste.
 3. **La economía actual no se puede monetizar**: con 6 partidas por día un jugador gratis tiene el 91 % de las copias a los 30 días (§5.3).
-4. **Hay un conflicto de política que conviene decidir antes de vender sobres**: la política de precios de La Horda dice *"sin cajas sorpresa, sin probabilidades ocultas"* y *"Brasas solo compran apariencia, nunca poder"*. Un sobre aleatorio de pago es una caja sorpresa. Propongo formatos de sobre que respetan esa política (§5.2).
+4. **Hay un conflicto de política que conviene decidir antes de vender sobres**: la política de precios de La Horda dice *"sin cajas sorpresa, sin probabilidades ocultas"* y *"Brasas solo compran apariencia, nunca poder"*. **Todo sobre de cartas al azar es una caja sorpresa** (se pague con oro o con dinero). Hay tres caminos y recomiendo el A, sin azar (§5.2).
 5. **Recomendación**: lanzarlo primero como **complemento dentro de La Horda** (misma cuenta, billetera, guardianes y servidor), validar retención, y recién después evaluar un producto aparte.
 
 ## 2. Qué mide hoy el juego (y qué no)
@@ -48,7 +48,7 @@ Estado analizado: boceto v0.6 (rama `claude/dreamy-meitner-ui51qq`). Todo lo med
 
 ## 4. Arte: el juez y el plan
 ### Lo que midió el juez (`python3 tools/art-judge.py`, informe en `docs/ART_JUDGE_REPORT.md`)
-- **Guardianes (41)**: nota A en todos; en 16 queda una línea divisoria de la ficha en el borde derecho del recorte (arreglable recortando 8 px más).
+- **Guardianes (41)**: nota A en todos. (Una versión anterior del juez marcaba 16 por "restos de la ficha"; era un falso positivo —detectaba bastones y armas verticales— y se quitó ese criterio.)
 - **Monstruos (65)**: 35 A · 17 B · 13 C. **47 son pixel art ampliado**, de **18 a 37 px nativos** (hasta ×8); **8 están reescalados con suavizado (borrosos)**; **12 son variantes teñidas** de otro sprite (los monstruos de sinergia que agregué: es provisorio).
 - **Brecha de estilo guardián ↔ monstruo**: todos los monstruos están lejos del canon (pixel vs. pintado, sin escenario, otra paleta). Peores: Dama del Bosque (18 px ×8, casi ilegible), Dragoncito de Hielo, Medusa Eléctrica, Lobo Alfa, Líder de la Turba.
 - `python3 tools/art-judge.py --gate` **hoy falla** (borrosos + brecha), a propósito: marca el trabajo pendiente.
@@ -68,18 +68,26 @@ No lo encontré: no está en tus conectores, no aparece en el registro de conect
 3. **Sin FOMO de poder**: lo que sale en un pase o evento vuelve a estar disponible.
 4. **Transparencia**: contenido o probabilidades visibles, con garantías.
 
-### 5.2 Oferta propuesta
+### 5.2 Cómo se consiguen cartas y qué se vende (corregido)
+**Aclaración importante**: un sobre de cartas al azar *es* una caja sorpresa, se pague con dinero real o con oro ganado jugando. En una versión anterior de este documento propuse un "sobre de oro" aleatorio como si fuera inocuo; no lo es. Lo que cambia entre pagar con oro y con dinero es el **riesgo** (con oro no hay gasto real ni regulación de apuestas), no la **mecánica**. Además el prototipo actual abre sobres aleatorios con oro como *placeholder*: hay que decidir qué se hace con eso.
+
+La política de La Horda dice "sin cajas sorpresa, sin probabilidades ocultas". Hay tres caminos; **la decisión es del dueño**:
+
+| Camino | Cómo se consiguen las cartas | Qué se vende por dinero | Riesgo |
+|---|---|---|---|
+| **A. Sin azar (recomendado: coherente con la política)** | Aventura (capturar y reclutar), misiones, pase, **tienda de cartas con oro** (precio fijo por rareza), **polvo** para fabricar, mazos iniciales de contenido fijo, y "elegí 1 de 3" | Cosméticos (marcos, reversos, fondos de tablero, avatares, efectos), pase de temporada (ruta premium cosmética), **mazos/paquetes de contenido fijo** (se ve qué trae antes de comprar) | Bajo. Es más difícil que "abrir sobres" sea el gancho: la emoción pasa a la Aventura, a elegir y a armar combos |
+| **B. Azar solo con moneda blanda** | Sobres aleatorios comprados **solo con oro ganado jugando** (el oro nunca se vende), con probabilidades visibles y garantías | Igual que A (cosméticos, pase, paquetes fijos) | Medio. Sigue siendo una mecánica de caja sorpresa y hay que vigilar que el oro no se pueda comprar ni indirectamente |
+| **C. Azar con dinero real** | Sobres aleatorios de pago | Sobres | Alto: contradice la política; regulado o prohibido en varios países (por ejemplo Bélgica y Países Bajos); las tiendas exigen publicar probabilidades. **No lo recomiendo** |
+
+Productos que valen en cualquiera de los caminos (no tienen azar):
 | Producto | Se paga con | Contenido | ¿Riesgo de pay-to-win? |
 |---|---|---|---|
-| **Sobre de oro** | Oro ganado jugando | 5 cartas al azar, probabilidades visibles, garantía de rareza (pity) | No: moneda blanda |
-| **Sobre de linaje (contenido fijo)** | Oro, o dinero real | 5 cartas **conocidas** de un arquetipo (por ejemplo "Manada": Lobo Alfa + Manada + Rugido + …). Se ve antes de comprar | Bajo: no hay azar y todo se consigue también con oro |
-| **Sobre de descubrimiento** | Oro, o dinero real | Se muestran 3 cartas y **elegís 1** (repetido 3 veces) | Bajo: elección, no azar |
-| **Sobre de apariencia** | Brasas ✦ / dinero real | Versiones alternativas (marco, arte animado, efecto de ataque) de cartas **que ya tenés** | Ninguno: cero estadísticas |
-| **Mazo inicial de temporada** | Dinero real (precio fijo) | 30 cartas armadas, sin azar | Bajo si las mismas cartas se ganan jugando |
+| **Mazo de linaje (contenido fijo)** | Oro o dinero real | 30 cartas armadas de un arquetipo, visibles antes de comprar | Bajo si las mismas cartas se ganan jugando |
+| **Carta suelta en la tienda** | Oro | Una carta elegida, precio fijo por rareza | Ninguno (se gana jugando) |
+| **Elegí 1 de 3** | Recompensa de Aventura / pase | Se muestran 3 cartas y te llevás 1 | Ninguno |
+| **Sobre de apariencia** | Brasas ✦ / dinero real | Variantes visuales de cartas que **ya tenés**; si se quiere evitar el azar, mostrar el contenido | Ninguno (sin estadísticas) |
 | **Cosméticos**: fondo de tablero, reverso, avatar de Invocador, efectos de combate, emotes | Brasas ✦ | Solo apariencia | Ninguno |
-| **Pase de temporada** | Brasas ✦ (ruta premium) | **Ruta gratis**: cartas nuevas de la temporada + oro. **Ruta premium**: cosméticos + Brasas | Ninguno si las cartas están en la ruta gratis |
-
-**Por qué no propongo un sobre aleatorio de pago**: la política de precios de La Horda dice "sin cajas sorpresa, sin probabilidades ocultas". Un sobre aleatorio de dinero real es una caja sorpresa; además está regulado o prohibido en varios países (por ejemplo Bélgica y Países Bajos) y las tiendas de apps exigen publicar probabilidades. Los formatos "contenido fijo" y "elegís 1 de 3" dan la emoción de abrir un sobre sin ese problema. Si más adelante se decide cambiar la política, que sea una decisión explícita del dueño.
+| **Pase de temporada** | Brasas ✦ (ruta premium) | **Ruta gratis**: cartas nuevas + oro. **Ruta premium**: cosméticos + Brasas | Ninguno si las cartas están en la ruta gratis |
 
 ### 5.3 La economía hoy no soporta esto (medido, `tools/economy-sim.js`)
 Con 80 de oro por victoria, 30 por derrota y sobres de 100 de oro:

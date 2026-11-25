@@ -1,0 +1,12 @@
+# Instrucciones para trabajar en este repositorio (La Horda: Cónclave)
+
+- **Idioma**: español rioplatense (voseo). Textos de interfaz, documentos y mensajes de commit en español.
+- **Leer primero**: `README.md` (estado y cómo correr), `docs/HANDOFF.md` (contexto, decisiones y próximos pasos) y `docs/DISENO.md` (historial de diseño por versión).
+- **Cómo correr**: abrir `index.html` con cualquier servidor estático. Pruebas en `README.md` (Node ≥ 18; Python 3 con Pillow y NumPy; Playwright solo para pruebas de interfaz).
+- **Antes de dar algo por hecho**: `node tools/gate.js 20` (balance, puntos, arte presente) y, si tocaste reglas, `node tools/passive-test.js` y `node tools/combo-test.js`; si tocaste el servidor, `node tools/online-test.js` y `node tools/coop-test.js` (hace falta `cd server && npm install`).
+- **Reglas del juego**: el motor es `engine.js` (determinista, sin DOM, el mismo en navegador y servidor). El servidor valida **toda** acción contra `legalActions()`. La mano, el mazo y las trampas del rival nunca se envían.
+- **Datos generados** (no editar a mano): `movesets.js` (`node tools/build-moves.js > movesets.js`), `passives.js` (`node tools/build-passives.js > passives.js`), `art-overrides.js` (lo escribe `tools/art-intake.py`), `docs/HABILIDADES.md`, `docs/ART_BRIEF.md`, `docs/ART_JUDGE_REPORT.md`.
+- **Arte**: el arte nuevo entra solo por `tools/art-intake.py` (ver `docs/ART_BRIEF.md`). El juez (`tools/art-judge.py`) ordena y descarta lo evidente; **la aprobación del arte es siempre de una persona**. No inventar arte ni mezclar estilos: el canon son las ilustraciones de los guardianes.
+- **Monetización**: no cambiar la política (sin poder por dinero, sin cajas sorpresa) ni agregar compras con dinero real sin una decisión explícita del dueño. Está pendiente de decisión: ver `docs/HANDOFF.md`.
+- **Ser honesto con lo medido**: el balance se midió con un bot simple; no hay pruebas con personas, celular ni latencia real. No afirmarlo como resuelto.
+- **Git**: rama de trabajo `claude/dreamy-meitner-ui51qq` (o una nueva por tarea) y merge a `main` cuando el dueño lo pida. No subir `node_modules`.
