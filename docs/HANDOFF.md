@@ -1,11 +1,11 @@
 # Traspaso: cómo seguir en otra sesión
 
-Última actualización: v0.7 (rareza, paquetes premium temáticos, polvo) + análisis/monetización + flujo de arte.
+Última actualización: v0.8 (vista de celular, expansión Reino Fúngico, ilustraciones candidatas dibujadas con Anakin).
 
 ## Contexto
 - **Qué es**: "La Horda: Cónclave", duelo de cartas por turnos 1v1 hecho con el arte y los datos de **La Horda** (ARPG de Fondal Studios). Nació como boceto jugable fuera del repo original y se cargó acá.
 - **Quién decide**: el dueño de Fondal Studios (habla español rioplatense; prefiere probar cosas jugables y dar feedback sobre ellas). Cambios de política, precios, arte final y qué va a `main` los decide él.
-- **Link de prueba** (página privada de Claude, versión del momento): https://claude.ai/artifact/AZLP7RbEHPnfZqUNtvHLU3 — solo para el dueño; es una copia de `index.html` con scripts embebidos. El juego de verdad es este repo.
+- **Link de prueba** (página privada de Claude, versión del momento): https://claude.ai/artifact/AZLP7RbEHPnfZqUNtvHLU3 — solo para el dueño; es una copia de `index.html` con scripts embebidos (actualizada a v0.8 el 25/11; se juega contra el Bot y en Aventura; el online no anda ahí porque la página no puede abrir WebSockets). El juego de verdad es este repo.
 
 ## Lo que el dueño pidió y está hecho (ver `docs/DISENO.md`, v0.1 → v0.6)
 Constructor de mazos y colección; combate con posición y movimientos por unidad (habilidades reales de los 41 guardianes); 6 mapas (arenas); Aventura solo y cooperativo; cuestionario inicial "invocador"; pasivas y ataques básicos propios; Invocador con vida, rango y 2 habilidades de apoyo; animaciones de combate (levantarse y chocar / cristal de vida); trampas; sinergias y combos por arquetipo; ayuda de maná y de cómo activar habilidades; "monstruos" en vez de "bichos".
@@ -13,11 +13,19 @@ Constructor de mazos y colección; combate con posición y movimientos por unida
 ## Estado de calidad (medido; ver README y docs)
 - Balance con bot (v0.8, `gate.js 20`): mazos 46–55 %, quien abre ~54 %. Ciudad e Infernal se ajustaron en la v0.8 (expansión Reino Fúngico, 41 cartas; ver `docs/DISENO.md`). Arte pendiente de las cartas nuevas: `tools/arte-nuevas.json`.
 - Pasivas 31/31, combos 64 comprobaciones, 1v1 online y cooperativo sin fuga de información oculta, prueba de claridad automática sin callejones.
-- **Sin medir**: personas reales, celular, latencia, balance humano, retención.
+- Celular: vista vertical probada solo con Chrome emulando 390×844 (sin errores de JS); no en un teléfono real.
+- **Sin medir**: personas reales, teléfono real, latencia, balance humano, retención.
 
 ## Decisiones
 **Tomada (v0.7)**: se venden **paquetes premium aleatorios por tema** (p. ej. Paquete de Invierno) y hay **rareza**; ver `docs/DECISIONES.md` y `docs/ANALISIS_Y_MONETIZACION.md` §5.7 (protecciones, números y lista legal). Los pagos reales **no** están conectados.
 **Abiertas**: (1) ¿Las Legendarias (Ascensión) pierden el +3 de puntos antes de venderse? (2) regiones permitidas y edad mínima, con asesoría legal; (3) proveedor de pagos, precio de las Brasas y economía final; (4) complemento de La Horda o producto aparte; (5) orden de producción del arte; (6) GitHub Pages.
+
+## Estado del arte (25/11)
+- `tools/anakin-arte.py` dibujó candidatas con el servidor de dibujo de Anakin (sd-server, DreamShaper8 LCM, img2img sobre el sprite). Quedan en `../conclave-arte-candidatas/` (fuera del repo), con hojas `_hoja_*.png`, la elección en `_elegidas.txt` y las que hay que rehacer en `_rehacer.txt`.
+- **Elegidas y en `assets/art-incoming/` (sin aprobar)**: las que figuran en `_elegidas.txt`; todas sacan **A** en `art-intake.py --judge`. Pasaron por `tools/arte-preparar.py` (recorte de 4 % de borde, 600×680, nitidez suave; la esfinge se oscureció un poco para acercarla al canon).
+- **Falta la aprobación de una persona** (`--approve`); hasta entonces el juego sigue mostrando los sprites. No se aprobó nada en esta sesión.
+- `art-judge.py` ahora mide la nitidez a la escala de los guardianes (300 px de ancho): antes castigaba como "borrosas" a las ilustraciones de 600×680 solo por tener más resolución. Las notas de guardianes y sprites actuales no cambiaron.
+- El servidor de dibujo es compartido con Fondal RPG y otras tareas: responde 500 cuando está ocupado y a veces se cae; la herramienta reintenta. Con la placa compartida sale ~1 dibujo cada 1–3 min.
 
 ## Trabajo de arte con Anakin (IA local del dueño) u otra herramienta
 1. Leer `docs/ART_BRIEF.md` (canon visual, escenarios por linaje, lista de 65 pendientes ordenada por peor arte).
