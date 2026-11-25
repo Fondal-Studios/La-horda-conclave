@@ -110,10 +110,10 @@ def api(ruta, **q):
     req = urllib.request.Request(API + "/" + ruta + "?" + urllib.parse.urlencode(q), headers={"X-Anakin-Key": clave()})
     for intento in range(60):   # si el nucleo se esta reiniciando, esperarlo (nunca levantarlo desde aca)
         try:
-            with urllib.request.urlopen(req, timeout=60) as r: return json.load(r)
-        except urllib.error.URLError as e:
+            with urllib.request.urlopen(req, timeout=120) as r: return json.load(r)
+        except (urllib.error.URLError, TimeoutError) as e:   # el nucleo atiende de a uno: si esta ocupado, la respuesta tarda
             if isinstance(e, urllib.error.HTTPError) or intento == 59: raise
-            print("  nucleo de Anakin sin respuesta, espero:", e.reason, flush=True); time.sleep(30)
+            print("  nucleo de Anakin sin respuesta, espero:", getattr(e, "reason", e), flush=True); time.sleep(30)
 
 
 def dibujar_api(prompt, registro, cid, k, **extra):
@@ -167,7 +167,7 @@ def main():
             if any(c == cid for c, _ in el) or bien:
                 print(key, api("dibujo_opinion", id=did, ok="1" if bien else "0", motivo="elegida para la carta" if bien else "otra candidata fue elegida").get("msg"))
         return
-    ref = arg("--ref")   # opcional: ilustracion de guardian como referencia de estilo (IP-Adapter), p. ej. assets/g/myla.webp
+    ref = arg("--ref")   # opcional (IP-Adapter). OJO: un guardian con cara como referencia le contagia la cara al monstruo (probado 25/11): no usar
     for cid in ids:
         lin, desc = todos[cid]; c = cs[cid]; es_unidad = c["type"] == "unit" and c["art"]
         for k in range(n):
