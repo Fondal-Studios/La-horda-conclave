@@ -1,6 +1,6 @@
 # Traspaso: cómo seguir en otra sesión
 
-Última actualización: v0.6 + análisis/monetización + flujo de arte. Todo está en `main`.
+Última actualización: v0.7 (rareza, paquetes premium temáticos, polvo) + análisis/monetización + flujo de arte.
 
 ## Contexto
 - **Qué es**: "La Horda: Cónclave", duelo de cartas por turnos 1v1 hecho con el arte y los datos de **La Horda** (ARPG de Fondal Studios). Nació como boceto jugable fuera del repo original y se cargó acá.
@@ -15,12 +15,9 @@ Constructor de mazos y colección; combate con posición y movimientos por unida
 - Pasivas 31/31, combos 64 comprobaciones, 1v1 online y cooperativo sin fuga de información oculta, prueba de claridad automática sin callejones.
 - **Sin medir**: personas reales, celular, latencia, balance humano, retención.
 
-## Decisiones abiertas (el dueño tiene que decidir)
-1. **Sobres de cartas = cajas sorpresa**, y la política de La Horda dice "sin cajas sorpresa". Caminos A (sin azar, recomendado), B (azar solo con oro ganado) y C (azar con dinero real, no recomendado) en `docs/ANALISIS_Y_MONETIZACION.md` §5.2. **El prototipo hoy abre sobres aleatorios con oro como placeholder.**
-2. **Economía**: demasiado generosa (91 % de la colección a los 30 días con 6 partidas por día). Propuesta en §5.3 (menos oro por partida, polvo de cartas).
-3. **Cónclave como complemento dentro de La Horda o producto aparte** (§3; se recomienda complemento).
-4. **Arte**: unificar los 65 monstruos y jefes al canon de los guardianes (§4 del análisis y `docs/ART_BRIEF.md`).
-5. Publicar en GitHub Pages (hay que activarlo en Settings → Pages; el modo online necesita un servidor aparte).
+## Decisiones
+**Tomada (v0.7)**: se venden **paquetes premium aleatorios por tema** (p. ej. Paquete de Invierno) y hay **rareza**; ver `docs/DECISIONES.md` y `docs/ANALISIS_Y_MONETIZACION.md` §5.7 (protecciones, números y lista legal). Los pagos reales **no** están conectados.
+**Abiertas**: (1) ¿Las Legendarias (Ascensión) pierden el +3 de puntos antes de venderse? (2) regiones permitidas y edad mínima, con asesoría legal; (3) proveedor de pagos, precio de las Brasas y economía final; (4) complemento de La Horda o producto aparte; (5) orden de producción del arte; (6) GitHub Pages.
 
 ## Trabajo de arte con Anakin (IA local del dueño) u otra herramienta
 1. Leer `docs/ART_BRIEF.md` (canon visual, escenarios por linaje, lista de 65 pendientes ordenada por peor arte).
@@ -33,7 +30,7 @@ Constructor de mazos y colección; combate con posición y movimientos por unida
 - Los guardianes ya cumplen el canon (nota A); no hay que redibujarlos.
 
 ## Próximos pasos sugeridos (en orden)
-1. Decidir el punto 1 (política de sobres) y adaptar la pestaña "Colección y sobres" en consecuencia.
+1. Revisión legal y de regiones de los paquetes de pago; decidir el bonus de las Legendarias; conectar un proveedor de pagos **solo** después.
 2. Prueba con 10–15 personas (tiempo hasta el primer ataque, % que termina el tutorial, dónde se traban).
 3. Arte: piloto de 4 monstruos por el flujo de arriba, luego tandas de 10.
 4. Mover oro/colección/mazos del navegador al servidor (cuentas) antes de que tengan valor.
@@ -42,4 +39,4 @@ Constructor de mazos y colección; combate con posición y movimientos por unida
 
 ## Entorno
 Node ≥ 18, Python 3 con Pillow y NumPy. Pruebas de interfaz: Playwright + Chromium. Servidor: `cd server && npm install && node duel-server.js`.
-El repo original (La Horda) no se tocó; sus datos extraídos están en `tools/repo-*.json`.
+Prompts listos para abrir otra sesión: `docs/PROMPTS_PROXIMAS_SESIONES.md`. El repo original (La Horda) no se tocó; sus datos extraídos están en `tools/repo-*.json`.

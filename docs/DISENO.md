@@ -203,3 +203,13 @@ node tools/online-test.js      # prueba de protocolo online completa
 * **Verificación**: `node tools/combo-test.js` (64 comprobaciones: cada combo funciona en el motor, no solo en el texto), gate de 1.800 partidas con los nuevos mazos (todas terminan, mazos 36–60 %), pasivas, 1v1, cooperativo, claridad y animaciones.
 * **Límites**: el Ciudad queda en ~36 % contra el bot (el más flojo; se probó cambiar guardianes y su Ingreso sin resolverlo del todo) e Infernal en ~60 %. Los monstruos nuevos reutilizan sprites existentes (3 con arte nuevo extraído de jefes; el resto con un filtro de color) hasta que haya arte propio.
   El bot no planifica combos: los porcentajes miden solidez, no el techo de cada arquetipo con una persona.
+
+---
+
+# v0.7 — rareza, paquetes premium temáticos, polvo y fabricación
+* **Rareza** (gema de color en la carta; 41 Comunes · 37 Poco comunes · 30 Raras · 26 Épicas · 7 Legendarias): sale del tipo y el costo (guardianes costo ≤ 4 Raras, ≥ 5 Épicas, Ascensión Legendarias; los monstruos con efecto suben un nivel). **No cambia el poder**. Las Legendarias van de a 1 copia por mazo (también en el servidor).
+* **Sobres**: estándar (oro), **6 paquetes premium temáticos** (Invierno, Bosque, Fuego y Huesos, Ciudad, Forja, Laberinto; más chances de las mejores cartas del tema) y **Paquete Dorado**. Probabilidades, garantías (pity) y refuerzo del tema a la vista; compra con confirmación; límite diario; interruptor por región. Pagos reales no conectados (Brasas de prueba).
+* **Polvo y fabricación**: las repetidas se convierten en polvo y con él se fabrica cualquier carta o se recicla lo que sobra.
+* **Economía** del prototipo: 15/5 de oro por victoria/derrota (Aventura 20 y 60 por jefe), 400 de oro iniciales.
+* **Verificación**: `node tools/packs-test.js` (20.000 aperturas por paquete: garantías, pity, refuerzo del tema, sin cartas prohibidas, repetidas → polvo, todo fabricable), `node tools/economy-sim2.js` (gratis vs. paga), prueba de interfaz de la tienda (`tools/ui-packs.js`) y las regresiones anteriores.
+* **Límites**: el refuerzo del tema y el pity son diseño mío, no medidos con jugadores; el ingreso real depende de contenido por temporada; hay que pasar por revisión legal antes de cobrar (ver §5.7 del análisis).

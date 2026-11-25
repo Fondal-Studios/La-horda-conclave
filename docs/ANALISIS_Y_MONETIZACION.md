@@ -123,3 +123,32 @@ Métricas de salida: retención día 1/7, partidas por jugador activo, % que pru
 
 ## 7. Qué hice y qué no
 Hice: el juez de arte (`tools/art-judge.py`), el simulador de economía y el análisis de poder por guardián, y este documento. **No hice**: generar imágenes (necesito tu confirmación por los créditos y saber qué es "Anakin"), pruebas con personas, ni medir nada de ingresos reales.
+
+### 5.7 Decisión del dueño (v0.7): paquetes premium aleatorios por tema + rareza
+**Decisión**: se vende **azar con dinero real** (Camino C de §5.2): paquetes premium temáticos —por ejemplo el **Paquete de Invierno**, con más chances de las mejores cartas de hielo— y un **sistema de rareza** (Común, Poco común, Rara, Épica, Legendaria). Esto reemplaza, **solo para Cónclave**, la política "sin cajas sorpresa" de La Horda (que sigue vigente en el ARPG). Está registrado en `docs/DECISIONES.md`. Sigue siendo una caja sorpresa de pago y tiene riesgo regulatorio: por eso se construyó con estas protecciones, todas verificadas por pruebas:
+
+| Protección | Cómo está hecha |
+|---|---|
+| Probabilidades visibles y reales | Cada paquete muestra el % por rareza, la garantía y el refuerzo del tema; `tools/packs-test.js` mide 20.000 aperturas por paquete y comprueba que coincide |
+| Garantías (pity) | Paquete premium: ≥ 1 Rara o mejor; Épica o mejor como máximo cada 10 paquetes y Legendaria cada 40. Estándar: Épica cada 25, Legendaria cada 120. Dorado: Épica cada 3, Legendaria cada 15. El contador se ve en el paquete |
+| Repetidas protegidas | Una carta que ya tenés (al máximo de copias) se convierte en **polvo** (3 a 200 según rareza); no se pierde |
+| Todo se puede conseguir sin pagar | **Fabricar** cualquier carta con polvo (40 a 2.000), Aventura (capturar y reclutar), sobres de oro ganado jugando |
+| Límite y control | Límite diario de paquetes premium elegido por el jugador; confirmación con precio y probabilidades antes de cada compra |
+| Interruptor por región | `PAID_RANDOM_ENABLED` (en `index.html`): en `false` los paquetes de pago no se ofrecen (para países donde está prohibido o regulado) |
+| La rareza no es poder | El poder sale del costo (gate de puntos): la rareza solo dice qué tan difícil es conseguirla. **Excepción a revisar**: las Legendarias son las 7 cartas de Ascensión, que tienen +3 puntos de estadísticas; si se venden en paquetes conviene quitar ese bonus (el análisis de poder no detecta diferencia, pero es un vector de pay-to-win) |
+
+**Paquetes** (1 ✦ ≈ US$ 0,01, referencia del repo original): Sobre estándar (oro) 100; **Paquete temático** (Invierno, Bosque, Fuego y Huesos, Ciudad, Forja, Laberinto) 150 ✦ ≈ US$ 1,50; **Paquete Dorado** (todas Raras o mejores) 450 ✦ ≈ US$ 4,50. En el Paquete de Invierno una Épica del tema sale en ~21 % de las cartas (×5 que en un sobre común) y una Legendaria del tema en ~46 % (×3). **Los pagos reales no están conectados**: las Brasas del prototipo son de prueba.
+
+**Rareza (141 cartas)**: Común 41 · Poco común 37 · Rara 30 · Épica 26 · Legendaria 7.
+
+**Qué mide la economía** (`tools/economy-sim2.js`, supuestos explícitos, NO jugadores reales; 5 partidas por día al 50 %; el jugador fabrica con polvo lo mejor de su linaje). Con la economía que quedó en el prototipo (15/5 de oro por victoria/derrota, polvo ×0,5; misión diaria de 20 en la simulación):
+| Perfil | Día 30 | Día 90 |
+|---|---|---|
+| Gratis | 54 % de las cartas, 1,8/7 Legendarias | 77 %, 2,5/7 |
+| Paga US$ 10/mes | 59 %, 2,0/7 | 80 %, 3,3/7 |
+| Paga US$ 20/mes | 64 %, 2,1/7 | 82 %, 2,9/7 |
+| Paga US$ 100/mes | 76 %, 2,8/7 | 91 %, 4,3/7 |
+Lectura (opinión): la **ventaja de quien paga es chica** (el pozo es de solo 141 cartas y el polvo compensa), lo que baja el riesgo de pay-to-win pero también **limita el ingreso por paquetes**: para que paguen hay que sumar contenido cada temporada (§5.5) y vender también cosméticos y pase. Esto mide **colección**, no tasa de victoria.
+
+**Antes de cobrar con dinero real** (lista de verificación, no es asesoría legal; consultar a un abogado): Bélgica y Países Bajos regulan o prohíben las cajas de pago (desactivar la región); Brasil aprobó en 2025 una ley que prohíbe cajas de recompensa en juegos para menores (verificar vigencia y alcance); Apple y Google exigen publicar las probabilidades; en la UE y Argentina rigen las reglas de consumo (precio claro en moneda real, derecho de arrepentimiento); clasificación por edad con la leyenda de "compras con objetos aleatorios"; control de menores (sin compras de un toque, tope de gasto); soporte y reembolsos; y confirmar la titularidad del arte antes de vender cartas con él.
+

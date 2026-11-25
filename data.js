@@ -399,7 +399,7 @@
       if (c.kind === "guardian") gcount++;
     });
     Object.keys(cnt).forEach(function (id) {
-      var c = CARDS[id], max = c.kind === "guardian" ? 1 : c.kind === "bicho" ? (c.cost <= 3 ? 3 : 2) : 2;
+      var c = CARDS[id], max = maxCopiesOf(id);
       if (cnt[id] > max) err.push(id + " x" + cnt[id] + " (máx " + max + ")");
     });
     if (gcount > 5) err.push("máximo 5 guardianes por mazo");
@@ -497,11 +497,80 @@
     hielo:     { id: "hielo",     name: "Arena Gélida",     arena: "hielo",     home: "marea",     front: { t: "frost", n: 1 }, back: null, cdPlus: 1, desc: "Novas gélidas: todos los enfriamientos duran 1 turno más y la primera fila hace 1 de daño menos." }
   };
 
+
+  // ================= RAREZA, PAQUETES Y POLVO =================
+  // Decisión del dueño (v0.7): hay paquetes premium ALEATORIOS por tema (p. ej. Paquete de Invierno). Es una caja sorpresa de pago:
+  // por eso este sistema trae probabilidades visibles, garantías, protección de repetidas (polvo), fabricación de cualquier carta y un
+  // interruptor por región. La rareza NO es poder: el poder sale del costo (gate de puntos), no de la rareza.
+  var RARITY = {
+    1: { id: "comun", name: "Común", color: "#9aa0a6", dis: 3, craft: 40 },
+    2: { id: "poco", name: "Poco común", color: "#6fcf6f", dis: 10, craft: 100 },
+    3: { id: "rara", name: "Rara", color: "#5aa9ff", dis: 40, craft: 400 },
+    4: { id: "epica", name: "Épica", color: "#b57cff", dis: 100, craft: 1000 },
+    5: { id: "legendaria", name: "Legendaria", color: "#ffc94a", dis: 200, craft: 2000 }
+  };
+  function rarityOf(c) {
+    if (c.type === "unit" && c.kind === "guardian") return c.rarity === "ascension" ? 5 : (c.cost <= 4 ? 3 : 4);
+    if (c.type === "unit") { var r = c.cost <= 3 ? 1 : c.cost === 4 ? 2 : 3; if ((c.passive || c.ingreso || c.ultimo) && c.cost >= 2) r = Math.min(4, r + 1); return r; }
+    if (c.type === "trap") return c.cost >= 3 ? 3 : 2;
+    return c.cost <= 2 ? 1 : c.cost === 3 ? 2 : 3;
+  }
+  Object.keys(CARDS).forEach(function (id) { var c = CARDS[id]; if (!c.coin && !c.token) c.rar = rarityOf(c); });
+
+  // Paquetes. odds = probabilidad de cada rareza POR CARTA (suman 100). minRar = garantía por paquete. pity = cada cuántos paquetes
+  // se garantiza al menos una Épica y una Legendaria (contador por grupo, se reinicia al obtenerla).
+  var PACKS = {
+    estandar: { id: "estandar", name: "Sobre estándar", icon: "📦", currency: "oro", price: 100, group: "std", cards: 5, odds: [62, 25, 9.5, 3.1, 0.4], minRar: 2, pityEpic: 25, pityLeg: 120, theme: null, desc: "Se compra con oro ganado jugando. Cartas de todos los linajes." },
+    dorado: { id: "dorado", name: "Paquete Dorado", icon: "👑", currency: "brasas", price: 450, group: "gold", cards: 5, odds: [0, 0, 70, 24, 6], minRar: 3, pityEpic: 3, pityLeg: 15, theme: null, desc: "Todas las cartas son Raras o mejores. Una Épica o mejor garantizada cada 3 paquetes." }
+  };
+  var THEMED = [
+    ["tema_marea", "Paquete de Invierno", "❄", "marea", ["Hielo"], "Más chances de las mejores cartas invernales: Escarcha, Rompehielos, Reina de Escarcha, Quebrar y los guardianes de la Marea."],
+    ["tema_bosque", "Paquete del Bosque", "🌲", "bosque", ["Bestia", "Planta"], "Más chances de Lobo Alfa, Manada, Raíz Madre y los guardianes del Bosque."],
+    ["tema_infernal", "Paquete de Fuego y Huesos", "🔥", "infernal", ["Demonio", "Esqueleto"], "Más chances de Combustión, Pira, Rey Esqueleto y los guardianes Infernales."],
+    ["tema_ciudad", "Paquete de la Ciudad", "🏙", "ciudad", ["Ciudadano"], "Más chances de Líder de la Turba, Estampida y los guardianes de la Ciudad."],
+    ["tema_forja", "Paquete de la Forja", "⚒", "forja", ["Cristal", "Máquina"], "Más chances de Cristal Resonante, Sobrecarga y los guardianes de la Forja."],
+    ["tema_laberinto", "Paquete del Laberinto", "🪞", "laberinto", ["Explorador", "Golem"], "Más chances de trampas, Cartógrafo y los guardianes del Laberinto."]
+  ];
+  THEMED.forEach(function (x) {
+    PACKS[x[0]] = { id: x[0], name: x[1], icon: x[2], currency: "brasas", price: 150, group: "prem", cards: 5, odds: [46, 30, 15, 7.2, 1.8], minRar: 3, pityEpic: 10, pityLeg: 40,
+      theme: { linaje: x[3], tags: x[4], onTheme: [0.45, 0.5, 0.7, 0.8, 0.9] }, desc: x[5] };
+  });
+  function collectible() { return Object.keys(CARDS).filter(function (id) { var c = CARDS[id]; return !c.coin && !c.token && c.rar; }); }
+  function isFeatured(c, th) { return c.origin === th.linaje || (c.tags || []).some(function (tg) { return th.tags.indexOf(tg) >= 0; }); }
+  function pickRarity(odds, rnd) { var x = rnd() * odds.reduce(function (a, b) { return a + b; }, 0), acc = 0; for (var i = 0; i < odds.length; i++) { acc += odds[i]; if (x < acc) return i + 1; } return odds.length; }
+  // Abre un paquete. st.pity = { grupo: { epic, leg } } (se actualiza). Devuelve { cards, forced } y no toca la colección.
+  function openPack(packId, st, rnd) {
+    var P = PACKS[packId], pool = collectible(), byR = {}, th = P.theme;
+    pool.forEach(function (id) { (byR[CARDS[id].rar] = byR[CARDS[id].rar] || []).push(id); });
+    st.pity = st.pity || {}; var pc = st.pity[P.group] = st.pity[P.group] || { epic: 0, leg: 0 };
+    var rars = []; for (var i = 0; i < P.cards; i++) rars.push(pickRarity(P.odds, rnd));
+    var forced = [];
+    if (Math.max.apply(null, rars) < P.minRar) { rars[rars.indexOf(Math.min.apply(null, rars))] = P.minRar; forced.push("garantía de " + RARITY[P.minRar].name); }   // al menos UNA carta de esa rareza o mejor
+    if (pc.leg + 1 >= P.pityLeg && Math.max.apply(null, rars) < 5) { rars[rars.indexOf(Math.min.apply(null, rars))] = 5; forced.push("Legendaria garantizada"); }
+    else if (pc.epic + 1 >= P.pityEpic && Math.max.apply(null, rars) < 4) { rars[rars.indexOf(Math.min.apply(null, rars))] = 4; forced.push("Épica garantizada"); }
+    var out = [];
+    rars.forEach(function (r) {
+      var all = byR[r] || [], pick = all;
+      if (th && rnd() < th.onTheme[r - 1]) { var f = all.filter(function (id) { return isFeatured(CARDS[id], th); }); if (f.length) pick = f; }
+      out.push(pick[Math.floor(rnd() * pick.length)]);
+    });
+    var mx = Math.max.apply(null, rars);
+    pc.epic = mx >= 4 ? 0 : pc.epic + 1; pc.leg = mx >= 5 ? 0 : pc.leg + 1;
+    return { cards: out, forced: forced };
+  }
+  function maxCopiesOf(id) { var c = CARDS[id]; return c.kind === "guardian" || c.rar === 5 ? 1 : c.kind === "bicho" ? (c.cost <= 3 ? 3 : 2) : 2; }
+  // Reparte cartas a una colección; las que superan el máximo se convierten en polvo. Devuelve { dust, dups }.
+  function grantCards(owned, ids) { var dust = 0, dups = []; ids.forEach(function (id) { if ((owned[id] || 0) < maxCopiesOf(id)) owned[id] = (owned[id] || 0) + 1; else { dust += RARITY[CARDS[id].rar].dis; dups.push(id); } }); return { dust: dust, dups: dups }; }
+  // Probabilidad por carta de una rareza dentro de un paquete (para mostrar "chances de cada carta destacada")
+  function packTable(packId) { var P = PACKS[packId], tot = P.odds.reduce(function (a, b) { return a + b; }, 0); return P.odds.map(function (o, i) { return { rar: i + 1, name: RARITY[i + 1].name, pct: Math.round(1000 * o / tot) / 10 }; }); }
+  // Chances de que UNA carta concreta de la rareza r aparezca en un slot, con y sin el tema (para el cartel de probabilidades)
+  function featuredChance(packId, rar) { var P = PACKS[packId]; if (!P.theme) return null; var pool = collectible().filter(function (id) { return CARDS[id].rar === rar; }), f = pool.filter(function (id) { return isFeatured(CARDS[id], P.theme); }); if (!f.length) return null; var on = P.theme.onTheme[rar - 1], inTheme = on / f.length + (1 - on) / pool.length, base = 1 / pool.length; return { n: f.length, inTheme: inTheme, base: base, boost: inTheme / base }; }
+
   // arte aprobado por tools/art-intake.py (reemplaza al sprite original y al filtro de color)
   var AO = root.HORDA_ART || (typeof require !== "undefined" ? require("./art-overrides.js") : {});
   Object.keys(AO).forEach(function (id) { if (CARDS[id]) { CARDS[id].art = AO[id].art; CARDS[id].artFx = ""; if (AO[id].illus) CARDS[id].illus = true; } });
 
-  root.HORDA_DATA = { COMBOS: COMBOS, SUMMONER: SUMMONER, SUMMONER_IDS: SUMMONER_IDS, validLoadout: validLoadout, summonerBonus: summonerBonus, describePassive: describePassive, CHAPTERS: CHAPTERS, NODES: NODES, advStarter: advStarter, enemyDeck: enemyDeck, encounter: encounter, describeMove: describeMove, MAPS: MAPS, TERRAIN_TXT: TERRAIN_TXT,  CARDS: CARDS, LINAJES: LINAJES, DECKS: DECKS, KW_NAME: KW_NAME, KW_PTS: KW_PTS, points: points,
+  root.HORDA_DATA = { RARITY: RARITY, PACKS: PACKS, openPack: openPack, grantCards: grantCards, maxCopiesOf: maxCopiesOf, packTable: packTable, featuredChance: featuredChance, collectible: collectible, COMBOS: COMBOS, SUMMONER: SUMMONER, SUMMONER_IDS: SUMMONER_IDS, validLoadout: validLoadout, summonerBonus: summonerBonus, describePassive: describePassive, CHAPTERS: CHAPTERS, NODES: NODES, advStarter: advStarter, enemyDeck: enemyDeck, encounter: encounter, describeMove: describeMove, MAPS: MAPS, TERRAIN_TXT: TERRAIN_TXT,  CARDS: CARDS, LINAJES: LINAJES, DECKS: DECKS, KW_NAME: KW_NAME, KW_PTS: KW_PTS, points: points,
     guardianPoints: guardianPoints, chaosDeck: chaosDeck, validateDeck: validateDeck, describe: describe };
   if (typeof module !== "undefined") module.exports = root.HORDA_DATA;
 })(typeof window !== "undefined" ? window : globalThis);

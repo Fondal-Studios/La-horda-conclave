@@ -1,6 +1,6 @@
 # La Horda: Cónclave
 
-Duelo de cartas por turnos 1 contra 1, hecho con el arte y los datos de **La Horda** (Fondal Studios). Boceto jugable **v0.6** (más análisis de monetización y flujo de arte). **Para seguir trabajando en otra sesión: leer `docs/HANDOFF.md` y `CLAUDE.md`.**
+Duelo de cartas por turnos 1 contra 1, hecho con el arte y los datos de **La Horda** (Fondal Studios). Boceto jugable **v0.7** (rareza, paquetes premium temáticos, polvo; más análisis de monetización y flujo de arte). **Para seguir trabajando en otra sesión: leer `docs/HANDOFF.md` y `CLAUDE.md`.**
 
 ## Qué es
 - Sos un **Invocador** con puntos de vida; tus **guardianes** y **monstruos** son quienes le hacen daño al Invocador rival.
@@ -8,6 +8,7 @@ Duelo de cartas por turnos 1 contra 1, hecho con el arte y los datos de **La Hor
 - **41 guardianes** con las habilidades, pasivas y ataques de La Horda, **39 monstruos**, hechizos, bonus (empoderan guardianes) y maldiciones (debilitan enemigos).
 - **6 mapas** (arenas de La Horda) con terreno por fila: Ciudad, Minas, Infernal, Bosque, Laberinto, Gélida.
 - **Invocador**: 2 habilidades de apoyo a elección entre 8; el rango sube la vida con las victorias (no en 1v1 entre personas).
+- **Rareza** (Común → Legendaria), **paquetes aleatorios** (estándar con oro y **premium temáticos**, p. ej. Paquete de Invierno, con probabilidades y garantías visibles) y **polvo** para fabricar cualquier carta. Los pagos reales **no** están conectados (Brasas de prueba).
 - **Cuestionario inicial**, **constructor de mazos**, **colección y sobres**, **Aventura** (6 arenas, capturás monstruos y reclutás guardianes) solo o **acompañado** (cooperativo).
 - **Online 1v1** con servidor autoritativo (la mano rival nunca sale del servidor).
 
@@ -50,7 +51,7 @@ node tools/online-test.js        # 1v1 online completo + sin fugas de informaci�
 node tools/coop-test.js          # aventura acompañada
 # pruebas de interfaz (necesitan Playwright + Chromium): tools/ui-test.js, ui-adv.js, ui-quiz.js, clarity-test.js
 ```
-`python3 tools/art-judge.py` (juez de arte: mide el arte de cada carta y la brecha de estilo guardián↔monstruo; `--gate` falla hoy a propósito), `node tools/economy-sim.js` y `node tools/power-scan.js` (economía y poder por guardián).
+`python3 tools/art-judge.py` (juez de arte: mide el arte de cada carta y la brecha de estilo guardián↔monstruo; `--gate` falla hoy a propósito), `node tools/packs-test.js` (paquetes, garantías y rareza), `node tools/economy-sim2.js` (gratis vs. paga), `node tools/economy-sim.js` y `node tools/power-scan.js` (economía y poder por guardián).
 `clarity-test.js` es un jugador novato automático que usa solo lo que muestra la pantalla; **no reemplaza una prueba con personas**.
 
 ## Regenerar datos
@@ -72,9 +73,8 @@ node tools/make-skills-doc.js    # docs/HABILIDADES.md
 ## Arte nuevo
 Los guardianes son ilustraciones pintadas y los monstruos son sprites de pixel art: hay que unificarlos. Brief y lista de producción en `docs/ART_BRIEF.md`; el arte entra con `python3 tools/art-intake.py --judge` y `--approve` (el juez califica, **una persona aprueba**). Informe actual: `docs/ART_JUDGE_REPORT.md`.
 
-## Decisiones pendientes (del dueño)
-1. Política de sobres: todo sobre aleatorio es una caja sorpresa y La Horda dice "sin cajas sorpresa" (hoy el prototipo abre sobres con oro como placeholder). Opciones en `docs/ANALISIS_Y_MONETIZACION.md` §5.2.
-2. Economía más lenta + polvo de cartas (§5.3). 3. Complemento de La Horda o producto aparte (§3). 4. Orden de producción del arte.
+## Decisiones
+Registro en `docs/DECISIONES.md`. **Decidido**: paquetes premium aleatorios por tema + rareza (con protecciones obligatorias). **Pendiente**: qué hacer con el bonus de +3 puntos de las Legendarias (Ascensión), regiones y edad mínima con asesoría legal, proveedor de pagos y precios, economía final, complemento de La Horda vs. producto aparte, y orden de producción del arte.
 
 ## Créditos y procedencia
 Ilustraciones, sprites y datos de guardianes/monstruos: repositorio **La Horda** de Fondal Studios. Efectos de sonido: CC0 (OpenGameArt), ver créditos en el repo original.

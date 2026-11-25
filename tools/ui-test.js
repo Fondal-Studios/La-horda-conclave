@@ -8,7 +8,7 @@ const OUT = process.argv[2] || '.';
   const count = (sel) => p.evaluate((s) => document.querySelectorAll(s).length, sel);
     await p.evaluate(() => { newSave('marea'); show('home'); }); await p.waitForTimeout(200);
   await p.screenshot({ path: OUT + '/u2-home.png' });
-  await click('#hColl'); await click('#unlockAll'); await click('#openPack'); await p.waitForTimeout(800); await p.screenshot({ path: OUT + '/u3-coll.png' });
+  await click('#hColl'); await click('#unlockAll'); await p.waitForTimeout(800); await p.screenshot({ path: OUT + '/u3-coll.png' });
   await p.evaluate(() => show('home')); await click('#hDeck'); await p.waitForTimeout(300);
   await click('#dClear'); await click('[data-t="guardian"]', 0); await click('#bPool .prow', 0); await click('#bPool .prow', 1); await click('[data-t="all"]'); await p.waitForTimeout(200);
   await click('#dAuto'); await p.waitForTimeout(200); await p.screenshot({ path: OUT + '/u4-builder.png' });
