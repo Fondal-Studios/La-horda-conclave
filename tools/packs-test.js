@@ -11,7 +11,7 @@ Object.keys(D.PACKS).forEach(function (pid) {
     var r = D.openPack(pid, st, rnd), rs = r.cards.map(function (id) { return D.CARDS[id].rar; });
     if (r.cards.length !== P.cards) bad++;
     if (Math.max.apply(null, rs) < P.minRar) bad++;
-    r.cards.forEach(function (id) { var c = D.CARDS[id]; hist[c.rar]++; if (c.token || c.coin || c.boss) bad++; if (c.rar >= 3) { rarePlus++; if (P.theme && (c.origin === P.theme.linaje || (c.tags || []).some(function (t) { return P.theme.tags.indexOf(t) >= 0; }))) onTheme++; } });
+    r.cards.forEach(function (id) { var c = D.CARDS[id]; hist[c.rar]++; if (c.token || c.coin || c.boss) bad++; if (c.rar >= 3) { rarePlus++; if (P.theme && D.isFeatured(c, P.theme)) onTheme++; } });
     var mx = Math.max.apply(null, rs); sinceE = mx >= 4 ? 0 : sinceE + 1; sinceL = mx >= 5 ? 0 : sinceL + 1; maxE = Math.max(maxE, sinceE); maxL = Math.max(maxL, sinceL);
     cnt++; if (mx >= 5) { gotL++; }
   }
@@ -24,7 +24,7 @@ Object.keys(D.PACKS).forEach(function (pid) {
 });
 // el refuerzo temático frente a un paquete sin tema
 var st2 = {}, base = 0, baseN = 0, th = D.PACKS.tema_marea.theme;
-for (var j = 0; j < 8000; j++) D.openPack("dorado", st2, rnd).cards.forEach(function (id) { var c = D.CARDS[id]; baseN++; if (c.origin === th.linaje || (c.tags || []).some(function (t) { return th.tags.indexOf(t) >= 0; })) base++; });
+for (var j = 0; j < 8000; j++) D.openPack("dorado", st2, rnd).cards.forEach(function (id) { var c = D.CARDS[id]; baseN++; if (D.isFeatured(c, th)) base++; });
 console.log("sin tema, las cartas de invierno son el " + (100 * base / baseN).toFixed(0) + "% de las Raras+ (en el Paquete de Invierno suben al ~70-90%)");
 // repetidas y fabricación
 var own = {}, g = D.grantCards(own, ["lobo_alfa", "lobo_alfa", "lobo_alfa", "lobo_alfa", "vhal", "vhal"]);

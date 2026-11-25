@@ -13,7 +13,7 @@ var PROFILES = [profile("Gratis (5 partidas/día)", 0, null), profile("Paga US$ 
 function sim(pr, days) {
   var save = { owned: {}, pity: {}, dust: 0 }, gold = 400, brasas = 0, out = {}, favored = pr.theme ? D.PACKS[pr.theme].theme : { linaje: "marea", tags: ["Hielo"] };
   D.DECKS.marea.forEach(function (id) { save.owned[id] = (save.owned[id] || 0) + 1; });
-  function featured(id) { var c = D.CARDS[id]; return c.origin === favored.linaje || (c.tags || []).some(function (t) { return favored.tags.indexOf(t) >= 0; }); }
+  function featured(id) { var c = D.CARDS[id]; return D.isFeatured(c, favored); }
   function craftPolicy() {       // el jugador gasta el polvo en lo que más le falta del linaje que juega, de la rareza más alta que pueda pagar
     var guard = 0; while (guard++ < 50) {
       var miss = ALL.filter(function (id) { return (save.owned[id] || 0) < D.maxCopiesOf(id) && D.RARITY[D.CARDS[id].rar].craft <= save.dust && featured(id) && D.CARDS[id].rar >= 3; }).sort(function (a, b) { return D.CARDS[b].rar - D.CARDS[a].rar; });

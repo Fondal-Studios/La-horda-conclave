@@ -8,7 +8,7 @@ Duelo de cartas por turnos 1 contra 1, hecho con el arte y los datos de **La Hor
 - **41 guardianes** con las habilidades, pasivas y ataques de La Horda, **39 monstruos**, hechizos, bonus (empoderan guardianes) y maldiciones (debilitan enemigos).
 - **6 mapas** (arenas de La Horda) con terreno por fila: Ciudad, Minas, Infernal, Bosque, Laberinto, Gélida.
 - **Invocador**: 2 habilidades de apoyo a elección entre 8; el rango sube la vida con las victorias (no en 1v1 entre personas).
-- **Rareza** (Común → Legendaria), **paquetes aleatorios** (estándar con oro y **premium temáticos**, p. ej. Paquete de Invierno, con probabilidades y garantías visibles) y **polvo** para fabricar cualquier carta. Los pagos reales **no** están conectados (Brasas de prueba).
+- **Rareza** (Común → Legendaria), **paquetes aleatorios** (estándar con oro y **premium temáticos**, p. ej. Paquete de Verano (también Invierno, Otoño, Primavera y los de linaje), con probabilidades y garantías visibles) y **polvo** para fabricar cualquier carta. Los pagos reales **no** están conectados (Brasas de prueba).
 - **Cuestionario inicial**, **constructor de mazos**, **colección y sobres**, **Aventura** (6 arenas, capturás monstruos y reclutás guardianes) solo o **acompañado** (cooperativo).
 - **Online 1v1** con servidor autoritativo (la mano rival nunca sale del servidor).
 

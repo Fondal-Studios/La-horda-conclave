@@ -811,7 +811,7 @@ function normalizeSave() {
   if (SAVE.stats.day !== today()) { SAVE.stats.day = today(); SAVE.stats.today = 0; }
 }
 function packOrder() { return ["estandar"].concat(Object.keys(D.PACKS).filter(function (k) { return D.PACKS[k].group === "prem"; })).concat(["dorado"]); }
-function featuredOf(P) { return D.collectible().filter(function (id) { var c = CARDS[id]; return c.rar >= 3 && (c.origin === P.theme.linaje || (c.tags || []).some(function (tg) { return P.theme.tags.indexOf(tg) >= 0; })); }).sort(function (a, b) { return CARDS[b].rar - CARDS[a].rar; }); }
+function featuredOf(P) { return D.collectible().filter(function (id) { var c = CARDS[id]; return c.rar >= 3 && D.isFeatured(c, P.theme); }).sort(function (a, b) { return CARDS[b].rar - CARDS[a].rar; }); }
 function oddsHTML(id) {
   var P = D.PACKS[id], pc = SAVE.pity[P.group] || { epic: 0, leg: 0 }, h = '<table class="odds">' + D.packTable(id).filter(function (r) { return r.pct > 0; }).map(function (r) { return '<tr><td><span class="rdot" style="background:' + D.RARITY[r.rar].color + '"></span>' + r.name + "</td><td>" + r.pct + " % por carta</td></tr>"; }).join("") + "</table>";
   h += "<p>• Cada paquete trae " + P.cards + " cartas" + (P.minRar > 1 ? " y <b>al menos 1 " + D.RARITY[P.minRar].name + " o mejor</b>" : "") + ".</p>";
@@ -828,7 +828,7 @@ function buildShop() {
   var h = '<div class="disc"><b>Sobres aleatorios.</b> Los paquetes de abajo tienen azar (son cajas sorpresa). Las probabilidades que ves son las reales: las verifica <code>tools/packs-test.js</code>. Todo lo que sale de un paquete también se consigue <b>sin pagar</b>: con oro, con la Aventura y fabricándolo con polvo. <b>Los pagos con dinero real NO están conectados</b>: las Brasas ✦ de acá son de prueba. Solo para mayores o con control de un adulto.</div>';
   h += '<div class="row"><button class="btn sec sm" id="giveBrasas">+1000 Brasas ✦ de prueba (sin dinero real)</button><label class="mini">Límite diario de paquetes premium: <select id="limSel" aria-label="Límite diario"><option value="0">Sin límite</option><option value="3">3 por día</option><option value="5">5 por día</option><option value="10">10 por día</option></select></label><span class="mini">Hoy abriste ' + SAVE.stats.today + " premium.</span></div>";
   h += '<div class="stores">' + packOrder().map(function (id) {
-    var P = D.PACKS[id], prem = P.currency === "brasas", arena = P.theme ? D.LINAJES[P.theme.linaje].arena : (id === "dorado" ? "divina" : "ciudad"), blocked = prem && !PAID_RANDOM_ENABLED;
+    var P = D.PACKS[id], prem = P.currency === "brasas", arena = P.theme ? D.LINAJES[[].concat(P.theme.linaje)[0] || "infernal"].arena : (id === "dorado" ? "divina" : "ciudad"), blocked = prem && !PAID_RANDOM_ENABLED;
     var afford = P.currency === "oro" ? SAVE.gold >= P.price : SAVE.brasas >= P.price;
     return '<div class="packc ' + (id === "dorado" ? "gold" : prem ? "prem" : "") + '"><div class="bg" style="background-image:url(assets/a/' + arena + '.webp)"></div><div class="in"><h3>' + P.icon + " " + esc(P.name) + "</h3><p>" + esc(P.desc) + "</p>" +
       '<p class="price ' + (prem ? "p" : "g") + '">' + P.price + (prem ? " ✦ (≈ US$ " + (P.price * BRASA_USD).toFixed(2) + ")" : " de oro") + "</p>" +

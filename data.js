@@ -529,14 +529,17 @@
     ["tema_infernal", "Paquete de Fuego y Huesos", "🔥", "infernal", ["Demonio", "Esqueleto"], "Más chances de Combustión, Pira, Rey Esqueleto y los guardianes Infernales."],
     ["tema_ciudad", "Paquete de la Ciudad", "🏙", "ciudad", ["Ciudadano"], "Más chances de Líder de la Turba, Estampida y los guardianes de la Ciudad."],
     ["tema_forja", "Paquete de la Forja", "⚒", "forja", ["Cristal", "Máquina"], "Más chances de Cristal Resonante, Sobrecarga y los guardianes de la Forja."],
-    ["tema_laberinto", "Paquete del Laberinto", "🪞", "laberinto", ["Explorador", "Golem"], "Más chances de trampas, Cartógrafo y los guardianes del Laberinto."]
+    ["tema_laberinto", "Paquete del Laberinto", "🪞", "laberinto", ["Explorador", "Golem"], "Más chances de trampas, Cartógrafo y los guardianes del Laberinto."],
+    ["tema_verano", "Paquete de Verano", "☀", ["infernal", "bosque"], ["Planta", "Demonio"], "Sol, calor y cosecha: más chances de Rayo del Alba, Llamarada, Fuego Directo, Marea Curativa, Bendición del Alba, Raíz Madre y los guardianes del Bosque y del Infierno.", ["rayo", "llamarada", "fuego", "marea", "bendicion", "chispa_ignea", "combustion", "banquete", "corazon"]],
+    ["tema_otono", "Paquete de Otoño", "🍂", ["laberinto", "ciudad"], ["Esqueleto", "Golem"], "Hojas secas y cosecha oscura: más chances de Veneno de Cripta, Podredumbre, Marchitar, Osario, Pira Funeraria y los guardianes del Laberinto y de la Ciudad.", ["veneno", "podredumbre", "marchitar", "osario", "pira"]],
+    ["tema_primavera", "Paquete de Primavera", "🌸", ["bosque", "forja"], ["Bestia", "Cristal"], "Todo florece: más chances de Manada, Rugido de la Manada, Banquete Fúngico, Inspiración, Veta de Cristal y los guardianes del Bosque y de la Forja.", ["manada", "rugido", "banquete", "inspiracion", "veta", "bendicion"]]
   ];
   THEMED.forEach(function (x) {
     PACKS[x[0]] = { id: x[0], name: x[1], icon: x[2], currency: "brasas", price: 150, group: "prem", cards: 5, odds: [46, 30, 15, 7.2, 1.8], minRar: 3, pityEpic: 10, pityLeg: 40,
-      theme: { linaje: x[3], tags: x[4], onTheme: [0.45, 0.5, 0.7, 0.8, 0.9] }, desc: x[5] };
+      theme: { linaje: x[3], tags: x[4], ids: x[6] || [], onTheme: [0.45, 0.5, 0.7, 0.8, 0.9] }, desc: x[5] };
   });
   function collectible() { return Object.keys(CARDS).filter(function (id) { var c = CARDS[id]; return !c.coin && !c.token && c.rar; }); }
-  function isFeatured(c, th) { return c.origin === th.linaje || (c.tags || []).some(function (tg) { return th.tags.indexOf(tg) >= 0; }); }
+  function isFeatured(c, th) { return (th.linaje && [].concat(th.linaje).indexOf(c.origin) >= 0) || (th.ids || []).indexOf(c.id) >= 0 || (c.tags || []).some(function (tg) { return th.tags.indexOf(tg) >= 0; }); }
   function pickRarity(odds, rnd) { var x = rnd() * odds.reduce(function (a, b) { return a + b; }, 0), acc = 0; for (var i = 0; i < odds.length; i++) { acc += odds[i]; if (x < acc) return i + 1; } return odds.length; }
   // Abre un paquete. st.pity = { grupo: { epic, leg } } (se actualiza). Devuelve { cards, forced } y no toca la colección.
   function openPack(packId, st, rnd) {
@@ -570,7 +573,7 @@
   var AO = root.HORDA_ART || (typeof require !== "undefined" ? require("./art-overrides.js") : {});
   Object.keys(AO).forEach(function (id) { if (CARDS[id]) { CARDS[id].art = AO[id].art; CARDS[id].artFx = ""; if (AO[id].illus) CARDS[id].illus = true; } });
 
-  root.HORDA_DATA = { RARITY: RARITY, PACKS: PACKS, openPack: openPack, grantCards: grantCards, maxCopiesOf: maxCopiesOf, packTable: packTable, featuredChance: featuredChance, collectible: collectible, COMBOS: COMBOS, SUMMONER: SUMMONER, SUMMONER_IDS: SUMMONER_IDS, validLoadout: validLoadout, summonerBonus: summonerBonus, describePassive: describePassive, CHAPTERS: CHAPTERS, NODES: NODES, advStarter: advStarter, enemyDeck: enemyDeck, encounter: encounter, describeMove: describeMove, MAPS: MAPS, TERRAIN_TXT: TERRAIN_TXT,  CARDS: CARDS, LINAJES: LINAJES, DECKS: DECKS, KW_NAME: KW_NAME, KW_PTS: KW_PTS, points: points,
+  root.HORDA_DATA = { RARITY: RARITY, PACKS: PACKS, openPack: openPack, grantCards: grantCards, maxCopiesOf: maxCopiesOf, packTable: packTable, featuredChance: featuredChance, isFeatured: isFeatured, collectible: collectible, COMBOS: COMBOS, SUMMONER: SUMMONER, SUMMONER_IDS: SUMMONER_IDS, validLoadout: validLoadout, summonerBonus: summonerBonus, describePassive: describePassive, CHAPTERS: CHAPTERS, NODES: NODES, advStarter: advStarter, enemyDeck: enemyDeck, encounter: encounter, describeMove: describeMove, MAPS: MAPS, TERRAIN_TXT: TERRAIN_TXT,  CARDS: CARDS, LINAJES: LINAJES, DECKS: DECKS, KW_NAME: KW_NAME, KW_PTS: KW_PTS, points: points,
     guardianPoints: guardianPoints, chaosDeck: chaosDeck, validateDeck: validateDeck, describe: describe };
   if (typeof module !== "undefined") module.exports = root.HORDA_DATA;
 })(typeof window !== "undefined" ? window : globalThis);
