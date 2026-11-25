@@ -38,11 +38,12 @@ const OUT = process.argv[2] || '.';
       if (/No te queda nada/.test(ct)) { if (nCards || nReady) { m.incoherencias++; issues.push('dice que no queda nada pero hay cartas/unidades listas'); } break; }
       let did = false;
       if (nCards) {
+        const clickedUid = await p.evaluate(() => { const l = document.querySelectorAll('.handrow .card.go'); return l[l.length - 1].dataset.huid; });
         const before = await count('.handrow .card'); await click('.handrow .card.go', -1); await p.waitForTimeout(120);
         if (await count('.cell.dep')) { await click('.cell.dep', 0); await p.waitForTimeout(150); }
         else if (await count('#oppBoard .tile.tgt, .tile.tgt, .tile.tgtally, .face.tgt, .face.tgtally')) { await click('.tile.tgt, .tile.tgtally, .face.tgt, .face.tgtally', 0); await p.waitForTimeout(150); }
-        const after = await count('.handrow .card');
-        if (after < before) { did = true; if (!firstPlay) { firstPlay = true; m.clicsHastaPrimeraJugada = m.clics - startClics; } } else { m.callejones++; issues.push('turno ' + turn + ': tocar una carta con borde verde no hizo nada'); await ev(() => { pend = null; render(); }); }
+        const stillThere = await p.evaluate((u) => !!document.querySelector('.handrow .card[data-huid="' + u + '"]'), clickedUid);   // (una carta que roba puede dejar la mano igual o más grande)
+        if (!stillThere) { did = true; if (!firstPlay) { firstPlay = true; m.clicsHastaPrimeraJugada = m.clics - startClics; } } else { m.callejones++; issues.push('turno ' + turn + ': tocar una carta con borde verde no hizo nada'); await ev(() => { pend = null; render(); }); }
       }
       if (!did && nReady) {
         await click('#rMF .tile.ready, #rMB .tile.ready', 0); await p.waitForTimeout(100);
