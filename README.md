@@ -80,3 +80,9 @@ Registro en `docs/DECISIONES.md`. **Decidido**: paquetes premium aleatorios por 
 ## Créditos y procedencia
 Ilustraciones, sprites y datos de guardianes/monstruos: repositorio **La Horda** de Fondal Studios. Efectos de sonido: CC0 (OpenGameArt), ver créditos en el repo original.
 Confirmar derechos de uso del arte antes de cualquier publicación comercial independiente.
+
+## Jugar en LAN (PC + celulares por Wi-Fi)
+Doble clic en `jugar-lan.bat` (o `cd server && node duel-server.js`). El servidor entrega el juego y las salas en el puerto 8787
+y muestra la dirección para los celulares, p. ej. `http://192.168.1.32:8787`. Cada uno abre esa dirección en el navegador,
+va a *Duelo en línea* (el servidor ya viene puesto) y crea una sala o se une con el código. La Aventura acompañada usa el mismo servidor.
+Con `NO_STATIC=1` el servidor solo atiende salas (sin entregar archivos).

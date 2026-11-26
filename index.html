@@ -406,7 +406,7 @@ h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
   <div class="row">
     <button class="btn" id="playBot">Jugar contra el Bot</button>
     <span class="mini">Online 1v1 (servidor <code>server/duel-server.js</code>):</span>
-    <input id="srv" size="24" value="ws://localhost:8787" aria-label="Servidor"> <input id="nick" size="10" value="Invocador" aria-label="Apodo">
+    <input id="srv" size="24" value="ws://localhost:8787" aria-label="Servidor"><script>/^https?:$/.test(location.protocol) && location.port === "8787" && (document.getElementById("srv").value = "ws://" + location.host);</script> <input id="nick" size="10" value="Invocador" aria-label="Apodo">
     <button class="btn sec" id="playQ">Buscar rival</button><button class="btn sec" id="playC">Crear sala</button>
     <input id="roomc" size="7" placeholder="código" aria-label="Código de sala"><button class="btn sec" id="playJ">Unirme</button>
   </div>

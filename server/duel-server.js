@@ -7,7 +7,9 @@
                               {t:"act",action} · {t:"resign"} · {t:"rejoin",token}
    Servidor→cliente: {t:"waiting",code} · {t:"state",you,view,legal,events,deadline} · {t:"over",winner,reason} · {t:"error",msg}
    Lo que falta para producción está en docs/DISENO.md (cuentas, MMR, persistencia, reconexión completa).      */
-var http = require("http"), crypto = require("crypto");
+var http = require("http"), crypto = require("crypto"), fs = require("fs"), path = require("path");
+var ROOT = path.resolve(__dirname, ".."), SERVE_STATIC = process.env.NO_STATIC !== "1";
+var MIME = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css", ".json": "application/json", ".png": "image/png", ".webp": "image/webp", ".jpg": "image/jpeg", ".svg": "image/svg+xml", ".ogg": "audio/ogg", ".mp3": "audio/mpeg", ".wav": "audio/wav", ".webmanifest": "application/manifest+json", ".ico": "image/x-icon" };
 var WebSocketServer = require("ws").WebSocketServer;
 var D = require("../data.js"), E = require("../engine.js")(D.CARDS, D.MAPS, D.SUMMONER), AI = require("../ai.js")(E);
 
@@ -81,7 +83,15 @@ function finish(room, winnerSeat, reason) {
 function makeServer(port) {
   var httpServer = http.createServer(function (req, res) {
     if (req.url === "/health") { res.writeHead(200, { "content-type": "application/json" }); return res.end(JSON.stringify({ ok: true, rooms: rooms.size, queue: queue.length })); }
-    res.writeHead(404); res.end();
+    if (!SERVE_STATIC || req.method !== "GET") { res.writeHead(404); return res.end(); }
+    // LAN: el mismo servidor entrega el juego, asi los celulares del Wi-Fi abren http://IP-de-la-PC:8787 y juegan contra esta sala
+    var rel = decodeURIComponent(String(req.url).split("?")[0]); if (rel === "/") rel = "/index.html";
+    var f = path.resolve(ROOT, "." + rel), ext = path.extname(f).toLowerCase();
+    if (f.indexOf(ROOT + path.sep) !== 0 || /[\\\/](\.|server|tools|node_modules)/.test(f.slice(ROOT.length)) || !MIME[ext]) { res.writeHead(404); return res.end(); }
+    fs.readFile(f, function (err, buf) {
+      if (err) { res.writeHead(404); return res.end(); }
+      res.writeHead(200, { "content-type": MIME[ext], "cache-control": ext === ".html" ? "no-cache" : "max-age=3600" }); res.end(buf);
+    });
   });
   var wss = new WebSocketServer({ server: httpServer, maxPayload: 8 * 1024 });
   wss.on("connection", function (ws) {
@@ -127,5 +137,10 @@ function makeServer(port) {
   });
   return new Promise(function (ok) { httpServer.listen(port, function () { ok({ httpServer: httpServer, wss: wss, port: httpServer.address().port }); }); });
 }
-if (require.main === module) makeServer(parseInt(process.env.PORT || "8787", 10)).then(function (x) { console.log("duelos en :" + x.port); });
+if (require.main === module) makeServer(parseInt(process.env.PORT || "8787", 10)).then(function (x) {
+  console.log("duelos en :" + x.port);
+  var ips = []; var ni = require("os").networkInterfaces();
+  Object.keys(ni).forEach(function (k) { ni[k].forEach(function (a) { if (a.family === "IPv4" && !a.internal) ips.push(a.address); }); });
+  ips.forEach(function (ip) { console.log("  desde el celular (mismo Wi-Fi): http://" + ip + ":" + x.port); });
+});
 module.exports = { makeServer: makeServer };
