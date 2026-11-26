@@ -1,0 +1,371 @@
+[
+ {
+  "id": "pregonero",
+  "name": "Pregonero",
+  "linaje": "ciudad",
+  "tipo": "monstruo",
+  "rareza": "Poco común",
+  "sprite_provisional": "assets/b/cm_campanero.png",
+  "desc_en": "Hunched town crier of a cursed city, ragged coat, raising a cracked brass bell and a torn proclamation scroll, shouting to a crowd behind him"
+ },
+ {
+  "id": "barricadista",
+  "name": "Barricadista",
+  "linaje": "ciudad",
+  "tipo": "monstruo",
+  "rareza": "Poco común",
+  "sprite_provisional": "assets/b/cm_raptor.png",
+  "desc_en": "Stocky cursed-city citizen in patched leather apron dragging a barricade of broken doors, carts and planks, holding a crowbar"
+ },
+ {
+  "id": "capitana_guardia",
+  "name": "Capitana de la Guardia",
+  "linaje": "ciudad",
+  "tipo": "monstruo",
+  "rareza": "Épica",
+  "sprite_provisional": "assets/b/cm_espectro.png",
+  "desc_en": "Weathered city guard captain in dented steel breastplate and tattered tabard, halberd raised, rallying a line of ragged militia at night"
+ },
+ {
+  "id": "cristal_fragmentado",
+  "name": "Cristal Fragmentado",
+  "linaje": "forja",
+  "tipo": "monstruo",
+  "rareza": "Poco común",
+  "sprite_provisional": "assets/b/cristal_volador.png",
+  "desc_en": "Small floating cluster of cracked amber crystal shards held together by a glowing core, sparks leaking from the fractures, mine tunnel background"
+ },
+ {
+  "id": "horno_cristal",
+  "name": "Horno de Cristal",
+  "linaje": "forja",
+  "tipo": "monstruo",
+  "rareza": "Rara",
+  "sprite_provisional": "assets/b/engendro.png",
+  "desc_en": "Squat walking furnace-golem of riveted iron with a glass belly full of molten crystal, pouring out tiny crystal servants from a spout"
+ },
+ {
+  "id": "coloso_cuarzo",
+  "name": "Coloso de Cuarzo",
+  "linaje": "forja",
+  "tipo": "monstruo",
+  "rareza": "Épica",
+  "sprite_provisional": "assets/b/golem_cristal.png",
+  "desc_en": "Towering golem made of violet and white quartz pillars, glowing seams, shoulders covered in crystal growths, deep mine cavern"
+ },
+ {
+  "id": "lobezno",
+  "name": "Lobezno",
+  "linaje": "bosque",
+  "tipo": "monstruo",
+  "rareza": "Común",
+  "sprite_provisional": "assets/b/lobo_artico.png",
+  "desc_en": "Scrappy brown wolf cub with oversized paws, snarling, leaves in its fur, mossy forest floor"
+ },
+ {
+  "id": "jabali_musgoso",
+  "name": "Jabalí Musgoso",
+  "linaje": "bosque",
+  "tipo": "monstruo",
+  "rareza": "Común",
+  "sprite_provisional": "assets/b/bestia_bosque.png",
+  "desc_en": "Huge wild boar with moss and small ferns growing on its back, tusks wrapped in roots, charging through a misty forest"
+ },
+ {
+  "id": "druida_hongos",
+  "name": "Druida de los Hongos",
+  "linaje": "bosque",
+  "tipo": "monstruo",
+  "rareza": "Rara",
+  "sprite_provisional": "assets/b/druida_arena.png",
+  "desc_en": "Old druid with a cloak of layered mushroom caps and a staff topped by a glowing fungus, releasing soft green healing spores"
+ },
+ {
+  "id": "trampero",
+  "name": "Trampero",
+  "linaje": "laberinto",
+  "tipo": "monstruo",
+  "rareza": "Poco común",
+  "sprite_provisional": "assets/b/duende_bosque.png",
+  "desc_en": "Wiry labyrinth trapper in sand-colored hood, belt of ropes, snares and bear traps, crouching beside a pressure plate in stone corridors"
+ },
+ {
+  "id": "minotauro_joven",
+  "name": "Minotauro Joven",
+  "linaje": "laberinto",
+  "tipo": "monstruo",
+  "rareza": "Épica",
+  "sprite_provisional": "assets/b/minotauro.png",
+  "desc_en": "Young minotaur with short horns and bronze nose ring, wielding a broken column as a club, sandstone labyrinth walls"
+ },
+ {
+  "id": "espiritu_glacial",
+  "name": "Espíritu Glacial",
+  "linaje": "marea",
+  "tipo": "monstruo",
+  "rareza": "Poco común",
+  "sprite_provisional": "assets/b/hada_escarcha.png",
+  "desc_en": "Small translucent ice spirit shaped like a wisp with a frosty face, trailing snowflakes, frozen lake background"
+ },
+ {
+  "id": "anguila_escarcha",
+  "name": "Anguila de Escarcha",
+  "linaje": "marea",
+  "tipo": "monstruo",
+  "rareza": "Poco común",
+  "sprite_provisional": "assets/b/anguila_electrica.png",
+  "desc_en": "Long pale-blue eel with frost-covered fins and icicle teeth, coiling out of a hole in thick sea ice"
+ },
+ {
+  "id": "sirena_abisal",
+  "name": "Sirena Abisal",
+  "linaje": "marea",
+  "tipo": "monstruo",
+  "rareza": "Rara",
+  "sprite_provisional": "assets/b/sirena_abisal.png",
+  "desc_en": "Abyssal siren with dark scales and bioluminescent fins, singing, frost forming on the water around her, deep cold sea"
+ },
+ {
+  "id": "calavera_ardiente",
+  "name": "Calavera Ardiente",
+  "linaje": "infernal",
+  "tipo": "monstruo",
+  "rareza": "Poco común",
+  "sprite_provisional": "assets/b/esqueleto.png",
+  "desc_en": "Floating human skull wreathed in orange flames, cracked bone, embers trailing, infernal crypt background"
+ },
+ {
+  "id": "aprendiz_nigromante",
+  "name": "Aprendiz de Nigromante",
+  "linaje": "infernal",
+  "tipo": "monstruo",
+  "rareza": "Rara",
+  "sprite_provisional": "assets/b/hechicero.png",
+  "desc_en": "Young necromancer apprentice in oversized black robes, nervously raising a bony hand while a skeleton claws out of the ground"
+ },
+ {
+  "id": "caballero_hueso",
+  "name": "Caballero de Hueso",
+  "linaje": "infernal",
+  "tipo": "monstruo",
+  "rareza": "Épica",
+  "sprite_provisional": "assets/b/jinete_sin_cabeza.png",
+  "desc_en": "Skeletal knight in rusted black armor riding a skeletal horse, tattered banner, lance of bone, crypt fog"
+ },
+ {
+  "id": "hongo_saltarin",
+  "name": "Hongo Saltarín",
+  "linaje": "neutral",
+  "tipo": "monstruo",
+  "rareza": "Común",
+  "sprite_provisional": "assets/b/duende_bosque.png",
+  "desc_en": "Small hopping purple mushroom creature with stubby legs and a mischievous face, puffing spores as it lands, mycelium forest"
+ },
+ {
+  "id": "esporero",
+  "name": "Esporero",
+  "linaje": "neutral",
+  "tipo": "monstruo",
+  "rareza": "Poco común",
+  "sprite_provisional": "assets/b/enjambre_hadas.png",
+  "desc_en": "Swarm of tiny glowing spore-sprites carrying a pulsing green puffball, leaving a poisonous mist, fungal kingdom background"
+ },
+ {
+  "id": "micelio_vivo",
+  "name": "Micelio Vivo",
+  "linaje": "neutral",
+  "tipo": "monstruo",
+  "rareza": "Poco común",
+  "sprite_provisional": "assets/b/ent.png",
+  "desc_en": "Living wall of tangled white mycelium threads and shelf fungi shaped like a hunched guardian, glowing veins, fungal cavern"
+ },
+ {
+  "id": "reina_micelial",
+  "name": "Reina Micelial",
+  "linaje": "neutral",
+  "tipo": "monstruo",
+  "rareza": "Épica",
+  "sprite_provisional": "assets/b/dama_bosque.png",
+  "desc_en": "Regal queen of the fungal kingdom with a crown of bioluminescent mushrooms, gown of gills and veils of violet spores, throne of giant fungi"
+ },
+ {
+  "id": "clamor",
+  "name": "Clamor de la Turba",
+  "linaje": "ciudad",
+  "tipo": "hechizo",
+  "rareza": "Común",
+  "sprite_provisional": null,
+  "desc_en": "A furious crowd raising torches, pitchforks and fists in a cursed city square at night"
+ },
+ {
+  "id": "motin",
+  "name": "Motín",
+  "linaje": "ciudad",
+  "tipo": "hechizo",
+  "rareza": "Poco común",
+  "sprite_provisional": null,
+  "desc_en": "Riot in a cursed city street: looters breaking windows, overturned carts, torches, smoke"
+ },
+ {
+  "id": "martillazo",
+  "name": "Martillazo",
+  "linaje": "forja",
+  "tipo": "hechizo",
+  "rareza": "Común",
+  "sprite_provisional": null,
+  "desc_en": "Heavy miner's hammer striking glowing crystal ore, shards and sparks flying"
+ },
+ {
+  "id": "pulso_resonante",
+  "name": "Pulso Resonante",
+  "linaje": "forja",
+  "tipo": "hechizo",
+  "rareza": "Poco común",
+  "sprite_provisional": null,
+  "desc_en": "Ring-shaped wave of violet light pulsing outward from a cluster of humming crystals"
+ },
+ {
+  "id": "luna_caza",
+  "name": "Luna de Caza",
+  "linaje": "bosque",
+  "tipo": "hechizo",
+  "rareza": "Rara",
+  "sprite_provisional": null,
+  "desc_en": "Huge full moon over a forest clearing, silhouettes of howling wolves and a spectral wolf leaping"
+ },
+ {
+  "id": "plano_secreto",
+  "name": "Plano Secreto",
+  "linaje": "laberinto",
+  "tipo": "hechizo",
+  "rareza": "Común",
+  "sprite_provisional": null,
+  "desc_en": "Worn parchment map of a labyrinth with hidden passages marked in red ink, compass and candle"
+ },
+ {
+  "id": "aliento_helado",
+  "name": "Aliento Helado",
+  "linaje": "marea",
+  "tipo": "hechizo",
+  "rareza": "Común",
+  "sprite_provisional": null,
+  "desc_en": "Ghostly frosty breath sweeping across, freezing a raised claw in a block of ice"
+ },
+ {
+  "id": "avalancha",
+  "name": "Avalancha",
+  "linaje": "marea",
+  "tipo": "hechizo",
+  "rareza": "Rara",
+  "sprite_provisional": null,
+  "desc_en": "Massive avalanche of snow and ice crashing down a mountain slope, burying frozen figures"
+ },
+ {
+  "id": "ceniza_viento",
+  "name": "Ceniza al Viento",
+  "linaje": "infernal",
+  "tipo": "hechizo",
+  "rareza": "Rara",
+  "sprite_provisional": null,
+  "desc_en": "Wind carrying burning ash and embers across a crypt graveyard, everything catching fire"
+ },
+ {
+  "id": "nube_esporas",
+  "name": "Nube de Esporas",
+  "linaje": "neutral",
+  "tipo": "hechizo",
+  "rareza": "Poco común",
+  "sprite_provisional": null,
+  "desc_en": "Thick violet cloud of poisonous spores rising from giant mushrooms, figures coughing in the haze"
+ },
+ {
+  "id": "floracion",
+  "name": "Floración Tóxica",
+  "linaje": "neutral",
+  "tipo": "hechizo",
+  "rareza": "Poco común",
+  "sprite_provisional": null,
+  "desc_en": "Explosive bloom of glowing toxic mushrooms bursting from the ground under poisoned creatures"
+ },
+ {
+  "id": "simbiosis",
+  "name": "Simbiosis",
+  "linaje": "neutral",
+  "tipo": "hechizo",
+  "rareza": "Común",
+  "sprite_provisional": null,
+  "desc_en": "Glowing green mycelium threads wrapping around a wounded warrior's arm, healing the wound"
+ },
+ {
+  "id": "turba_enfurecida",
+  "name": "Turba Enfurecida",
+  "linaje": "ciudad",
+  "tipo": "trampa",
+  "rareza": "Poco común",
+  "sprite_provisional": null,
+  "desc_en": "Ambush in an alley: a looter jumping from a doorway with a club as an invader enters the street"
+ },
+ {
+  "id": "fisura_cristal",
+  "name": "Fisura de Cristal",
+  "linaje": "forja",
+  "tipo": "trampa",
+  "rareza": "Poco común",
+  "sprite_provisional": null,
+  "desc_en": "Crystal floor cracking open under an attacker's feet, a small crystal servant emerging from the fissure"
+ },
+ {
+  "id": "raices_atrapantes",
+  "name": "Raíces Atrapantes",
+  "linaje": "bosque",
+  "tipo": "trampa",
+  "rareza": "Poco común",
+  "sprite_provisional": null,
+  "desc_en": "Thick forest roots bursting from the ground and binding an attacking creature's legs"
+ },
+ {
+  "id": "foso_oculto",
+  "name": "Foso Oculto",
+  "linaje": "laberinto",
+  "tipo": "trampa",
+  "rareza": "Rara",
+  "sprite_provisional": null,
+  "desc_en": "Hidden pit trap opening in a sandstone labyrinth floor, spikes at the bottom, an attacker falling"
+ },
+ {
+  "id": "laberinto_espejos",
+  "name": "Galería de Espejos",
+  "linaje": "laberinto",
+  "tipo": "trampa",
+  "rareza": "Rara",
+  "sprite_provisional": null,
+  "desc_en": "Gallery of tall mirrors in a labyrinth reflecting and freezing a spell back at its caster"
+ },
+ {
+  "id": "hielo_fino",
+  "name": "Hielo Fino",
+  "linaje": "marea",
+  "tipo": "trampa",
+  "rareza": "Poco común",
+  "sprite_provisional": null,
+  "desc_en": "Thin ice cracking under an attacker on a frozen lake, freezing water gripping its legs"
+ },
+ {
+  "id": "fosa_comun",
+  "name": "Fosa Común",
+  "linaje": "infernal",
+  "tipo": "trampa",
+  "rareza": "Rara",
+  "sprite_provisional": null,
+  "desc_en": "Open mass grave in a crypt where two skeletons climb out as an enemy approaches"
+ },
+ {
+  "id": "estallido_esporas",
+  "name": "Estallido de Esporas",
+  "linaje": "neutral",
+  "tipo": "trampa",
+  "rareza": "Poco común",
+  "sprite_provisional": null,
+  "desc_en": "Giant puffball mushroom exploding into a burst of toxic green spores when stepped on"
+ }
+]

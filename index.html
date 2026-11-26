@@ -261,6 +261,51 @@ h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
 #over.on{display:grid} #over h1{font-size:7rem}
 #toast{position:fixed;left:50%;top:5rem;transform:translateX(-50%);background:#000d;color:#fff;padding:.6rem 1.4rem;border-radius:2rem;font-size:1.5rem;z-index:80;display:none}
 @media (max-width:900px){#side{position:static;width:auto;max-height:none} #preview{display:none!important}}
+
+/* ---------- CELULAR (v0.8) ---------- */
+#game{height:100vh;height:100dvh}
+#rotate{display:none}
+@media (max-width:760px) and (orientation:portrait){
+  html{font-size:clamp(7px,2.25vw,11px)}
+  .screen{padding-left:1rem;padding-right:1rem}
+  .hub{grid-template-columns:1fr 1fr}
+  .hubb{min-height:9rem;padding:1rem} .hubb b{font-size:1.9rem}
+  .bar{gap:.6rem;padding:.2rem .6rem;height:4rem;overflow:hidden}
+  .bar .syn{display:none}
+  .bar>b,.bar .chip,.bar .oppstrip,.bar>.mini{display:none}
+  .bar .crys i{width:.8rem;height:1.3rem}
+  .skbar,.traps{margin-left:.2rem;gap:.3rem}
+  .skb{padding:.2rem .4rem;gap:.3rem;max-width:11rem} .skb small{display:none} .skb b{font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:7rem} .skb .ic{font-size:1.6rem}
+  #coach{font-size:1.15rem;padding:.3rem .6rem;gap:.5rem;line-height:1.25}
+  #coach span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  #coach button{font-size:1.05rem;padding:.3rem .5rem}
+  .face{min-width:0;padding:.1rem .6rem}
+  .brow{height:11.4rem;gap:.6rem;padding:.3rem .5rem .3rem 6.6rem;justify-content:flex-start}
+  .brow .tl{width:6rem;left:.4rem;font-size:.95rem} .brow .tl b{font-size:1.05rem}
+  .cell{width:9.4rem;height:10.8rem}
+  .tile .nm{font-size:1rem}
+  .mid{height:auto;min-height:4.6rem;flex-wrap:wrap;gap:.5rem;padding:.3rem .6rem}
+  .mid .fieldc{display:none}
+  .mid .btn.sm{padding:.7rem 1.2rem;font-size:1.4rem}
+  .handrow{height:14rem;justify-content:flex-start;overflow-x:auto;overflow-y:visible;padding:0 .4rem 0 1.6rem;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .handrow .card,.handrow .card.guardian,.handrow .card.ascension{width:10.4rem;height:18.4rem;margin:0 -1.2rem -4.8rem 0}
+  .handrow .card:hover{transform:none}
+  .handrow .card.pend{transform:translateY(-3rem)}
+  #side{position:fixed;left:0;right:0;top:auto;bottom:0;width:auto;max-height:52vh;z-index:45;gap:0;pointer-events:none}
+  #side #log{display:none}
+  #mp{display:none;pointer-events:auto;border-radius:1.2rem 1.2rem 0 0;max-height:52vh;overflow:auto;padding:1rem 1rem 1.6rem;box-shadow:0 -1rem 3rem #000c}
+  #mp:has(.mvb){display:block}
+  .mvb{padding:.8rem .9rem} .mvb .t{font-size:1.55rem} .mvb .d,.mvb .w{font-size:1.25rem}
+  body.pend #mp{display:none!important}
+  #mp .close{display:block!important}
+  #over h1{font-size:5rem}
+  #banner{font-size:3.6rem}
+}
+@media (max-height:520px) and (orientation:landscape) and (pointer:coarse){
+  #game.on ~ #rotate,body:has(#game.on) #rotate{display:grid;position:fixed;inset:0;z-index:200;background:#14110ff2;place-items:center;text-align:center;color:var(--gold2);font-size:20px;padding:20px}
+}
+#pvm{position:fixed;inset:0;z-index:150;background:#000b;display:none;place-items:center}
+#pvm.on{display:grid} #pvm .card{transform:scale(1.25);transform-origin:center} #pvm small{position:absolute;bottom:3rem;left:0;right:0;text-align:center;color:var(--mute);font-size:1.4rem}
 </style>
 </head>
 <body>
@@ -298,7 +343,7 @@ h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
   <h2>Reglas en 1 minuto</h2>
   <div class="note"><b>Objetivo:</b> bajar la <b>vida del Invocador rival</b> (🔮) de 40 a 0: tus guardianes y monstruos son quienes le hacen daño. Cada victoria contra el Bot, en la Aventura o en cooperativo sube tu <b>rango</b>: +2 de vida máxima cada 2 victorias (hasta +12); en el 1v1 entre personas todos empiezan con 40. Mazo de 30 cartas (máx. 5 guardianes únicos). Mano inicial 3 (quien abre, sin robo en el turno 1) o 5 + <b>Chispa</b> (quien responde). <b>Cristales:</b> +1 por turno hasta 10.</div>
   <div class="note"><b>Maná (cristales ✦):</b> es del <b>Invocador</b>, no de los guardianes. Empezás con 1, ganás 1 por turno (hasta 10) y se recargan al empezar tu turno. Se gastan en jugar cartas, en las habilidades de tus guardianes (✦ de cada botón), en cambiar una unidad de lugar (1 ✦) y en tus habilidades de invocador. El <b>Ataque</b> es gratis; la <b>definitiva</b> no cuesta cristales pero necesita carga (puntos violetas).</div>
-  <div class="note"><b>Cómo se activa una habilidad:</b> tocá una unidad tuya con borde verde → tocá el movimiento en el panel de la derecha → tocá el objetivo (rojo = enemigo, verde = aliado). Cada unidad hace una sola cosa por turno. Las habilidades tienen enfriamiento.</div>
+  <div class="note"><b>Cómo se activa una habilidad:</b> tocá una unidad tuya con borde verde → tocá el movimiento en el panel de movimientos → tocá el objetivo (rojo = enemigo, verde = aliado). Cada unidad hace una sola cosa por turno. Las habilidades tienen enfriamiento.</div>
   <div class="note"><b>Rareza y sobres:</b> las cartas son <b>Comunes, Poco comunes, Raras, Épicas o Legendarias</b> (gema de color en la esquina). <b>La rareza no es poder</b>: el poder sale del costo; la rareza dice qué tan difícil es conseguirla. Los <b>sobres</b> son aleatorios, con probabilidades visibles y garantías; los <b>paquetes premium temáticos</b> (por ejemplo el de Invierno) tienen más chances de las mejores cartas de su tema. Las repetidas se convierten en <b>polvo</b> para fabricar cualquier carta. Las Legendarias van de a 1 copia por mazo.</div>
   <div class="note"><b>Sinergias y combos ⚡:</b> los monstruos tienen <b>tipos</b> (Bestia, Planta, Esqueleto, Demonio, Hielo, Ciudadano, Cristal, Golem…) y muchas cartas reaccionan a ellos ("cuando desplegás una Bestia…", "+1 ATK por cada otro Esqueleto"). También a los <b>estados</b>: 🔥 quemado (daño cada turno), ❄ congelado y ☠ envenenado (Combustión pega más a quien arde, Quebrar a lo congelado…). En el constructor, las cartas con ⚡ completan un combo con tu mazo y el panel de la derecha muestra qué combos tenés y cuáles te faltan.</div>
   <div class="note"><b>Trampas 🪤:</b> se ponen boca abajo (máx. 2) y se disparan solas cuando el rival hace algo que coincide (atacar a tus unidades o a tu Invocador, jugar un hechizo, desplegar una unidad, usar una habilidad). Algunas anulan la acción. Las del rival son secretas.</div>
@@ -388,7 +433,7 @@ h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
   <div class="bar me" id="meBar"></div>
   <div class="handrow" id="hand"></div>
   <div id="side"><div id="mp"></div><div id="log"></div></div>
-  <div id="preview"></div><div id="toast"></div>
+  <div id="preview"></div><div id="toast"></div><div id="pvm"></div><div id="rotate">Girá el teléfono en vertical para jugar 📱</div>
 </section>
 <div id="rew"><div class="box"><h1 id="rewT" style="font-size:3.4rem"></h1><p class="sub" id="rewS" style="margin:.6rem auto"></p><div class="packs" id="rewC"></div><button class="btn sec" id="rewSkip">Seguir sin llevarme nada</button></div></div>
 <div id="tut"><div class="box"><h2 id="tutT"></h2><div id="tutB"></div><div class="dots" id="tutD"></div><div class="row" style="margin-top:1.2rem"><button class="btn sec" id="tutPrev">Atrás</button><button class="btn" id="tutNext">Siguiente</button></div></div></div>
@@ -405,7 +450,7 @@ h2{font-size:2.1rem;color:var(--gold);margin:1.2rem 0 .8rem}
 "use strict";
 var D = HORDA_DATA, CARDS = D.CARDS, MAPS = D.MAPS, E = createHordaEngine(CARDS, MAPS, D.SUMMONER), AI = createHordaAI(E), LIN = D.LINAJES;
 var $ = function (id) { return document.getElementById(id); };
-var EMOJI = { espinas:"🌵", muro_hielo:"🧊", barrera:"🔰", espejo:"🪞", emboscada:"🗡", red:"🪢", inspiracion:"📖", segunda:"🔁", robovida:"🩸", fuego:"☄", invierno:"❄", marea:"🌊", manada:"🐺", muro_piedra:"🧱", pacto:"🔪", chispa:"✦", rayo:"⚡", llamarada:"🔥", escarcha:"❄", tormenta:"🌩", corazon:"❤‍🔥", egida:"🛡", sello:"⚜", bendicion:"✨", furia:"💢", banquete:"🍄", piedra:"💎", debilitar:"🕸", podredumbre:"☠", veneno:"🧪", silencio:"🤫", cadenas:"⛓", marchitar:"🥀" };
+var EMOJI = { clamor:"📣", motin:"✊", martillazo:"🔨", pulso_resonante:"💠", luna_caza:"🌕", plano_secreto:"🗺", aliento_helado:"🌬", avalancha:"🏔", ceniza_viento:"🌫", nube_esporas:"☁", floracion:"🌺", simbiosis:"🍄", turba_enfurecida:"🔥", fisura_cristal:"💎", raices_atrapantes:"🌿", foso_oculto:"🕳", laberinto_espejos:"🪞", hielo_fino:"🧊", fosa_comun:"⚰", estallido_esporas:"💥", espinas:"🌵", muro_hielo:"🧊", barrera:"🔰", espejo:"🪞", emboscada:"🗡", red:"🪢", inspiracion:"📖", segunda:"🔁", robovida:"🩸", fuego:"☄", invierno:"❄", marea:"🌊", manada:"🐺", muro_piedra:"🧱", pacto:"🔪", chispa:"✦", rayo:"⚡", llamarada:"🔥", escarcha:"❄", tormenta:"🌩", corazon:"❤‍🔥", egida:"🛡", sello:"⚜", bendicion:"✨", furia:"💢", banquete:"🍄", piedra:"💎", debilitar:"🕸", podredumbre:"☠", veneno:"🧪", silencio:"🤫", cadenas:"⛓", marchitar:"🥀" };
 var TICON = { burn: "🔥", heal: "🌿", cover: "🛡", amp: "⚒", slow: "⏳", dark: "🌑", frost: "❄" };
 var ROLE_N = { tanque: "Tanque", asesino: "Asesino", mago: "Mago", soporte: "Soporte" };
 var KW = D.KW_NAME;
@@ -464,6 +509,7 @@ function comboLines(id) {
 function cardEl(id, extra, full) {
   var c = CARDS[id], p = D.points(c), cls = "card " + (c.kind === "bicho" && !c.illus ? "bicho " : "") + c.rarity + (c.rar >= 4 ? " rr" + c.rar : "") + (extra ? " " + extra : "");
   var art = c.type === "unit" ? '<div class="art" style="background-image:url(' + c.art + ')' + (c.artFx ? ";filter:" + c.artFx : "") + '"></div>'
+    : c.art ? '<div class="art" style="background-image:url(' + c.art + ')"></div>'
     : '<div class="art" style="background:radial-gradient(circle at 50% 40%,' + ({ hechizo: "#2c5b8a", bonus: "#2f6b3a", maldicion: "#5a2f7e", trampa: "#7a4a1c" })[c.cat] + ',#14110f)"><div class="ico">' + (EMOJI[id] || "✦") + "</div></div>";
   var st = c.type === "unit" ? '<div class="st"><span class="a">⚔' + c.atk + '</span><span class="h">♥' + c.hp + "</span></div>" : '<div class="st"></div>';
   var role = c.kind === "guardian" ? '<span class="role">' + ROLE_N[c.role] + "</span>" : "";
@@ -633,7 +679,7 @@ function coachText() {
   if (!myTurn) return "Turno del rival. Mirá qué juega; pasá el mouse sobre sus unidades para ver sus movimientos.";
   if (pend && pend.mode === "cell") return "Elegí una casilla marcada en verde. Frente (arriba): pelea cuerpo a cuerpo y protege. Fondo (abajo): ideal para tiradores y apoyos. Esc cancela.";
   if (pend) return "Elegí un objetivo: borde rojo = enemigo, borde verde = aliado (o la 🔮 del Invocador). Esc cancela.";
-  if (sel) { var r = E.find(V, sel); if (r && r.p === me) return "Elegiste a " + r.u.name + ": tocá uno de sus movimientos en el panel de la derecha. «Ataque» es gratis; las habilidades cuestan cristales ✦."; }
+  if (sel) { var r = E.find(V, sel); if (r && r.p === me) return "Elegiste a " + r.u.name + ": tocá uno de sus movimientos en el panel de movimientos. «Ataque» es gratis; las habilidades cuestan cristales ✦."; }
   var a = actionable();
   if (!a.plays && !a.units && !a.sums) return "No te queda nada útil por hacer: tocá «Terminar turno».";
   var parts = [];
@@ -651,7 +697,7 @@ function updateCoach() {
 var MANA_HTML = '<p><b>El maná es del Invocador, no de los guardianes.</b> Se llaman <b>cristales ✦</b>: empezás con 1, ganás 1 más por turno (hasta 10) y <b>se recargan todos al empezar tu turno</b>. Los que no usás se pierden.</p>' +
   '<p>Los gastás en: <b>jugar cartas</b> (el número azul de la esquina de la carta), las <b>habilidades de tus guardianes</b> (el ✦ de cada botón), <b>cambiar una unidad de lugar</b> (1 ✦) y tus <b>habilidades de invocador</b>.</p>' +
   '<p><b>Gratis:</b> el <b>Ataque</b> de cada unidad. La <b>definitiva</b> no cuesta cristales pero necesita carga: los puntos violetas de la carta se llenan de a uno por turno y, cuando están todos, la usás una vez por partida.</p>';
-var SKILL_HTML = '<p><b>Cómo se activa una habilidad:</b> 1) tocá una unidad tuya con <b>borde verde</b>; 2) en el panel de la derecha tocá el movimiento que quieras (si tiene ✦ y te alcanzan los cristales); 3) tocá el objetivo marcado: <b>rojo</b> = enemigo, <b>verde</b> = aliado.</p>' +
+var SKILL_HTML = '<p><b>Cómo se activa una habilidad:</b> 1) tocá una unidad tuya con <b>borde verde</b>; 2) en el panel de movimientos (a la derecha; en el celular, abajo) tocá el movimiento que quieras (si tiene ✦ y te alcanzan los cristales); 3) tocá el objetivo marcado: <b>rojo</b> = enemigo, <b>verde</b> = aliado.</p>' +
   '<p>Cada unidad hace <b>una sola cosa por turno</b>: Ataque, una habilidad o la definitiva. Después de usar una habilidad tiene <b>enfriamiento</b> (tiene que esperar algunos turnos para repetirla). Las unidades recién desplegadas 💤 no actúan hasta el turno siguiente.</p>';
 var DECK_RULES_HTML = '<p><b>Reglas del mazo:</b> exactamente <b>30 cartas</b>; hasta <b>5 guardianes</b> (cada uno una sola vez); monstruos hasta <b>3 copias</b> si cuestan 3 o menos y <b>2</b> si cuestan más; hechizos, bonus, maldiciones y trampas hasta <b>2 copias</b>. Solo podés usar las copias que tenés.</p>' +
   '<p><b>Tipos de carta:</b> <b>guardianes</b> (fuertes, con habilidades, pasiva y definitiva), <b>monstruos</b> (baratos, solo atacan), <b>hechizos</b> (daño y control), <b>bonus</b> (te empoderan), <b>maldiciones</b> (debilitan al rival) y <b>trampas</b> (se ponen boca abajo, máx. 2, y se disparan solas cuando el rival hace algo que coincide).</p>' +
@@ -828,7 +874,7 @@ function buildShop() {
   var h = '<div class="disc"><b>Sobres aleatorios.</b> Los paquetes de abajo tienen azar (son cajas sorpresa). Las probabilidades que ves son las reales: las verifica <code>tools/packs-test.js</code>. Todo lo que sale de un paquete también se consigue <b>sin pagar</b>: con oro, con la Aventura y fabricándolo con polvo. <b>Los pagos con dinero real NO están conectados</b>: las Brasas ✦ de acá son de prueba. Solo para mayores o con control de un adulto.</div>';
   h += '<div class="row"><button class="btn sec sm" id="giveBrasas">+1000 Brasas ✦ de prueba (sin dinero real)</button><label class="mini">Límite diario de paquetes premium: <select id="limSel" aria-label="Límite diario"><option value="0">Sin límite</option><option value="3">3 por día</option><option value="5">5 por día</option><option value="10">10 por día</option></select></label><span class="mini">Hoy abriste ' + SAVE.stats.today + " premium.</span></div>";
   h += '<div class="stores">' + packOrder().map(function (id) {
-    var P = D.PACKS[id], prem = P.currency === "brasas", arena = P.theme ? D.LINAJES[[].concat(P.theme.linaje)[0] || "infernal"].arena : (id === "dorado" ? "divina" : "ciudad"), blocked = prem && !PAID_RANDOM_ENABLED;
+    var P = D.PACKS[id], prem = P.currency === "brasas", arena = P.theme ? (P.theme.linaje ? D.LINAJES[[].concat(P.theme.linaje)[0]].arena : "micelial") : (id === "dorado" ? "divina" : "ciudad"), blocked = prem && !PAID_RANDOM_ENABLED;
     var afford = P.currency === "oro" ? SAVE.gold >= P.price : SAVE.brasas >= P.price;
     return '<div class="packc ' + (id === "dorado" ? "gold" : prem ? "prem" : "") + '"><div class="bg" style="background-image:url(assets/a/' + arena + '.webp)"></div><div class="in"><h3>' + P.icon + " " + esc(P.name) + "</h3><p>" + esc(P.desc) + "</p>" +
       '<p class="price ' + (prem ? "p" : "g") + '">' + P.price + (prem ? " ✦ (≈ US$ " + (P.price * BRASA_USD).toFixed(2) + ")" : " de oro") + "</p>" +
@@ -1151,6 +1197,7 @@ function rowHTML(p, row, mine) {
 }
 function render() {
   if (!V) return;
+  document.body.classList.toggle("pend", !!pend);
   var me = ctx.me, foe = 1 - me, M = V.players[me], O = V.players[foe], myTurn = V.active === me && !lock && !V.over;
   var m = MAPS[V.map]; $("bgmap").style.backgroundImage = "url(assets/a/" + m.arena + ".webp)";
   var foeTgt = pend && pend.mode === "unit" && pend.targets.indexOf("f" + foe) >= 0, meTgt = pend && pend.mode === "unit" && pend.targets.indexOf("f" + me) >= 0;
@@ -1185,7 +1232,7 @@ function movesHTML(u, mine, myTurn) {
 function renderPanel(myTurn) {
   var el = $("mp"), r = sel ? E.find(V, sel) : null;
   if (!r) { el.innerHTML = '<h4>Movimientos</h4><div class="sub2">Elegí una de tus unidades para ver sus movimientos. Tocá una unidad rival para ver los suyos.</div>'; return; }
-  el.innerHTML = movesHTML(r.u, r.p === ctx.me, myTurn);
+  el.innerHTML = '<button class="btn sec sm close" style="display:none;float:right" onclick="sel=null;render()">✕</button>' + movesHTML(r.u, r.p === ctx.me, myTurn);
 }
 function fx(e) {
   var host = function (uid) { return document.querySelector('[data-uid="' + uid + '"]'); };
@@ -1263,6 +1310,22 @@ document.addEventListener("mouseover", function (e) {
   pv.style.display = "block"; pv.style.top = inBuilder || $("coll").classList.contains("on") ? "6rem" : "4.6rem";
   if (inBuilder) { pv.style.left = "auto"; pv.style.right = "41rem"; } else if ($("coll").classList.contains("on")) { pv.style.left = "auto"; pv.style.right = "1rem"; } else { pv.style.right = "auto"; pv.style.left = ".8rem"; }
 });
+
+
+/* vista grande con el dedo (celular): mantener apretada una carta o unidad */
+(function () {
+  var t = null, sx = 0, sy = 0, fired = false, pvm = $("pvm");
+  function idOf(el) { var c = el.closest && el.closest("[data-id]"); if (c) return c.dataset.id; var tl = el.closest && el.closest(".tile"); if (tl && V) { var r = E.find(V, parseInt(tl.dataset.uid, 10)); if (r) return r.u.id || r.u.card; } return null; }
+  document.addEventListener("touchstart", function (e) {
+    fired = false; if (pvm.classList.contains("on")) return; var id = idOf(e.target); if (!id || !CARDS[id]) return;
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+    t = setTimeout(function () { fired = true; pvm.innerHTML = cardEl(id, "big", true) + "<small>Tocá para cerrar</small>"; pvm.classList.add("on"); if (navigator.vibrate) navigator.vibrate(15); }, 450);
+  }, { passive: true });
+  document.addEventListener("touchmove", function (e) { if (t && (Math.abs(e.touches[0].clientX - sx) > 10 || Math.abs(e.touches[0].clientY - sy) > 10)) { clearTimeout(t); t = null; } }, { passive: true });
+  document.addEventListener("touchend", function () { clearTimeout(t); t = null; }, { passive: true });
+  document.addEventListener("contextmenu", function (e) { if (fired || idOf(e.target)) e.preventDefault(); });
+  document.addEventListener("click", function (e) { if (fired) { fired = false; e.stopPropagation(); e.preventDefault(); return; } if (pvm.classList.contains("on")) { pvm.classList.remove("on"); e.stopPropagation(); e.preventDefault(); } }, true);
+})();
 
 /* ---------- AVENTURA ---------- */
 var advStart = null;

@@ -1,6 +1,6 @@
 # La Horda: Cónclave
 
-Duelo de cartas por turnos 1 contra 1, hecho con el arte y los datos de **La Horda** (Fondal Studios). Boceto jugable **v0.7** (rareza, paquetes premium temáticos, polvo; más análisis de monetización y flujo de arte). **Para seguir trabajando en otra sesión: leer `docs/HANDOFF.md` y `CLAUDE.md`.**
+Duelo de cartas por turnos 1 contra 1, hecho con el arte y los datos de **La Horda** (Fondal Studios). Boceto jugable **v0.8** (vista de celular, expansión Reino Fúngico con 41 cartas, herramienta de arte con Anakin; antes: rareza, paquetes premium temáticos, polvo). **Para seguir trabajando en otra sesión: leer `docs/HANDOFF.md` y `CLAUDE.md`.**
 
 ## Qué es
 - Sos un **Invocador** con puntos de vida; tus **guardianes** y **monstruos** son quienes le hacen daño al Invocador rival.
@@ -68,10 +68,11 @@ node tools/make-skills-doc.js    # docs/HABILIDADES.md
 - El servidor no tiene reconexión, matchmaking por rango ni chat; en cooperativo confía en el cliente para las recompensas (es PvE).
 - El balance se midió con un bot simple, no con personas. Roles/linajes de varios guardianes y 7 pasivas son propuestas (ver `docs/`).
 - Los textos de historia y del cuestionario son provisionales. Las cartas de magia usan íconos emoji como arte provisional.
-- No se probó en celular ni con latencia real.
+- Celular: hay vista vertical (tablero, mano deslizable, panel de movimientos abajo, mantener apretada una carta para verla grande). Se probó **solo con Chrome emulando un teléfono de 390×844** (Playwright), no en un teléfono real ni con latencia real. En horizontal pide girar el teléfono.
 
 ## Arte nuevo
 Los guardianes son ilustraciones pintadas y los monstruos son sprites de pixel art: hay que unificarlos. Brief y lista de producción en `docs/ART_BRIEF.md`; el arte entra con `python3 tools/art-intake.py --judge` y `--approve` (el juez califica, **una persona aprueba**). Informe actual: `docs/ART_JUDGE_REPORT.md`.
+`python tools/anakin-arte.py --grupo monstruos|magia|nuevas --n 3` dibuja candidatas con el servidor de dibujo de Anakin (img2img sobre el sprite y una lámina de luna y ruinas por linaje); salen en `../conclave-arte-candidatas/` con una hoja de revisión. Una persona elige, se pasan a `assets/art-incoming/` y siguen el flujo de arriba.
 
 ## Decisiones
 Registro en `docs/DECISIONES.md`. **Decidido**: paquetes premium aleatorios por tema + rareza (con protecciones obligatorias). **Pendiente**: qué hacer con el bonus de +3 puntos de las Legendarias (Ascensión), regiones y edad mínima con asesoría legal, proveedor de pagos y precios, economía final, complemento de La Horda vs. producto aparte, y orden de producción del arte.

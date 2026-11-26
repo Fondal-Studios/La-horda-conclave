@@ -5,40 +5,40 @@ Generado por `python3 tools/art-judge.py`. Mide el arte implementado en las cart
 | | A | B | C | D |
 |---|---|---|---|---|
 | Guardianes (41) | 41 | 0 | 0 | 0 |
-| Monstruos (65) | 35 | 17 | 13 | 0 |
+| Monstruos (87) | 30 | 11 | 45 | 1 |
 
-- Monstruos en píxeles exactos: **47** · con suavizado/borrosos: **8** · variantes teñidas: **12**
-- **Brecha de estilo guardián ↔ monstruo** (0 = idéntico): promedio **1.38**, límite recomendado 1.5; 10 de 65 monstruos la superan.
+- Monstruos en píxeles exactos: **40** · con suavizado/borrosos: **38** · variantes teñidas: **33**
+- **Brecha de estilo guardián ↔ monstruo** (0 = idéntico): promedio **1.29**, límite recomendado 1.5; 7 de 87 monstruos la superan.
 
 ## Monstruos con peor nota
 
 | Carta | Nota | Motivos | Brecha |
 |---|---|---|---|
+| Anguila de Escarcha (`anguila_escarcha`) | D 35 | reescalado con suavizado (borroso); el sujeto ocupa solo 23% del alto de la carta; muy apaisado (4.0:1) para un marco vertical; variante teñida de otro sprite (arte reutilizado) | 1.13 |
 | Imp Pirómano (`imp`) | C 60 | reescalado con suavizado (borroso); variante teñida de otro sprite (arte reutilizado) | 1.18 |
 | Demonio de Ceniza (`demonio_ceniza`) | C 60 | reescalado con suavizado (borroso); variante teñida de otro sprite (arte reutilizado) | 1.18 |
-| Perro de Cloaca (`cm_perro`) | C 70 | reescalado con suavizado (borroso) | 1.14 |
-| Devoraluz (`mn_devoraluz`) | C 70 | reescalado con suavizado (borroso) | 1.10 |
-| Dama del Bosque (`dama_bosque`) | C 70 | sprite nativo diminuto (18 px de ancho) ampliado x8; paleta lejos del canon de los guardianes (brillo/saturación) | 1.59 |
-| Esfinge (`esfinge`) | C 70 | reescalado con suavizado (borroso) | 1.14 |
-| Dragoncito de Hielo (`dragoncito_hielo`) | C 70 | sprite nativo diminuto (18 px de ancho) ampliado x8; paleta lejos del canon de los guardianes (brillo/saturación) | 1.50 |
-| Medusa Eléctrica (`medusa_electrica`) | C 70 | sprite nativo diminuto (34 px de ancho) ampliado x5; paleta lejos del canon de los guardianes (brillo/saturación) | 1.49 |
-| Demonio Menor (`demonio_menor`) | C 70 | reescalado con suavizado (borroso) | 1.18 |
-| Demonio Hechicero (`demonio_mago`) | C 70 | reescalado con suavizado (borroso) | 1.17 |
-| Devoraluz Ancestral (`boss_devoraluz`) | C 70 | reescalado con suavizado (borroso); (invocación) | 1.10 |
-| Lobo Alfa (`lobo_alfa`) | C 70 | sprite nativo diminuto (18 px de ancho) ampliado x7; variante teñida de otro sprite (arte reutilizado) | 1.49 |
-| Líder de la Turba (`lider_turba`) | C 70 | sprite nativo diminuto (32 px de ancho) ampliado x3; variante teñida de otro sprite (arte reutilizado) | 1.50 |
-| Ingeniero de Minas (`ingeniero`) | B 75 | el sujeto ocupa solo 38% del alto de la carta; variante teñida de otro sprite (arte reutilizado) | 1.51 |
-| Planidera (`cm_planidera`) | B 80 | sprite nativo diminuto (33 px de ancho) ampliado x3 | 1.54 |
-| Sectario (`cm_sectario`) | B 80 | sprite nativo diminuto (32 px de ancho) ampliado x3 | 1.50 |
-| Espectro (`cm_espectro`) | B 80 | sprite nativo diminuto (33 px de ancho) ampliado x3 | 1.48 |
-| Duende del Bosque (`duende_bosque`) | B 80 | sprite nativo diminuto (31 px de ancho) ampliado x5 | 1.43 |
-| Cù-Sìth (`cu_sith`) | B 80 | sprite nativo diminuto (18 px de ancho) ampliado x7 | 1.49 |
-| Ent (`ent`) | B 80 | sprite nativo diminuto (20 px de ancho) ampliado x6 | 1.50 |
-| Gólem de Piedra (`golem_piedra`) | B 80 | sprite nativo diminuto (37 px de ancho) ampliado x3 | 1.44 |
-| Tundraverx (`dragon_hielo`) | B 80 | sprite nativo diminuto (37 px de ancho) ampliado x6 | 1.47 |
-| Zombi (`zombie`) | B 80 | sprite nativo diminuto (32 px de ancho) ampliado x5 | 1.45 |
-| Muro (`token_muro`) | B 80 | sprite nativo diminuto (37 px de ancho) ampliado x3; (invocación) | 1.44 |
-| El Mago Gélido (`boss_mago`) | B 80 | sprite nativo diminuto (30 px de ancho) ampliado x6; (invocación) | 1.45 |
+| Reina Micelial (`reina_micelial`) | C 60 | sprite nativo diminuto (18 px de ancho) ampliado x8; variante teñida de otro sprite (arte reutilizado); paleta lejos del canon de los guardianes (brillo/saturación) | 1.59 |
+| Saqueador (`cm_saqueador`) | C 70 | reescalado con suavizado (borroso) | 1.12 |
+| Perro de Cloaca (`cm_perro`) | C 70 | reescalado con suavizado (borroso) | 1.12 |
+| Planidera (`cm_planidera`) | C 70 | reescalado con suavizado (borroso) | 1.16 |
+| Raptor (`cm_raptor`) | C 70 | reescalado con suavizado (borroso) | 1.08 |
+| Acechante (`cm_acechante`) | C 70 | reescalado con suavizado (borroso) | 1.15 |
+| Sectario (`cm_sectario`) | C 70 | reescalado con suavizado (borroso) | 1.15 |
+| Espectro (`cm_espectro`) | C 70 | reescalado con suavizado (borroso) | 1.18 |
+| Servo de Cristal (`cristal_servo`) | C 70 | reescalado con suavizado (borroso) | 1.11 |
+| Engendro (`engendro`) | C 70 | reescalado con suavizado (borroso) | 1.12 |
+| Cristal Volador (`cristal_volador`) | C 70 | reescalado con suavizado (borroso) | 1.14 |
+| Devoraluz (`mn_devoraluz`) | C 70 | reescalado con suavizado (borroso) | 1.17 |
+| Gólem de Cristal (`golem_cristal`) | C 70 | reescalado con suavizado (borroso) | 1.16 |
+| Duende del Bosque (`duende_bosque`) | C 70 | reescalado con suavizado (borroso) | 1.14 |
+| Bestia del Bosque (`bestia_bosque`) | C 70 | reescalado con suavizado (borroso) | 1.11 |
+| Cù-Sìth (`cu_sith`) | C 70 | reescalado con suavizado (borroso) | 1.16 |
+| Dama del Bosque (`dama_bosque`) | C 70 | reescalado con suavizado (borroso) | 1.09 |
+| Gólem de Piedra (`golem_piedra`) | C 70 | reescalado con suavizado (borroso) | 1.10 |
+| Medusa (`medusa`) | C 70 | reescalado con suavizado (borroso) | 1.09 |
+| Druida de Arena (`druida_arena`) | C 70 | reescalado con suavizado (borroso) | 1.14 |
+| Esfinge (`esfinge`) | C 70 | reescalado con suavizado (borroso) | 1.10 |
+| Lobo Ártico (`lobo_artico`) | C 70 | reescalado con suavizado (borroso) | 1.13 |
 
 ## Guardianes con observaciones
 
@@ -49,15 +49,15 @@ Generado por `python3 tools/art-judge.py`. Mide el arte implementado en las cart
 
 | Carta | Brecha | Notas |
 |---|---|---|
-| Dama del Bosque | 1.59 | sprite nativo diminuto (18 px de ancho) ampliado x8; paleta lejos del canon de los guardianes (brillo/saturación) |
-| Acechante | 1.55 | — |
-| Gólem de Hielo | 1.55 | paleta lejos del canon de los guardianes (brillo/saturación) |
-| Ángel de Hielo | 1.55 | paleta lejos del canon de los guardianes (brillo/saturación) |
+| Reina Micelial | 1.59 | sprite nativo diminuto (18 px de ancho) ampliado x8; variante teñida de otro sprite (arte reutilizado); paleta lejos del canon de los guardianes (brillo/saturación) |
 | Rompehielos | 1.55 | variante teñida de otro sprite (arte reutilizado); paleta lejos del canon de los guardianes (brillo/saturación) |
 | Reina de Escarcha | 1.55 | variante teñida de otro sprite (arte reutilizado); paleta lejos del canon de los guardianes (brillo/saturación) |
-| Planidera | 1.54 | sprite nativo diminuto (33 px de ancho) ampliado x3 |
 | Escorpión Gigante | 1.53 | — |
-| Engendro | 1.51 | el sujeto ocupa solo 38% del alto de la carta |
+| Campanero | 1.52 | — |
 | Ingeniero de Minas | 1.51 | el sujeto ocupa solo 38% del alto de la carta; variante teñida de otro sprite (arte reutilizado) |
-| Sectario | 1.50 | sprite nativo diminuto (32 px de ancho) ampliado x3 |
+| Horno de Cristal | 1.51 | el sujeto ocupa solo 38% del alto de la carta; variante teñida de otro sprite (arte reutilizado) |
 | Ent | 1.50 | sprite nativo diminuto (20 px de ancho) ampliado x6 |
+| Líder de la Turba | 1.50 | sprite nativo diminuto (32 px de ancho) ampliado x3; variante teñida de otro sprite (arte reutilizado) |
+| Micelio Vivo | 1.50 | sprite nativo diminuto (20 px de ancho) ampliado x6; variante teñida de otro sprite (arte reutilizado) |
+| Jinete Sin Cabeza | 1.49 | (invocación) |
+| Lobo Espectral | 1.49 | (invocación) |

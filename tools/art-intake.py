@@ -21,7 +21,7 @@ OVR = os.path.join(ROOT, "art-overrides.js")
 EXT = (".png", ".webp", ".jpg", ".jpeg")
 
 def cards():
-    return {c["id"]: c for c in json.loads(subprocess.check_output(["node", os.path.join(ROOT, "tools/dump-cards.js")]))}
+    return {c["id"]: c for c in json.loads(subprocess.check_output(["node", os.path.join(ROOT, "tools/dump-cards.js"), "--all"]))}
 
 def read_ovr():
     t = open(OVR, encoding="utf8").read()

@@ -21,7 +21,7 @@
     infernal:  { name: "Infernal y Criptas", color: "#d9503a", arena: "infernal" }
   };
   var KW_NAME = { taunt: "Provocar", rush: "Rápido", shield: "Escudo", lifesteal: "Robovida", freezeHit: "Congela" };
-  var TO = { enemyFrozen: "las unidades enemigas congeladas", enemyBurning: "las unidades enemigas en llamas", targetRow: "toda la fila del objetivo", targetCol: "el objetivo y quien está detrás", target: "el objetivo", self: "este guardián", allyAll: "tus unidades", enemyAll: "las unidades enemigas",
+  var TO = { enemyFrozen: "las unidades enemigas congeladas", enemyBurning: "las unidades enemigas en llamas", enemyPoisoned: "las unidades enemigas envenenadas", targetRow: "toda la fila del objetivo", targetCol: "el objetivo y quien está detrás", target: "el objetivo", self: "este guardián", allyAll: "tus unidades", enemyAll: "las unidades enemigas",
     randEnemy: "una unidad enemiga al azar", randAlly: "una unidad aliada al azar", enemyFace: "el Santuario enemigo",
     allyFace: "tu Santuario", enemyEverything: "todo el bando enemigo" };
 
@@ -110,12 +110,12 @@
                ult: { name: "Alba", target: "none", ops: [{ op: "heal", n: 8, to: "allyAll" }, { op: "buff", atk: 1, hp: 1, to: "allyAll" }, { op: "draw", n: 1 }] } }
   };
   var LIN_INGRESO = {
-    ciudad:    [{ op: "draw", n: 1 }, { op: "buff", atk: 1, temp: 1, to: "allyAll" }],
+    ciudad:    [{ op: "summon", id: "cm_saqueador", n: 1 }],   // v0.8: el guardián llega con un vecino (antes: robar 1 y +1 ATK temporal)
     forja:     [{ op: "buff", atk: 1, hp: 1, to: "allyAll" }],
     bosque:    [{ op: "buff", atk: 1, to: "allyAll" }],
     laberinto: [{ op: "freeze", n: 1, to: "randEnemy" }, { op: "dmg", n: 1, to: "randEnemy" }],
     marea:     [{ op: "dmg", n: 1, to: "randEnemy" }],
-    infernal:  [{ op: "summon", id: "esqueleto", n: 1 }]
+    infernal:  [{ op: "summon", id: "token_hueso", n: 1 }]   // v0.8: Esqueleto Frágil 1/1 (antes Esqueleto 2/2)
   };
   function BASIC(reach, name, ops) { return { name: name || "Ataque", basic: true, cost: 0, cd: 1, tgt: "enemy", reach: reach, ops: ops || [{ op: "dmg", mult: 1, to: "target" }] }; }
   function pa0(id) { return PAS[id] || {}; }
@@ -143,14 +143,14 @@
   // ---------- MONSTRUOS ----------
   // [id, nombre, linaje, costo, atk, hp, kw[], ingreso[], ultimo[], rango]
   var B = [
-    ["cm_saqueador","Saqueador","ciudad",1,2,1,[],null,null],
+    ["cm_saqueador","Saqueador","ciudad",1,2,2,[],null,null],
     ["cm_perro","Perro de Cloaca","ciudad",2,3,2,["rush"],null,null],
-    ["cm_planidera","Planidera","ciudad",2,1,2,[],[{op:"debuff",atk:1,to:"randEnemy"}],null],
-    ["cm_raptor","Raptor","ciudad",3,2,3,[],[{op:"draw",n:1}],null],
-    ["cm_acechante","Acechante","ciudad",3,4,2,["rush"],null,null],
-    ["cm_sectario","Sectario","ciudad",3,3,2,[],null,[{op:"dmg",n:2,to:"randEnemy"}]],
-    ["cm_campanero","Campanero","ciudad",4,3,4,[],[{op:"heal",n:2,to:"allyAll"}],null],
-    ["cm_espectro","Espectro","ciudad",4,4,4,["lifesteal"],null,null],
+    ["cm_planidera","Planidera","ciudad",2,1,3,[],[{op:"debuff",atk:1,to:"randEnemy"}],null],
+    ["cm_raptor","Raptor","ciudad",3,2,4,[],[{op:"draw",n:1}],null],
+    ["cm_acechante","Acechante","ciudad",3,4,3,["rush"],null,null],
+    ["cm_sectario","Sectario","ciudad",3,3,3,[],null,[{op:"dmg",n:2,to:"randEnemy"}]],
+    ["cm_campanero","Campanero","ciudad",4,3,5,[],[{op:"heal",n:2,to:"allyAll"}],null],
+    ["cm_espectro","Espectro","ciudad",4,4,5,["lifesteal"],null,null],
     ["cristal_servo","Servo de Cristal","forja",1,1,2,[],null,null],
     ["engendro","Engendro","forja",2,3,2,[],null,null],
     ["cristal_volador","Cristal Volador","forja",2,3,2,["rush"],null,null],
@@ -161,11 +161,11 @@
     ["cu_sith","Cù-Sìth","bosque",3,4,3,["rush"],null,null],
     ["dama_bosque","Dama del Bosque","bosque",4,3,4,[],[{op:"heal",n:3,to:"allyAll"}],null],
     ["ent","Ent","bosque",5,4,7,["taunt"],null,null],
-    ["escorpion_gigante","Escorpión Gigante","laberinto",2,2,2,["freezeHit"],null,null],
+    ["escorpion_gigante","Escorpión Gigante","laberinto",2,2,3,["freezeHit"],null,null],
     ["golem_piedra","Gólem de Piedra","laberinto",3,2,5,["taunt"],null,null],
-    ["medusa","Medusa","laberinto",3,2,3,[],[{op:"freeze",n:1,to:"randEnemy"}],null],
-    ["druida_arena","Druida de Arena","laberinto",4,2,4,[],[{op:"buff",atk:1,hp:1,to:"allyAll"}],null],
-    ["esfinge","Esfinge","laberinto",5,5,5,["shield"],null,null],
+    ["medusa","Medusa","laberinto",3,2,4,[],[{op:"freeze",n:1,to:"randEnemy"}],null],
+    ["druida_arena","Druida de Arena","laberinto",4,3,5,[],[{op:"buff",atk:1,hp:1,to:"allyAll"}],null],
+    ["esfinge","Esfinge","laberinto",5,5,6,["shield"],null,null],
     ["lobo_artico","Lobo Ártico","marea",1,2,1,["rush"],null,null],
     ["hada_escarcha","Hada de Escarcha","marea",1,1,1,[],[{op:"freeze",n:1,to:"randEnemy"}],null],
     ["tiburon_joven","Tiburón Joven","marea",2,3,2,["rush"],null,null],
@@ -252,13 +252,15 @@
   CARDS.token_lobo = { id: "token_lobo", type: "unit", kind: "bicho", token: 1, name: "Lobo Espectral", origin: null, cost: 0, atk: 3, hp: 2, kw: { rush: 1 }, ingreso: null, ultimo: null, reach: "melee", moves: [BASIC("melee")], rarity: "normal", art: ART_B + "lobo_artico.png", tier: "Invocación" };
   CARDS.token_granadero = { id: "token_granadero", type: "unit", kind: "bicho", token: 1, name: "Granadero Espectral", origin: null, cost: 0, atk: 2, hp: 3, kw: {}, ingreso: null, ultimo: null, reach: "melee", moves: [BASIC("melee")], rarity: "normal", art: ART_B + "esqueleto_h.png", tier: "Invocación" };
   CARDS.token_golem = { id: "token_golem", type: "unit", kind: "bicho", token: 1, name: "Gólem de Carne", origin: null, cost: 0, atk: 3, hp: 4, kw: { taunt: 1 }, ingreso: null, ultimo: null, reach: "melee", moves: [BASIC("melee")], rarity: "normal", art: ART_B + "golem_piedra.png", tier: "Invocación" };
+  // v0.8: lo que levanta el Ingreso de los guardianes Infernales (antes era un Esqueleto 2/2 de mazo; con eso Infernal ganaba ~61 %)
+  CARDS.token_hueso = { id: "token_hueso", type: "unit", kind: "bicho", token: 1, name: "Esqueleto Frágil", origin: null, cost: 0, atk: 1, hp: 1, kw: {}, ingreso: null, ultimo: null, reach: "melee", moves: [BASIC("melee")], rarity: "normal", art: ART_B + "esqueleto.png", artFx: "brightness(.8) contrast(1.1)", tier: "Invocación" };
 
 
   // ---------- ETIQUETAS (tipos) de monstruos: las usan las cartas con sinergia ----------
   var TAGS = {
     Bestia: ["lobo_artico", "bestia_bosque", "cu_sith", "tiburon_joven", "tiburon_blanco", "cm_perro", "escorpion_gigante", "token_lobo"],
     Planta: ["duende_bosque", "ent", "dama_bosque"],
-    Esqueleto: ["esqueleto", "esqueleto_h"],
+    Esqueleto: ["esqueleto", "esqueleto_h", "token_hueso"],
     Demonio: ["demonio_menor", "demonio_mago", "demonio_hielo_fuego"],
     Hielo: ["lobo_artico", "hada_escarcha", "golem_hielo", "dragoncito_hielo", "angel_hielo", "demonio_hielo_fuego", "dragon_hielo"],
     Ciudadano: ["cm_saqueador", "cm_planidera", "cm_raptor", "cm_sectario", "cm_acechante", "cm_campanero"],
@@ -362,17 +364,17 @@
   function dk(g, b, s) { var d = []; [g, b, s].forEach(function (grp) { grp.forEach(function (e) { for (var i = 0; i < (e[1] || 1); i++) d.push(e[0]); }); }); return d; }
   var DECKS = {
     ciudad: dk([["guerrero"],["soporte"],["tanque"],["ynara"],["vesper"]],
-      [["cm_saqueador",3],["agitador",3],["cm_espectro"],["cm_raptor"],["cm_acechante",2],["cm_sectario"],["lider_turba",2],["cm_campanero"]],
-      [["estampida",2],["furia"],["emboscada"],["espinas"],["debilitar"],["rayo"],["bendicion",2],["corazon"],["piedra"]]),
+      [["cm_saqueador",3],["agitador",3],["pregonero",2],["barricadista",2],["cm_acechante",2],["lider_turba",2],["capitana_guardia"],["cm_campanero"],["cm_espectro"]],
+      [["estampida",2],["motin"],["clamor"],["turba_enfurecida"],["rayo"],["bendicion"],["corazon"]]),
     forja: dk([["eslabon"],["brakk"],["brasa"],["zahra"],["bront"]],
       [["cristal_servo",3],["cristal_volador",2],["cristal_resonante",2],["engendro",2],["ingeniero",2],["mn_devoraluz"],["golem_cristal",2]],
       [["veta",2],["muro_piedra",2],["sobrecarga",2],["egida"],["corazon"],["marchitar"],["silencio"],["barrera"]]),
     bosque: dk([["cazadora"],["maura"],["tibor"],["morwen"],["khepri"]],
       [["duende_bosque",2],["bestia_bosque",3],["cu_sith",2],["lobo_alfa",2],["dama_bosque"],["raiz_madre",2],["ent",2]],
       [["manada"],["rugido",2],["marea"],["banquete"],["bendicion",2],["zarzas"],["rayo"],["piedra"],["corazon"]]),
-    laberinto: dk([["musashi"],["ilkan"],["nahir"],["sira"],["axiom"]],
-      [["escorpion_gigante",3],["golem_piedra",2],["medusa",2],["druida_arena"],["esfinge"],["cartografo",3],["guardia_laberinto",2]],
-      [["espinas",2],["pasillo",2],["espejismo"],["espejo"],["cadenas"],["silencio"],["robovida"],["debilitar"],["egida"]]),
+    laberinto: dk([["musashi"],["nahir"],["sira"],["iria"],["profeta"]],
+      [["escorpion_gigante",2],["trampero",2],["golem_piedra",2],["medusa"],["druida_arena"],["esfinge"],["minotauro_joven"],["cartografo",2],["guardia_laberinto",2]],
+      [["espinas",2],["pasillo",2],["foso_oculto"],["laberinto_espejos"],["espejismo"],["cadenas"],["robovida"],["plano_secreto"],["egida"]]),
     marea: dk([["mago"],["baltra"],["aelith"],["velmira"],["solciju"]],
       [["lobo_artico",3],["hada_escarcha",2],["golem_hielo",2],["rompehielos",2],["dragoncito_hielo"],["angel_hielo"],["reina_escarcha",2],["tiburon_joven"]],
       [["escarcha",2],["quebrar",2],["ventisca"],["cadenas"],["muro_hielo"],["rayo"],["segunda"],["corazon"],["debilitar"]]),
@@ -464,6 +466,73 @@
   T("pasillo", "Pasillo sin Salida", 2, "ataque", false, [{ op: "freeze", n: 1, to: "target" }, { op: "debuff", atk: 1, to: "target" }]);
   T("espejismo", "Espejismo", 3, "ataque", true, []);
 
+  // ---------- v0.8 — EXPANSIÓN «REINO FÚNGICO» (42 cartas) ----------
+  // Profundiza los 6 arquetipos y suma un arquetipo neutral de esporas (tipo Hongo: veneno + Floración Tóxica).
+  // Mismo formato que SYN + alcance: [id, nombre, linaje|null, costo, atk, hp, kw, ingreso, ultimo, tags, pasiva, sprite, filtro CSS, rango]
+  // El arte es provisional (sprite existente + filtro); la lista para ilustrar está en tools/arte-nuevas.json.
+  var FUN = [
+    // Ciudad — Turba
+    ["pregonero", "Pregonero", "ciudad", 2, 2, 2, [], [{ op: "buff", atk: 1, to: "allyTag", tag: "Ciudadano" }], null, ["Ciudadano"], null, "cm_campanero", "hue-rotate(60deg) saturate(1.3)"],
+    ["barricadista", "Barricadista", "ciudad", 3, 2, 3, ["taunt"], [{ op: "summon", id: "token_muro", n: 1 }], null, ["Ciudadano"], null, "cm_raptor", "sepia(.6) saturate(1.4)"],
+    ["capitana_guardia", "Capitana de la Guardia", "ciudad", 5, 4, 6, [], null, null, ["Ciudadano"], P("Formen filas", { trig: "inicio", max: 3, ops: [{ op: "buff", atk: 1, hp: 1, to: "allyTag", tag: "Ciudadano" }] }), "cm_espectro", "sepia(.8) saturate(1.8) brightness(1.15)"],
+    // Forja — fábrica de cristal
+    ["cristal_fragmentado", "Cristal Fragmentado", "forja", 2, 2, 1, [], null, [{ op: "summon", id: "cristal_servo", n: 1 }], ["Cristal"], null, "cristal_volador", "hue-rotate(-60deg) saturate(1.4)"],
+    ["horno_cristal", "Horno de Cristal", "forja", 4, 2, 5, [], null, null, ["Cristal", "Máquina"], P("Colada", { trig: "inicio", every: 2, max: 3, ops: [{ op: "summon", id: "cristal_servo", n: 1 }] }), "engendro", "hue-rotate(200deg) saturate(1.6) brightness(1.1)"],
+    ["coloso_cuarzo", "Coloso de Cuarzo", "forja", 5, 3, 6, ["taunt"], null, null, ["Cristal", "Golem"], P("Eco de cuarzo", { stat: { k: "perTag", tag: "Cristal", atk: 1 } }), "golem_cristal", "hue-rotate(260deg) saturate(1.3) brightness(1.15)"],
+    // Bosque — manada y raíces
+    ["lobezno", "Lobezno", "bosque", 1, 2, 1, ["rush"], null, null, ["Bestia"], null, "lobo_artico", "sepia(.7) saturate(1.5) hue-rotate(-15deg)"],
+    ["jabali_musgoso", "Jabalí Musgoso", "bosque", 3, 3, 4, ["taunt"], null, null, ["Bestia", "Planta"], null, "bestia_bosque", "hue-rotate(70deg) saturate(1.2) brightness(.95)"],
+    ["druida_hongos", "Druida de los Hongos", "bosque", 4, 2, 5, [], null, null, ["Planta", "Hongo"], P("Lluvia de esporas buenas", { trig: "inicio", max: 4, ops: [{ op: "heal", n: 2, to: "allyAll" }] }), "druida_arena", "hue-rotate(260deg) saturate(1.4)", "ranged"],
+    // Laberinto — trampas
+    ["trampero", "Trampero", "laberinto", 2, 2, 2, [], null, null, ["Explorador"], P("Otra más", { trig: "trampaPropia", max: 3, ops: [{ op: "buff", atk: 1, hp: 1, to: "allyTag", tag: "Explorador" }] }), "duende_bosque", "sepia(.9) saturate(1.2) hue-rotate(10deg)"],
+    ["minotauro_joven", "Minotauro Joven", "laberinto", 5, 5, 5, [], null, null, ["Golem"], P("Cuernos del centro", { trig: "trampaPropia", max: 3, ops: [{ op: "dmg", n: 2, to: "randEnemy" }] }), "minotauro", "saturate(.8) brightness(1.1)"],
+    // Marea — hielo
+    ["espiritu_glacial", "Espíritu Glacial", "marea", 2, 1, 2, [], [{ op: "freeze", n: 1, to: "randEnemy" }], null, ["Hielo"], null, "hada_escarcha", "hue-rotate(30deg) brightness(1.2)"],
+    ["anguila_escarcha", "Anguila de Escarcha", "marea", 4, 3, 5, ["freezeHit", "taunt"], null, null, ["Hielo"], null, "anguila_electrica", "hue-rotate(170deg) saturate(.9) brightness(1.15)"],
+    ["sirena_abisal", "Sirena Abisal", "marea", 4, 3, 3, [], [{ op: "dmg", n: 2, to: "enemyFrozen" }], null, ["Hielo"], P("Canto helado", { trig: "ataque", every: 2, max: 3, ops: [{ op: "freeze", n: 1, to: "target" }] }), "sirena_abisal", "", "ranged"],
+    // Infernal — fuego y huesos
+    ["calavera_ardiente", "Calavera Ardiente", "infernal", 2, 2, 1, [], null, [{ op: "burn", n: 1, turns: 2, to: "randEnemy" }], ["Esqueleto"], null, "esqueleto", "sepia(1) saturate(3) hue-rotate(-30deg)"],
+    ["aprendiz_nigromante", "Aprendiz de Nigromante", "infernal", 4, 2, 4, [], [{ op: "summon", id: "esqueleto", n: 1 }], null, ["Esqueleto"], null, "hechicero", "hue-rotate(120deg) saturate(.8) brightness(.9)", "ranged"],
+    ["caballero_hueso", "Caballero de Hueso", "infernal", 5, 4, 6, [], null, [{ op: "summon", id: "esqueleto", n: 2 }], ["Esqueleto"], null, "jinete_sin_cabeza", "grayscale(.6) brightness(1.2)"],
+    // Neutrales — esporas (tipo Hongo)
+    ["hongo_saltarin", "Hongo Saltarín", null, 1, 2, 1, ["rush"], null, null, ["Hongo", "Planta"], null, "duende_bosque", "hue-rotate(250deg) saturate(1.6)"],
+    ["esporero", "Esporero", null, 2, 1, 2, [], [{ op: "poison", n: 1, turns: 3, to: "randEnemy" }], null, ["Hongo"], null, "enjambre_hadas", "hue-rotate(80deg) saturate(1.5)", "ranged"],
+    ["micelio_vivo", "Micelio Vivo", null, 3, 1, 4, ["taunt"], null, null, ["Hongo", "Planta"], P("Red micelial", { trig: "inicio", max: 4, ops: [{ op: "heal", n: 1, to: "allyAll" }] }), "ent", "hue-rotate(230deg) saturate(1.3) brightness(1.05)"],
+    ["reina_micelial", "Reina Micelial", null, 5, 4, 6, [], null, null, ["Hongo"], P("Floración", { trig: "inicio", every: 2, max: 3, ops: [{ op: "poison", n: 1, turns: 2, to: "enemyAll" }] }), "dama_bosque", "hue-rotate(250deg) saturate(1.5)", "ranged"]
+  ];
+  FUN.forEach(function (b) {
+    var kw = {}; b[6].forEach(function (x) { kw[x] = 1; });
+    var rv = b[3] <= 2 ? "normal" : b[3] === 3 ? "subelite" : "elite", rch = b[13] || "melee";
+    CARDS[b[0]] = { id: b[0], type: "unit", kind: "bicho", name: b[1], origin: b[2], cost: b[3], atk: b[4], hp: b[5], kw: kw, ingreso: b[7], ultimo: b[8], tags: b[9], passive: b[10], reach: rch, moves: [BASIC(rch)], rarity: rv, art: ART_B + b[11] + ".png", artFx: b[12], tier: "Monstruo", syn: 1, set: "fungico" };
+  });
+  // magia y trampas de la expansión: llevan linaje (punto de color, filtro de la colección y refuerzo del paquete temático) o tipo Hongo
+  function F(id, lin, tags) { CARDS[id].set = "fungico"; if (lin) CARDS[id].origin = lin; if (tags) CARDS[id].tags = tags; }
+  S("clamor", "Clamor de la Turba", "bonus", 1, "none", [{ op: "buff", atk: 1, temp: 1, to: "allyTag", tag: "Ciudadano" }, { op: "draw", n: 1 }]); F("clamor", "ciudad");
+  S("motin", "Motín", "bonus", 3, "none", [{ op: "summon", id: "cm_saqueador", n: 2 }, { op: "buff", atk: 1, temp: 1, to: "allyTag", tag: "Ciudadano" }]); F("motin", "ciudad");
+  S("martillazo", "Martillazo", "hechizo", 1, "enemyUnit", [{ op: "dmg", n: 2, to: "target" }]); F("martillazo", "forja");
+  S("pulso_resonante", "Pulso Resonante", "bonus", 3, "none", [{ op: "buff", atk: 1, hp: 2, to: "allyTag", tag: "Cristal" }]); F("pulso_resonante", "forja");
+  S("luna_caza", "Luna de Caza", "bonus", 4, "none", [{ op: "buff", atk: 1, hp: 1, to: "allyTag", tag: "Bestia" }, { op: "summon", id: "token_lobo", n: 1 }]); F("luna_caza", "bosque");
+  S("plano_secreto", "Plano Secreto", "bonus", 1, "none", [{ op: "draw", n: 1 }]); F("plano_secreto", "laberinto");
+  S("aliento_helado", "Aliento Helado", "maldicion", 1, "enemyUnit", [{ op: "freeze", n: 1, to: "target" }]); F("aliento_helado", "marea");
+  S("avalancha", "Avalancha", "hechizo", 5, "none", [{ op: "dmg", n: 2, to: "enemyAll" }, { op: "dmg", n: 2, to: "enemyFrozen" }]); F("avalancha", "marea");
+  S("ceniza_viento", "Ceniza al Viento", "maldicion", 4, "none", [{ op: "burn", n: 1, turns: 2, to: "enemyAll" }]); F("ceniza_viento", "infernal");
+  S("nube_esporas", "Nube de Esporas", "maldicion", 3, "none", [{ op: "poison", n: 1, turns: 3, to: "enemyAll" }]); F("nube_esporas", null, ["Hongo"]);
+  S("floracion", "Floración Tóxica", "hechizo", 3, "none", [{ op: "dmg", n: 3, to: "enemyPoisoned" }]); F("floracion", null, ["Hongo"]);
+  S("simbiosis", "Simbiosis", "bonus", 2, "allyUnit", [{ op: "heal", n: 3, to: "target" }, { op: "buff", hp: 2, to: "target" }]); F("simbiosis", null, ["Hongo"]);
+  T("turba_enfurecida", "Turba Enfurecida", 2, "despliegue", false, [{ op: "summon", id: "cm_saqueador", n: 1 }, { op: "dmg", n: 2, to: "target" }]); F("turba_enfurecida", "ciudad");
+  T("fisura_cristal", "Fisura de Cristal", 2, "ataque", false, [{ op: "summon", id: "cristal_servo", n: 1 }, { op: "dmg", n: 1, to: "target" }]); F("fisura_cristal", "forja");
+  T("raices_atrapantes", "Raíces Atrapantes", 2, "ataque", false, [{ op: "freeze", n: 1, to: "target" }, { op: "debuff", atk: 1, to: "target" }]); F("raices_atrapantes", "bosque");
+  T("foso_oculto", "Foso Oculto", 3, "ataque", true, [{ op: "dmg", n: 2, to: "target" }]); F("foso_oculto", "laberinto");
+  T("laberinto_espejos", "Galería de Espejos", 3, "habilidad", true, [{ op: "freeze", n: 1, to: "target" }]); F("laberinto_espejos", "laberinto");
+  T("hielo_fino", "Hielo Fino", 2, "ataque", false, [{ op: "freeze", n: 2, to: "target" }]); F("hielo_fino", "marea");
+  T("fosa_comun", "Fosa Común", 3, "despliegue", false, [{ op: "summon", id: "esqueleto", n: 2 }]); F("fosa_comun", "infernal");
+  T("estallido_esporas", "Estallido de Esporas", 2, "despliegue", false, [{ op: "poison", n: 2, turns: 3, to: "target" }]); F("estallido_esporas", null, ["Hongo"]);
+  // v0.8: las piezas de arquetipo anteriores que los carteles de los paquetes nombran también llevan linaje
+  // (antes no tenían y no contaban para el refuerzo temático aunque el cartel dijera "más chances de Combustión…")
+  [["chispa_ignea", "infernal"], ["combustion", "infernal"], ["pira", "infernal"], ["osario", "infernal"], ["pared_fuego", "infernal"], ["escarcha", "marea"], ["quebrar", "marea"], ["ventisca", "marea"],
+   ["sobrecarga", "forja"], ["veta", "forja"], ["rugido", "bosque"], ["manada", "bosque"], ["zarzas", "bosque"], ["estampida", "ciudad"], ["pasillo", "laberinto"], ["espejismo", "laberinto"]]
+    .forEach(function (x) { CARDS[x[0]].origin = x[1]; });
+
   Object.keys(CARDS).forEach(function (id) { var c = CARDS[id]; if (c.type === "spell" && !c.text) c.text = describe(c.ops) + (c.req === "token" ? " (necesita una invocación tuya en mesa)" : ""); });
 
   // ---------- COMBOS: cartas que se potencian entre sí (el constructor los detecta y sugiere los que faltan) ----------
@@ -480,7 +549,16 @@
     { id: "turba", name: "Turba", cards: ["agitador", "lider_turba", "estampida"], text: "Agitador suma ATK por cada Ciudadano; Líder de la Turba les da Rápido; Estampida los empuja a todos." },
     { id: "cristal", name: "Veta resonante", cards: ["veta", "cristal_resonante", "cristal_servo"], text: "Veta de Cristal invoca 2 Cristales; Cristal Resonante gana ATK por cada uno." },
     { id: "chatarra", name: "Chatarra explosiva", cards: ["sobrecarga", "muro_piedra", "ingeniero"], text: "Invocaciones baratas (Muro de Piedra, torretas) que el Ingeniero mejora… y Sobrecarga convierte una en 4 de daño." },
-    { id: "laberinto", name: "Laberinto cerrado", cards: ["cartografo", "guardia_laberinto", "espinas", "pasillo", "espejismo"], text: "Cada trampa que se dispara hace robar al Cartógrafo y curar al Guardia: poné trampas y dejá que el rival las pise." }
+    { id: "laberinto", name: "Laberinto cerrado", cards: ["cartografo", "guardia_laberinto", "espinas", "pasillo", "espejismo"], text: "Cada trampa que se dispara hace robar al Cartógrafo y curar al Guardia: poné trampas y dejá que el rival las pise." },
+    // v0.8 — Reino Fúngico
+    { id: "esporas", name: "Floración Tóxica", cards: ["nube_esporas", "floracion", "esporero"], text: "Nube de Esporas y el Esporero envenenan; Floración Tóxica le pega 3 a cada enemigo envenenado." },
+    { id: "motin", name: "Motín", cards: ["motin", "agitador", "pregonero"], text: "Motín llena la mesa de Saqueadores: cada Ciudadano nuevo le suma ATK al Agitador y el Pregonero los empuja a todos." },
+    { id: "guardia", name: "Formen filas", cards: ["capitana_guardia", "barricadista", "motin"], text: "La Capitana da +1/+1 a todos tus Ciudadanos al inicio de cada turno: cuantos más (Motín, Barricadista), mejor." },
+    { id: "fundicion", name: "Fundición", cards: ["horno_cristal", "coloso_cuarzo", "veta"], text: "El Horno y la Veta fabrican Cristales; el Coloso de Cuarzo gana +1 ATK por cada uno." },
+    { id: "centro", name: "Centro del laberinto", cards: ["minotauro_joven", "trampero", "foso_oculto"], text: "Cada trampa que se dispara hace que el Minotauro Joven embista (2 de daño) y que el Trampero crezca." },
+    { id: "alud", name: "Alud", cards: ["avalancha", "aliento_helado", "espiritu_glacial"], text: "Congelá barato (Aliento Helado, Espíritu Glacial) y Avalancha le pega 4 a lo congelado y 2 al resto." },
+    { id: "luna", name: "Luna de caza", cards: ["luna_caza", "lobezno", "lobo_alfa"], text: "Lobeznos baratos, el Lobo Alfa los agranda y Luna de Caza suma +1/+1 a toda Bestia y un lobo más." },
+    { id: "osamenta", name: "Osamenta", cards: ["caballero_hueso", "capataz", "fosa_comun"], text: "El Caballero de Hueso y la Fosa Común levantan esqueletos; el Capataz gana +1 ATK por cada uno." }
   ];
 
   // ---------- MAPAS (las arenas de La Horda). Cada fila (frente / fondo) tiene un terreno que afecta a quien la ocupa. ----------
@@ -524,12 +602,13 @@
     dorado: { id: "dorado", name: "Paquete Dorado", icon: "👑", currency: "brasas", price: 450, group: "gold", cards: 5, odds: [0, 0, 70, 24, 6], minRar: 3, pityEpic: 3, pityLeg: 15, theme: null, desc: "Todas las cartas son Raras o mejores. Una Épica o mejor garantizada cada 3 paquetes." }
   };
   var THEMED = [
-    ["tema_marea", "Paquete de Invierno", "❄", "marea", ["Hielo"], "Más chances de las mejores cartas invernales: Escarcha, Rompehielos, Reina de Escarcha, Quebrar y los guardianes de la Marea."],
-    ["tema_bosque", "Paquete del Bosque", "🌲", "bosque", ["Bestia", "Planta"], "Más chances de Lobo Alfa, Manada, Raíz Madre y los guardianes del Bosque."],
-    ["tema_infernal", "Paquete de Fuego y Huesos", "🔥", "infernal", ["Demonio", "Esqueleto"], "Más chances de Combustión, Pira, Rey Esqueleto y los guardianes Infernales."],
-    ["tema_ciudad", "Paquete de la Ciudad", "🏙", "ciudad", ["Ciudadano"], "Más chances de Líder de la Turba, Estampida y los guardianes de la Ciudad."],
-    ["tema_forja", "Paquete de la Forja", "⚒", "forja", ["Cristal", "Máquina"], "Más chances de Cristal Resonante, Sobrecarga y los guardianes de la Forja."],
-    ["tema_laberinto", "Paquete del Laberinto", "🪞", "laberinto", ["Explorador", "Golem"], "Más chances de trampas, Cartógrafo y los guardianes del Laberinto."],
+    ["tema_marea", "Paquete de Invierno", "❄", "marea", ["Hielo"], "Más chances de las mejores cartas invernales: Escarcha, Rompehielos, Reina de Escarcha, Quebrar, Sirena Abisal, Avalancha y los guardianes de la Marea."],
+    ["tema_bosque", "Paquete del Bosque", "🌲", "bosque", ["Bestia", "Planta", "Hongo"], "Más chances de Lobo Alfa, Manada, Raíz Madre, Luna de Caza, las cartas de Hongo del Reino Fúngico (Reina Micelial, Nube de Esporas) y los guardianes del Bosque."],
+    ["tema_infernal", "Paquete de Fuego y Huesos", "🔥", "infernal", ["Demonio", "Esqueleto"], "Más chances de Combustión, Pira, Rey Esqueleto, Caballero de Hueso, Ceniza al Viento y los guardianes Infernales."],
+    ["tema_ciudad", "Paquete de la Ciudad", "🏙", "ciudad", ["Ciudadano"], "Más chances de Líder de la Turba, Estampida, Capitana de la Guardia, Motín y los guardianes de la Ciudad."],
+    ["tema_forja", "Paquete de la Forja", "⚒", "forja", ["Cristal", "Máquina"], "Más chances de Cristal Resonante, Sobrecarga, Coloso de Cuarzo, Horno de Cristal y los guardianes de la Forja."],
+    ["tema_laberinto", "Paquete del Laberinto", "🪞", "laberinto", ["Explorador", "Golem"], "Más chances de trampas (Foso Oculto, Galería de Espejos), Cartógrafo, Minotauro Joven y los guardianes del Laberinto."],
+    ["tema_fungico", "Paquete del Reino Fúngico", "🍄", null, ["Hongo"], "La expansión Reino Fúngico: más chances de Reina Micelial, Esporero, Nube de Esporas, Floración Tóxica y las trampas de esporas."],
     ["tema_verano", "Paquete de Verano", "☀", ["infernal", "bosque"], ["Planta", "Demonio"], "Sol, calor y cosecha: más chances de Rayo del Alba, Llamarada, Fuego Directo, Marea Curativa, Bendición del Alba, Raíz Madre y los guardianes del Bosque y del Infierno.", ["rayo", "llamarada", "fuego", "marea", "bendicion", "chispa_ignea", "combustion", "banquete", "corazon"]],
     ["tema_otono", "Paquete de Otoño", "🍂", ["laberinto", "ciudad"], ["Esqueleto", "Golem"], "Hojas secas y cosecha oscura: más chances de Veneno de Cripta, Podredumbre, Marchitar, Osario, Pira Funeraria y los guardianes del Laberinto y de la Ciudad.", ["veneno", "podredumbre", "marchitar", "osario", "pira"]],
     ["tema_primavera", "Paquete de Primavera", "🌸", ["bosque", "forja"], ["Bestia", "Cristal"], "Todo florece: más chances de Manada, Rugido de la Manada, Banquete Fúngico, Inspiración, Veta de Cristal y los guardianes del Bosque y de la Forja.", ["manada", "rugido", "banquete", "inspiracion", "veta", "bendicion"]]

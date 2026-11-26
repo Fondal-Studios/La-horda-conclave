@@ -174,6 +174,7 @@
         case "allyTag": return units(s, me).filter(function (u) { return (u.tags || []).indexOf(ctx.tag) >= 0; }).map(function (u) { return { u: u }; });
         case "enemyFrozen": return units(s, foe).filter(function (u) { return u.frozen || u.iced; }).map(function (u) { return { u: u }; });
         case "enemyBurning": return units(s, foe).filter(function (u) { return u.burn; }).map(function (u) { return { u: u }; });
+        case "enemyPoisoned": return units(s, foe).filter(function (u) { return u.poison; }).map(function (u) { return { u: u }; });   // v0.8 (esporas)
         case "enemyFace": return [{ face: foe }];
         case "allyFace": return [{ face: me }];
       }
